@@ -1,0 +1,19 @@
+#footerWrap{
+    width : 1320px;
+    height : 75px;
+    border-top : 1px solid #E4E4E4;
+    text-align: center;
+}
+
+#footerWrap-mypage {
+  box-sizing: border-box;
+
+  position: relative;
+  transform: translateY(-100%);
+
+  width: 1320px;
+  height: 50px;
+
+  text-align: center;
+  border-top: 1px solid #e4e4e4;
+}

@@ -1,0 +1,403 @@
+#contentWrap{
+    width : 1320px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #F7F8FA;
+    margin-top: 50px;
+    padding-bottom: 30px;
+}
+
+#contentWrapRow{
+    width: 1320px;
+  	height: auto;
+  	display: flex;
+  	justify-content: space-between;
+  	flex-direction: row;
+  	background-color: #f7f8fa;
+  	margin-top: 0px;
+  	padding-bottom: 30px;
+}
+
+.titleSection{
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom : 3px solid #E4E4E4;
+}
+
+.titleSection * {
+    font-family: "Pretendard";
+    font-weight: bold;
+    letter-spacing: 1px; /* 湲��옄 �궗�씠 媛꾧꺽 議곗젙 */
+}
+
+.mainContent{
+    width : 985px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.title{
+    display: inline-block;
+}
+.titleLeft{
+    width: 60%;
+}
+.titleRight{
+    width: 38%;
+    text-align: right;
+}
+
+#nickname{
+    font-size: 26px;
+    color : #783DF5;
+}
+.comment{
+    font-size: 20px;
+}
+.plusBtn{
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/*------------------------------------------*/
+/* 紐⑥엫 異붿쿇 �꽮�뀡*/
+/*-------------------------------------------*/
+#meet_recommendSection{
+    display: flex;
+    align-items : center;
+    justify-content: space-between;
+    flex-wrap : wrap;
+
+    width: 985px;
+    box-sizing: border-box;
+    padding : 20px;
+}
+.content_list{
+    position: relative;
+
+    width: 420px;
+    min-width: 420px;
+    max-width: 420px;
+    height: 135px;
+
+    padding: 15px;
+    margin-bottom : 15px;
+
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 3px 6px #E4E4E4, 0 3px 8px #E4E4E4;
+
+    cursor: pointer;
+}
+.info-list-wrap{
+    display: flex;
+    flex-direction: column;
+}
+.listCommon{
+    max-width: 345px;
+    margin-bottom: 7px;
+}
+.content_title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.description_list{
+    overflow: hidden;
+    height: 40px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 ;
+    -webkit-box-orient: vertical;
+}
+.content_description{
+    font-size: 13px;
+    padding-right: 10px;
+}
+
+.content_img{
+    position: absolute;
+    top:10px;
+    right: 15px;
+    width: auto;
+    height: auto;
+    
+    /* border: 1px solid #E4E4E4; */
+    border-radius: 15px;
+}
+.list_img{
+    width: 70px;
+    height: 70px;
+}
+
+.tagSection{
+    display: flex;
+    justify-content: left;
+}
+.tag{
+    display: flex;
+    height: auto;
+    border: 1px solid #CFD2CF;
+    border-radius: 3px;
+    margin-right: 5px;
+    padding: 3px;
+}
+.tag_img{
+    width: 12px;
+    height: 13px;
+}
+.font_size_10{
+    font-size: 10px;
+}
+
+
+
+/* ********************* */
+
+.bottomWrap{
+    display: flex;
+    justify-content: space-between;
+    margin-right : 8px;
+    height : 25px;
+}
+.meet_info{
+    display: flex;
+    justify-content: left;
+    margin-top : 4px;
+    margin-left: 5px;
+}
+.meet_condition{
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+    margin-left: 5px;
+}
+.divide{
+    padding-top: 2px;
+    width: 8px;
+    height: 15px;
+}
+.condition_bold{
+    margin-left: 6px;
+    margin-right: 8px;
+}
+.condition_common{
+    font-size: 12px;
+}
+.member_ment{
+    font-size: 11px;
+    font-weight: 900;
+}
+.member_cnt{
+    color: #006FD6;
+}
+
+
+.likeWrap{
+    display: flex;
+    justify-content: center;
+    align-items :flex-end;
+}
+
+.likeWrapCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items : center;
+}
+.heartSection{
+    height: 20px;
+    cursor: pointer;
+}
+.heartCommon{
+    width: 20px;
+    height: 20px;
+}
+.likeCnt{
+    height: 20px;
+    margin-left: 2px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+}
+
+/* ********************* */
+/** 占쏙옙티占쏙옙티 占승깍옙 SECTION */
+/* ********************* */
+#cate_tag_section{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+}
+#unfold_tag{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+.tagItem{
+    width: auto;
+    font-size: 13px;
+    padding: 4px 16px 5px 14px;
+    border: 2px solid #E4E4E4;
+    border-radius: 15px;
+    margin-right: 7px;
+    background-color: white;
+    cursor: pointer;
+}
+.check{
+    background-color: #E4E4E4;
+}
+.tag_plus{
+    margin-left: 25px;
+}
+#plusImg{
+    width: 59px;
+    cursor: pointer;
+}
+#foldImg{
+    height: 24px;
+    cursor: pointer;
+}
+
+#fold_tag{
+    margin-top: 8px;
+    width: 100%;
+    height: auto;
+}
+
+
+#tagUl{
+    width: 100%;
+    display: inline-block;
+}
+.tag_li{
+    display: inline-block;
+    height: 31px;
+    margin-top: 8px;
+}
+
+
+/***********************************************/
+
+#recommend_list_wrap{
+	display: flex;
+    align-items : center;
+    justify-content: space-between;
+    flex-wrap : wrap;
+
+    width: 985px;
+    box-sizing: border-box;
+    padding : 20px;
+}
+.no-list-wrap{
+	display: flex;
+    align-items : center;
+    flex-direction:column;
+    
+    width: 985px;
+    box-sizing: border-box;
+    padding : 20px;
+    
+    margin-top : 20px;
+    
+}
+.no-list-img{
+	width:110px;
+	height:110px;
+}
+.no-list-txt{
+	margin-top : 25px;
+	font-family: 'Happiness-Sans';
+	font-size: 20px;
+}
+
+/* ********************* */
+/** WARNING POPUP SECTION */
+/* ********************* */
+
+.warning-layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  
+  width: 100%;
+  height: 100%;
+  
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.warning-popup-wrap {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 350px;
+  height: auto;
+
+  margin: 0 auto;
+
+  padding: 50px 0;
+
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+.warning-img-section{
+  height: 140px;
+	
+}
+.warning-popup-wrap img {
+  width: 96px;
+  height: 96px;
+}
+
+#warning-text{
+	text-align:center;	
+	font-family : 'Pretendard';
+	font-size: 20px;
+	letter-spacing: -0.01em;
+	line-height: 30px;
+}
+
+.btn-group {
+	display: flex;
+	flex-direction: column;
+
+	align-items: center;
+
+	width: 100%;
+	height: auto;
+	margin-top : 20px;
+}
+
+
+.warning-close {
+  width: 300px;
+  height: 40px;
+
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+
+  background-color: #3DA5F5;
+
+  border: none;
+  border-radius: 4px;
+
+  margin-bottom: 18px;
+
+  cursor: pointer;
+}

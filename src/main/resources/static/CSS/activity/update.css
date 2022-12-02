@@ -1,0 +1,363 @@
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form{
+	display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+
+.activityCUDWrap *{
+	font-family: 'Pretendard';
+}
+
+.activityCUDWrap{
+	margin-top:40px;
+    width:600px;
+}
+
+.StartLine{
+    border: none;
+    border-top: 1px solid #E0E0E0;
+    overflow: visible;
+    text-align: left;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    height: 1px;
+}
+
+#activityTitle {
+    padding-left: 5px;
+    text-align: center;
+}
+
+#update_activity_information_btn{
+    background: #3DA5F5;
+    border: 0px;
+    border-radius: 4px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    width: 264px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 15px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 80px;
+    /* float: left; */
+    display: block;
+}
+
+#imginput {
+    margin: 5px;
+    border: 0px;
+    width: 264px;
+    height: 40px;
+    border: 0px;
+}
+
+.conditionHeader{
+    width: 100%;
+}
+
+.conditionLine{
+    border: none;
+    border-top: 1px solid #E0E0E0;
+    overflow: visible;
+    text-align: left;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    height: 1px;
+}
+
+.conditionBody {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#activity_name,
+#city,
+#country,
+#interest{
+    padding-left: 10px;
+    margin: 5px;
+    border-radius: 4px;
+    border: 1px solid #E0E2E7;
+    width: 264px;
+    height: 40px;
+}
+
+#gender,
+#numberofpeople,
+#ageBody{
+    padding-left: 10px;
+    margin: 5px;
+    border-radius: 4px;
+    border: 1px solid #E0E2E7;
+    width: 150px;
+    height: 40px; 
+}
+
+#nameLa, #introduceLa, #city_la, #genderLa, #nopLa, #interestLa, #introLa, #ageHeader {
+    font-weight: bold;
+    padding: 5px;
+}
+
+#img_la{
+	font-weight: bold;
+	padding: 5px;
+	margin-top: 20px;
+}
+
+#activity_intro {
+    padding-left: 10px;
+    margin: 5px;
+    border-radius: 4px;
+    border: 1px solid #E0E2E7;
+    width: 100%;
+    resize: none;
+    /* maxlength:200; */
+}
+
+#activity_description {
+    padding-left: 10px;
+    margin: 5px;
+    border-radius: 4px;
+    border: 1px solid #E0E2E7;
+    width: 100%;
+    resize: none;
+}
+
+.textLength{
+    float: right;
+    font-size: small;
+    display: flex;
+}
+
+.textCount, .textTotal{
+    margin-top: 5px;
+}
+
+.interest_result, .age_result{
+    background-color: rgba(183, 224, 255, 0.5);
+    text-align: center;
+    border-radius: 5px;
+    border: 0px;
+    margin: 5px;
+    padding: 5px;
+}
+
+#namediv,
+#citydiv,
+#imgdiv
+{
+    margin-bottom: 20px;
+}
+
+#tagWrap_age {
+    width: 180px;
+    height: auto;
+}
+
+#tagWrap{
+    width: 552px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#introducediv,
+#introWrap {
+    margin-bottom: 40px;
+}
+
+#genderdiv {
+    float: left;
+    margin-right: 6px;
+    margin-bottom: 20px;
+}
+
+#nop {
+    float: left;
+    margin-bottom: 20px;
+}
+
+.toastText {
+	margin-block-start: 0em;
+    margin-block-end: 0em;
+	margin-top: 2px;
+	margin-bottom: 0px;
+	margin-left: 15px;
+	font-size: 14px;
+	color: red;
+}
+
+
+
+.fade-in {
+    animation: fadein 0.8s;
+    -moz-animation: fadein 0.8s; /* Firefox */
+    -webkit-animation: fadein 0.8s; /* Safari and Chrome */
+    -o-animation: fadein 0.8s; /* Opera */
+  }
+  @keyframes fadein {
+      from {
+          opacity: 0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
+  @-moz-keyframes fadein { /* Firefox */
+      from {
+          opacity: 0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
+  @-webkit-keyframes fadein { /* Safari and Chrome */
+      from {
+          opacity: 0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
+  @-o-keyframes fadein { /* Opera */
+      from {
+          opacity: 0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
+
+.fade-out {
+    animation: fadeout 0.8s;
+    -moz-animation: fadeout 0.8s; /* Firefox */
+    -webkit-animation: fadeout 0.8s; /* Safari and Chrome */
+    -o-animation: fadeout 0.8s; /* Opera */
+    animation-fill-mode: forwards;
+}
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@-moz-keyframes fadeout { /* Firefox */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@-webkit-keyframes fadeout { /* Safari and Chrome */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@-o-keyframes fadeout { /* Opera */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+
+/*이미지 추가/삭제*/
+#imgWrap {
+    margin:0 auto; 
+    text-align:center;
+    align-items: center; 
+    width:500px;
+    height: 250px;
+    /* margin-bottom: 10px; */
+    display: flex;
+    justify-content: center;
+}
+
+.img_body{
+    width: 300px;
+    height: 200px;
+    /* margin-top: 30px; */
+    /* margin-left: 45px; */
+    overflow: hidden;
+    border: 1px solid #cadcea;
+}
+
+.image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img_btn_meet_activity {
+    line-height:1; 
+    /* color:rgb(73, 73, 73);  */
+    position:absolute; left:50%; 
+    transform:translateX(-50%); 
+    top:230px;  
+    height: 250px; 
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    /* transition:0.5s all */
+}
+
+/* 기존의 input file 태그 숨김 */
+.input-file{ 
+    display:none;
+}
+
+.input-file-btn{
+    background-color:unset;
+    cursor: pointer;
+    display:block; 
+    width:70px;
+    height: 70px; 
+    margin-top:20px; 
+    opacity:0; 
+    transition:0.5s all;
+    /* float: left; */
+  }
+
+  #delete-file2{
+    padding: 0px;
+    background-color:unset;
+    border: 0px;
+    cursor: pointer;
+    display:block;
+    width:70px;
+    height: 70px; 
+    margin-top:20px; 
+    /* opacity:0;  */
+    display: none;
+    transition:0.5s all;
+    position:relative; 
+    margin-left: 20px;
+    float: right;
+  }
+
+
+#imgWrap:hover .input-file-btn {opacity:1}
+
+
