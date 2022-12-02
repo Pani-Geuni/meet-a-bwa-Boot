@@ -1,0 +1,88 @@
+
+#menuWrap{
+    position : fixed;
+    z-index : 100;
+    
+    width : 1320px;
+    height: 81px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top : 0px;
+    background-color: white;
+    border-bottom : 1px solid #E4E4E4;
+}
+
+/* ----------------------------------- */
+
+#logoSection{
+    width: 20%;
+    height: 100%;
+    padding-left: 30px;
+}
+#log_Section{
+    width: 80%;
+    height: 100%;
+}
+
+#logo_img{
+    width : 130px;
+    height: 100%; 
+}
+
+/* ----------------------------------- */
+
+.logSection{
+    width: 100%;
+    height : 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0px;
+}
+
+.logItem{
+    height: 100%;
+    padding-top: 40px;
+    margin-right: 10px;
+}
+
+
+/* ----------------------------------- */
+
+.btn_css{
+    font-family: 'Happiness-Sans';
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 100;
+    height: 40px;
+    cursor: pointer;
+}
+
+.logBtn{width: 80px;}
+
+#logo_img{
+	cursor:pointer;
+}
+#loginBtn{
+    background-color: #3DA5F5;
+    border: 1px solid #3DA5F5;
+	cursor:pointer;
+}
+#logoutBtn{
+    background-color: #783DF5;
+    border: 1px solid #783DF5;
+	cursor:pointer;
+}
+#mypageBtn{
+    width: 95px; 
+    background-color: #783DF5;
+    border: 1px solid #783DF5;
+	cursor:pointer;
+}
+
+a{
+    width: auto;
+    height: auto;
+}

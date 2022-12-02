@@ -1,0 +1,104 @@
+.modal-bg {
+    width: 100;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}
+
+.modal-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    height: auto;
+    background: #ffffff;
+    z-index: 1000;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.modal-wrap *{
+    font-family: 'Happiness-Sans';
+}
+
+.modalClose{
+    height: 30px;
+    width: max-content;
+    padding-top: 8px;
+    padding-bottom: 2px;
+    padding-right: 8px;
+    float: right;
+}
+
+.closeBtn{
+    width: 20px;
+    height: 20px;
+}
+
+.modal-content1{
+    height: 100px;
+    padding-top: 60px;
+}
+
+.popupIcon{
+    width: 100px;
+    height: 100px;
+}
+
+.modal-content-inner{
+    padding-top: 40px;
+    height: 300px;
+}
+
+.modal-content2{
+    padding-bottom: 80px;
+    font-size: 20px;
+    height: 100px;
+}
+
+/* 글 4줄 이상인 곳 폰트 사이즈 따로 줌 */
+.font_size{
+    font-size: 18px;
+}
+
+.modal-content3{
+    height: 50px;
+    padding-bottom: 50px;
+}
+
+.go {
+	background: #3DA5F5;
+	border: 0px;
+	border-radius: 4px;
+	text-align: center;
+	color: #ffffff;
+	font-weight: bold;
+	width: 264px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 15px;
+	margin:auto;
+	margin-bottom: 50px;
+    display:block;
+}
+.deleteMeet{
+    background: #F86D7D;
+	border: 0px;
+	border-radius: 4px;
+	text-align: center;
+	color: #ffffff;
+	font-weight: bold;
+	width: 264px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 15px;
+	margin:auto;
+	margin-bottom: 50px;
+    display:block;
+}
