@@ -1,0 +1,15 @@
+#topSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#update-title{
+    width: 80%;
+    text-align: center;
+    letter-spacing: 4px; /* 글자간격 조정 */
+}
+#closeBtn{
+    width: 35px;
+    height: 35px;
+    cursor:pointer;
+}

@@ -1,0 +1,31 @@
+#contentWrap {
+  width: 1320px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  background-color: #ffffff;
+  padding-bottom: 30px;
+}
+
+.titleSection {
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border-bottom: 3px solid #e4e4e4;
+  display: flex;
+  justify-content: space-between;
+}
+
+.titleSection * {
+  font-family: 'Pretendard';
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.mainContent {
+  width: 985px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

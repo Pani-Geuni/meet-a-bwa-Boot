@@ -1,0 +1,26 @@
+#title{
+    text-align: center;
+    letter-spacing: 4px; /* 글자간격 조정 */
+}
+
+#vote_createBtn{
+    margin-right: 15px;
+}
+
+#vote_title:focus{
+    border: 2px solid #3DA5F5;
+}
+
+#vote_list_plusBtn{
+    width: 150px;
+    height: 25px;
+    background-color: #3DA5F5;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin-left: 25px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}

@@ -3,7 +3,6 @@ body {
 	height: 100%;
 	display: flex;
 	justify-content: center;
-	
 }
 
 form{
@@ -12,12 +11,12 @@ form{
     /* justify-content: center; */
     align-items: center;
 }
-.joinWrap *{
+
+.OuterWrap *{
 	font-family: 'Pretendard';
 }
 
-
-.joinWrap{
+.OuterWrap{
 	margin-top:40px;
     width:600px;
 }
@@ -37,12 +36,17 @@ form{
     height: 1px;
 }
 
-#joinTitle {
+#editperinfoTitle {
 	padding-left: 5px;
 	text-align: center;
 }
 
-#join_btn {
+.btnWrap{
+	display: flex;
+	justify-content: space-around;
+}
+
+#edit_member_information_btn{
 	background: #3DA5F5;
 	border: 0px;
 	border-radius: 4px;
@@ -54,12 +58,32 @@ form{
 	font-weight: bold;
 	font-size: 15px;
 	margin:auto;
-	margin-top: 30px;
-	margin-bottom: 10px;
     display:block;
+	/* float: left; */
+	/* margin-right: 6px; */
+	margin-top: 20px;
+	margin-bottom: 100px;
 }
-#btn_idCheck, #btn_nickCheck, #btn_emCheck
- {
+
+#membership_withdrawal_btn {
+	background: #F86D7D;
+	border: 0px;
+	border-radius: 4px;
+	text-align: center;
+	color: #ffffff;
+	font-weight: bold;
+	width: 264px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 15px;
+	margin:auto;
+    display:block;
+	/* float: right; */
+	margin-top: 20px;
+	margin-bottom: 100px;
+}
+
+#btn_nickCheck, #btn_emCheck {
 	background: #3DA5F5;
 	margin: 5px;
 	border: 0px;
@@ -71,7 +95,8 @@ form{
 	font-weight: bold;
 	font-size: 15px;
 }
-#btn_idRe, #btn_nickRe, #btn_emRe
+
+#btn_nickRe, #btn_emRe
  {
 	background: #3DA5F5;
 	margin: 5px;
@@ -101,7 +126,7 @@ form{
 	border: 0px;
 }
 
-#user_id, #user_pw, #name, #u_nickname,#birth, #tel, #pw_check, #email, #interest, #city, #country {
+#u_id, #user_pw, #name, #u_nickname,#birth, #tel, #pw_check, #email, #interest, #city, #country {
 	padding-left: 10px;
 	margin: 5px;
 	border-radius: 4px;
@@ -112,20 +137,22 @@ form{
 
 #gender{
 	padding-left: 10px;
-	margin: 10px;
 	border-radius: 4px;
 	border: 1px solid #E0E2E7;
 	width: 100px;
 	height: 40px;
+	line-height: 40px;
+	margin-top: 15px;
+    margin-left: 4px;
 }
 
 #gender_la{
 	font-weight: bold;
 	padding: 5px;
 	margin-left: 8px;
-	margin-bottom: 7px;
+	/*margin-bottom: 7px;*/
 }
-#user_id_la, #user_pw_la, #pw_check_la,#name_la, #nickname_la, #email_la, #gender_la, #birth_la, #city_la, #tel_la, #birth_div, #interest_la{
+#id_la, #pw_la, #pw_check_la,#name_la, #nickname_la, #email_la, #gender_la, #birth_la, #city_la, #tel_la, #birth_div, #interest_la{
 	font-weight: bold;
 	padding: 5px;
 }
@@ -177,9 +204,10 @@ form{
 	float: left;
 	margin-bottom: 15px;
 }
+
 #gender_div{
 	float: left;
-	margin-bottom: 25px;
+	margin-bottom: 5px;
 }
 
 #pictures {
@@ -188,7 +216,6 @@ form{
 	border: 1px solid #3DA5F5;
 }
 
-/* 마지막 줄 - 정보 변경 불가 텍스트*/
 .LastWarning{
 	text-align: center;
 	font-size: 13px;
@@ -198,9 +225,8 @@ form{
 .LastWarning span{
 	font-size: 15px;
 }
-
-/* 토스트 메시지 설정 */
 .toastText_max{
+
 	position:relative; 
 }
 
@@ -387,3 +413,8 @@ form{
     display: none;
     position:relative; 
   }
+
+
+
+
+  

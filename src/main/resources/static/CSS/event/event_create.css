@@ -1,0 +1,29 @@
+
+#event-create-title{
+    text-align: center;
+    letter-spacing: 4px; /* 글자간격 조정 */
+}
+
+/********************************/
+
+#event_createBtn{
+    margin-right: 15px;
+}
+
+#team_plus_btn{
+    width: 150px;
+    height: 25px;
+
+    margin-left: 40px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 5px;
+    
+    background-color: #3DA5F5;
+}
