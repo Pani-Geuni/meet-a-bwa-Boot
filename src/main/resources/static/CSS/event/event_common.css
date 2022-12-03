@@ -1,0 +1,313 @@
+.popupWrap{
+    position : fixed;
+    top: 0px;
+    z-index : 300;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color : rgba(0, 0, 0, 0.5);
+}
+
+
+.event_popup{
+    width: 550px;
+    height: 580px;
+    background-color: white;
+}
+.event_popup * {
+    font-family: 'Pretendard';
+}
+
+.e_pickerWrap{
+    display: flex;
+    align-items: center;
+}
+
+/*********************************************/
+/* 커스텀 타임피커 */
+/*********************************************/
+
+.e_timepicker_box{
+    position: relative;
+    display: flex !important;
+    align-items: center;
+}
+.timeSection{
+    width: 85%;
+    height: 100%;
+
+    box-sizing: border-box;
+    padding-left: 9px;
+}
+.timeImgSection{
+    width: 15%;
+    height: 100%;
+}
+
+.customTimePicker{
+    position: absolute;
+    top: 38.5px;
+    left: 0;
+
+    display: flex;
+
+    width: 180px;
+    height: 120px;
+
+    box-sizing: border-box;
+    padding: 7px 5px 7px 5px;
+
+    border-radius: 5px;
+    background-color: rgba(180, 180, 180, 0.62);
+}
+.ampm_choice{
+    width: 40px;
+    height: 106px;
+
+    text-align: center;
+}
+.choiceCommon{
+    width: 65px;
+    height: 106px;
+    overflow-y: scroll;
+    
+    text-align: center;
+}
+.choiceCommon::-webkit-scrollbar{
+    width: 0px;
+}
+.choice{
+    background-color: #B2B3B9;
+    color: #ffffff;
+}
+
+/**************************************/
+
+.sectionWrap{
+    display: flex;
+    flex-direction: column;
+
+    width: 500px;
+    height: 390px;
+    overflow : overlay; /* 스크롤이 div width에 영향을 주지 않음*/
+
+    border: 1px solid #C8C6C6;
+    border-radius: 4px;
+    margin: auto;
+    padding-right: 4px;
+}
+.sectionWrap::-webkit-scrollbar{
+    width: 4px;
+}
+.sectionWrap::-webkit-scrollbar-thumb {
+    height: 20px;
+    border-radius: 10px;
+    background-color: #3AB4F2;
+}
+.sectionWrap::-webkit-scrollbar-track{
+    background-color: #EEEEEE;
+}
+
+.e_titleSection{
+    margin-top: 18px;
+}
+.event-section_common{
+    display: inline-block;
+
+    width: auto;
+    height: auto;
+
+    margin-left: 30px;
+}
+.common{
+    display: block;
+
+    width: 400px;
+
+    border: 1px solid #e4e4e4;
+    border-radius: 4px;
+
+    padding: 7px;
+
+    font-size: 15px;
+}
+.text_length{
+    display: inline-block;
+
+    width: 416px;
+
+    text-align: right;
+    font-size: 12px;
+}
+.event_description{
+    height: 5.5em;
+    /** outline-color 속성을 추가하면 
+    focus될 때 테두리 색상을 지정할 수 있다.**/
+    outline-color: #3DA5F5;
+    resize: none;
+}
+.event_title:focus{
+    border: 2px solid #3DA5F5;
+}
+.section_title{
+    margin-block-start: 0.6em;
+    margin-block-end: 0.6em;
+
+    color : #3AB4F2;
+}
+
+/*********************************************/
+/** 조 편성 CSS */
+/*********************************************/
+
+.selectWrap{
+    margin-bottom: 15px;
+}
+
+.e_select_custom{
+    display: flex;
+    align-items: center;
+}
+.selectedWrap{
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    width: 390px;
+    min-height: 45px;
+    max-height: 80px;
+    overflow-y: overlay;
+
+    box-sizing: border-box;
+    padding: 7px 7px 0px 7px;
+
+    border: 1px solid #C8C6C6;
+    border-radius: 4px;
+}
+.selectedWrap::-webkit-scrollbar{
+    width: 3px;
+}
+.selectedWrap::-webkit-scrollbar-thumb {
+    height: 20px;
+    border-radius: 10px;
+    background-color: #3AB4F2;
+}
+.selectedWrap::-webkit-scrollbar-track{
+    background-color: #EEEEEE;
+}
+.selected_value{
+    width: 90%;
+}
+.before_choice{
+    margin-bottom: 7px;
+}
+.team_mem_tag{
+    width: auto;
+    height: 18px;
+
+    background-color: #F86D7D;
+
+    border: none;
+    border-radius: 5px;
+
+    color: white;
+    font-family: "InfinitySans";
+    font-weight: 300;
+
+    padding: 5px;
+    margin-right: 5px;
+    margin-bottom: 7px;
+}
+.dropdown_img2{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+
+.imgWrap{
+    width: 20px;
+    margin-left: 10px;
+}
+.removeBtn{
+    width: 18px;
+    height: 18px;
+}
+
+.selectFlag{
+    display: flex;
+    flex-direction: column;
+}
+.dropDown_img{
+    width: 15px;
+    height: 10px;
+    margin-left: 10px;
+}
+.optionWrap{
+    display: inline-block;
+    width: 100px;
+    border-radius: 7px;
+    background-color : rgba(0, 0, 0, 0.2);
+}
+.li_common{
+    height: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.focus{
+    border: 2px solid #3DA5F5;
+}
+
+/*******************************/
+
+.choice_date{
+    margin-bottom: 25px;
+}
+.dateCommon{
+    display: inline-block;
+    width: 200px;
+    height: 35px;
+    border: 2px solid #e4e4e4;
+    padding: 6px;
+}
+.eventDate::placeholder{
+    color : #B2B3B9;
+}
+.eventDate{
+    margin-right: 10px;
+}
+
+/**************************/
+
+.btnWrap{
+    display: flex;
+    justify-content: center;
+
+    width: 500px;
+
+    margin: auto;
+    margin-top: 30px;
+}
+.btnWrap * {
+    font-family: 'Pretendard';
+}
+.btnCommon{
+    width: 200px;
+    height: 48px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #1F4690;
+
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
