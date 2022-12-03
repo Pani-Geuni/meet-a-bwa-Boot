@@ -1,3 +1,8 @@
+/**
+ * @author 전판근
+ */
+
+
 package com.mab.meetboard.repository;
 
 import java.util.List;

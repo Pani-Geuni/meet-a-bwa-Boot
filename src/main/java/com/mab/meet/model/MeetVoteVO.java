@@ -3,9 +3,9 @@
  */
 
 
-package com.mab.meetboard.model;
+package com.mab.meet.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,27 +27,24 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Table(name="MEETBOARD")
-public class MBUserVO {
+@Table(name="VOTE")
+public class MeetVoteVO {
 
 	@Id
-	@Column(name="board_no")
-	private String board_no;
+	@Column(name="vote_no")
+	private String vote_no;
 	
-	@Column(name="board_title")
-	private String board_title;
+	@Column(name="vote_title")
+	private String vote_title;
 	
-	@Column(name="board_content")
-	private String board_content;
+	@Column(name="vote_content")
+	private String vote_content;
 	
-	@Column(name="board_image")
-	private String board_image;
+	@Column(name="vote_eod")
+	private Timestamp vote_eod;
 	
-	@Column(name="board_date")
-	private Date board_date;
-	
-	@Column(name="notice_state")
-	private String notice_state;
+	@Column(name="vote_state")
+	private String vote_state;
 	
 	@Column(name="user_no")
 	private String user_no;
@@ -55,6 +52,9 @@ public class MBUserVO {
 	@Column(name="meet_no")
 	private String meet_no;
 	
-	@Column(name="user_name")
-	private String user_name;
+	@Column(name="activity_no")
+	private String activity_no;
+	
+	@Column(name="private_state")
+	private String private_state;
 }

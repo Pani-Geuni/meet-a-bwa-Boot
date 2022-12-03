@@ -34,7 +34,7 @@
 			</div>
 		</th:block>
 		
-		<th:block th:if="${mvo.meet_interest_name != null}"
+		<th:block th:if="${mvo.meet_interest_name != null}">
 			<div class="cate_tag tag">
 				<span class="category_name font_size_10">[[${ mvo.meet_interest_name }]]</span>
 			</div>
@@ -50,9 +50,9 @@
 		<p class="meet-detail-link" th:attr="idx=${ mvo.meet_no }">모임 자세히 보기</p>
 	</th:block>
 	
-	<th:block th:if="${list.isLogin == false}">
-<!--		<c:when test="${ (list.isLogin eq false || list.isLogin eq null) || (not fn:containsIgnoreCase(m_list, list.user_no)) }">-->
+<!--	<th:block th:if="${list.isLogin == false}">-->
+<!--		<th:block th:if="${ list.isLogin == false || list.isLogin == null  || (not fn:containsIgnoreCase(m_list, list.user_no)) }">-->
 <!--			<button type="button" class="btn-meet join" th:attr="meet_no=${ mvo.meet_no }, user_no=${list.user_no}">모임 가입하기</button>-->
-<!--		</c:when>-->
-	</th:block>
+<!--		</th:block>-->
+<!--	</th:block>-->
 </div>

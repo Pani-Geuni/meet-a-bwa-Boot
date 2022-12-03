@@ -1,3 +1,8 @@
+/**
+ * @author 전판근
+ */
+
+
 package com.mab.meet.model;
 
 import javax.persistence.Column;

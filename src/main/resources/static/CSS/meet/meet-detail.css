@@ -154,7 +154,7 @@
   content: '';
   display: inline-block;
 
-  background: url('/meet-a-bwa/resources/img/information.svg') no-repeat;
+  background: url('/IMG/meet/information.svg') no-repeat;
   background-size: 12px 12px;
   width: 12px;
   height: 12px;
@@ -175,8 +175,8 @@
   border-radius: 4px;
 
   padding: 0 20px;
-
-  margin-bottom: 24px;
+  
+  margin: 40px 0 24px;
 }
 
 .notification-title {

@@ -1,3 +1,8 @@
+/**
+ * @author 전판근
+ */
+
+
 package com.mab.meetboard.service;
 
 import java.util.List;
@@ -5,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mab.meet.repository.MeetActivityRepository;
 import com.mab.meetboard.model.MBUserVO;
 import com.mab.meetboard.repository.MeetBoardRepository;
 
@@ -17,6 +23,7 @@ public class MeetBoardService {
 	@Autowired
 	MeetBoardRepository boardRepository;
 	
+	
 	public MeetBoardService() {
 		log.info("Meet Board Service");
 	}
@@ -26,5 +33,7 @@ public class MeetBoardService {
 		
 		return vos;
 	}
+	
+	
 	
 }

@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mab.meet.model.MeetActivityVO;
 import com.mab.meet.model.MeetInfoVO;
+import com.mab.meet.model.MeetVoteVO;
 import com.mab.meet.service.MeetService;
 import com.mab.meetboard.model.MBUserVO;
 import com.mab.meetboard.service.MeetBoardService;
@@ -92,10 +94,10 @@ public class MeetController {
 				response.addCookie(cookie);
 			}
 
-			request.setAttribute("list", map);
+			model.addAttribute("list", map);
 		} else {
 			map.put("isLogin", false);
-			request.setAttribute("list", map);
+			model.addAttribute("list", map);
 		}
 
 		// 모임 정보 불러오기
@@ -106,11 +108,21 @@ public class MeetController {
 		List<MBUserVO> feed = boardService.select_all_board_feed(meet_no);
 		log.info("feed : {}", feed);
 		
+		// 액티비티 불러오기
+		List<MeetActivityVO> activities = service.select_all_activity_for_feed(meet_no);
+		log.info("activities : {}", activities);
+		
+		// 투표 불러오기
+		List<MeetVoteVO> votes = service.select_all_vote_meet(meet_no);
+		log.info("votes : {}", votes);
+		
 
 		model.addAttribute("mvo", mvo);
 		model.addAttribute("vos", feed);
+		model.addAttribute("avos", activities);
+		model.addAttribute("votes", votes);
 		
-		model.addAttribute("list", map);
+		
 
 		model.addAttribute("content", "thymeleaf/html/meet/feed/feed");
 		return "thymeleaf/layouts/meet/layout_meet";

@@ -28,7 +28,7 @@
 				</div>
 			</th:block>
 			<th:block th:if="${not #lists.isEmpty(vos) }">
-				<th:each="vo : ${vos}">
+				<th:block th:each="vo : ${vos}">
 					<div class="feed">
 						<div class="feed-profile">
 							<div class="user-info">
@@ -39,9 +39,9 @@
 								<p class="write-date">[[${ vo.board_date }]]</p>
 							</div>
 
-							<th:block th:if test="${ vo.user_no eq list.user_no }">
+							<!--<th:block th:if="${ vo.user_no != list.user_no }">-->
 								<div class="post-more-select">
-									<img class="img-more" th:src="/IMG/common/more.svg" alt="더보기" />
+									<img class="img-more" src="/IMG/common/more.svg" alt="더보기" />
 
 									<ul class="post-option-list" th:attr="idx=${ vo.board_no }">
 										<li class="post-option-item" data-popup-open="update">수정하기</li>
@@ -49,7 +49,7 @@
 											삭제하기</li>
 									</ul>
 								</div>
-							</th:block>
+							<!--</th:block>-->
 						</div>
 						<div class="feed-post">
 							<a href="b_selectOne.do?board_no=${ vo.board_no }">
@@ -63,7 +63,7 @@
 						</div>
 					</div>
 					<!-- end one feed -->
-				</th:each>
+				</th:block>
 			</th:block>
 		</div>
 		<!-- end all feed -->
