@@ -1,0 +1,83 @@
+.meet-info-wrap {
+  width: 820px;
+  height: 100%;
+  background-color: #ffffff;
+
+  margin-top: 40px;
+  margin-right: 160px;
+}
+
+.meet-info-top {
+  display: flex;
+  align-items: center;
+
+  padding: 40px 32px;
+
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.meet-info-title {
+  font-size: 24px;
+  margin: 0 4px 0 0;
+}
+
+.btn-meet-info-edit {
+  width: 24px;
+  height: 24px;
+  background-size: 20px 20px;
+  background: url('/meet-a-bwa/resources/img/edit.svg') no-repeat;
+  border: none;
+  cursor: pointer;
+
+  margin-right: 4px;
+}
+
+.btn-meet-info-remove {
+  width: 24px;
+  height: 24px;
+  background-size: 20px 20px;
+  background: url('/meet-a-bwa/resources/img/remove.svg') no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-meet-info-exit {
+	width: 24px;
+  height: 24px;
+  background-size: 20px 20px;
+  background: url('/meet-a-bwa/resources/img/exit.svg') no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.meet-info-tag {
+  margin: 20px 32px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.meet-info-content {
+  margin: 20px 32px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.meet-info-detail {
+  display: flex;
+  flex-direction: column;
+
+  margin: 20px 32px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.meet-info-detail p::before {
+  content: '•';
+}
+
+.meet-info-detail p {
+  display: inline-block;
+  width: 15%;
+}
+
+.meet-info-detail span {
+  display: inline !important;
+  font-weight: 700;
+}

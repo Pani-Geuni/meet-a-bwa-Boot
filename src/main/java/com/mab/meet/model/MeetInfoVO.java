@@ -26,7 +26,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Table(name="MEET")
+@Table(name="meet_join_user_view")
 public class MeetInfoVO {
 	
 	@Id
@@ -58,10 +58,10 @@ public class MeetInfoVO {
 	private String meet_gender;
 	
 	@Column(name="meet_nop")
-	private Integer nop;
+	private Integer meet_nop;
 	
 	@Column(name="meet_age")
-	private Integer age;
+	private Integer meet_age;
 	
 	@Column(name="meet_date")
 	private Date meet_date;
@@ -71,5 +71,14 @@ public class MeetInfoVO {
 	
 	@Column(name="user_no")
 	private String user_no;
+	
+	@Column(name="user_nickname")
+	private String user_nickname;
+	
+	@Column(name="like_cnt")
+	private String like_cnt;
+	
+	@Column(name="user_cnt")
+	private String user_cnt;
 	
 }

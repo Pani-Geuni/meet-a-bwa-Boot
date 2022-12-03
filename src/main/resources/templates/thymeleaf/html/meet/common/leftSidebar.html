@@ -7,36 +7,36 @@
 
 <aside class="meet-detail-aside" th:fragment="leftSidebar">
 	<div class="meet-profile-img">
-		<img th:src="@{https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/meet/}+${mvo3.meet_image}"
+		<img th:src="@{https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/meet/}+${mvo.meet_image}"
 			alt="샘플 대표 이미지" />
 	</div>
 	<div class="meet-detail-aside-top">
-		<h1 class="meet-deatil-aside-title">[[${mvo3.meet_name}]]</h1>
+		<h1 class="meet-deatil-aside-title">[[${mvo.meet_name}]]</h1>
 		
 		<div class="likeWrapCol">
-			<section class="heartSection" th:attr="idx=${mvo3.meet_no}">
+			<section class="heartSection" th:attr="idx=${mvo.meet_no}">
 				<img src="/IMG/common/heart-filled.svg" alt='풀하트이미지' class="afterLike_heart heartCommon blind" />
 				<img src="/IMG/common/heart-outlined.svg" alt='라인하트이미지' class="beforeLike_heart heartCommon" />
 			</section>
-			<span class="likeCnt">[[${mvo3.like_cnt}]]</span>
+			<span class="likeCnt">[[${mvo.like_cnt}]]</span>
 		</div>
 	</div>
-	<div class="meet-summary-info" th:attr="idx=${mvo3.meet_no}">
-		<p class="meet-member-info">멤버 [[${mvo3.user_cnt}]]명</p>
-		<p>리더 [[${mvo3.user_nickname}]]</p>
+	<div class="meet-summary-info" th:attr="idx=${mvo.meet_no}">
+		<p class="meet-member-info">멤버 [[${mvo.user_cnt}]]명</p>
+		<p>리더 [[${mvo.user_nickname}]]</p>
 	</div>
 
 	<div class="tagSection">
-		<th:block th:if="${mvo3.meet_county} != null">
+		<th:block th:if="${mvo.meet_county} != null">
 			<div class="loca_tag tag">
 				<img src="/IMG/common/map.png" class="tag_img" /> 
-				<span class="location_name font_size_10">[[${ mvo3.meet_county }]]</span>
+				<span class="location_name font_size_10">[[${ mvo.meet_county }]]</span>
 			</div>
 		</th:block>
 		
-		<th:block th:if="${mvo3.meet_interest_name}"
+		<th:block th:if="${mvo.meet_interest_name}"
 			<div class="cate_tag tag">
-				<span class="category_name font_size_10">[[${ mvo3.meet_interest_name }]]</span>
+				<span class="category_name font_size_10">[[${ mvo.meet_interest_name }]]</span>
 			</div>
 		</th:block>
 	</div>
@@ -44,15 +44,15 @@
 	<!-- 로그인 전 혹은 가입 전-->
 	<!-- <button type="button" class="btn-meet join"> -->
 	<th:block th:if="${list.isLogin} == true">
-		<button type="button" id="btn-meet-write" class="btn-meet" onclick="writePopupShow()" idx="${ mvo3.meet_no }">글쓰기</button>
-		<button type="button" id="btn-activity-create" class="btn-meet" idx="${ mvo3.meet_no }">액티비티 개설</button>
+		<button type="button" id="btn-meet-write" class="btn-meet" onclick="writePopupShow()" idx="${ mvo.meet_no }">글쓰기</button>
+		<button type="button" id="btn-activity-create" class="btn-meet" idx="${ mvo.meet_no }">액티비티 개설</button>
 
-		<p class="meet-detail-link" idx="${ mvo3.meet_no }">모임 자세히 보기</p>
+		<p class="meet-detail-link" idx="${ mvo.meet_no }">모임 자세히 보기</p>
 	</th:block>
 	
-	<th:block th:if="${list.isLogin} == false">
+	<th:block th:if="${list.isLogin == false}">
 <!--		<c:when test="${ (list.isLogin eq false || list.isLogin eq null) || (not fn:containsIgnoreCase(m_list, list.user_no)) }">-->
-<!--			<button type="button" class="btn-meet join" idx="${ mvo3.meet_no }">모임 가입하기</button>-->
+<!--			<button type="button" class="btn-meet join" th:attr="meet_no=${ mvo.meet_no }, user_no=${list.user_no}">모임 가입하기</button>-->
 <!--		</c:when>-->
 	</th:block>
 </aside>
