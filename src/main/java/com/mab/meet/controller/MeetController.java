@@ -5,6 +5,7 @@
 package com.mab.meet.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -23,6 +24,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mab.meet.model.MeetInfoVO;
 import com.mab.meet.service.MeetService;
+import com.mab.meetboard.model.MBUserVO;
+import com.mab.meetboard.service.MeetBoardService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,6 +44,9 @@ public class MeetController {
 
 	@Autowired
 	MeetService service;
+	
+	@Autowired
+	MeetBoardService boardService;
 
 	@ApiOperation(value = "모임 메인 화면", notes = "모임 메인 화면 띄우는 컨트롤러")
 	@GetMapping(value = "/meet-main.do")
@@ -92,12 +98,17 @@ public class MeetController {
 			request.setAttribute("list", map);
 		}
 
-		MeetInfoVO mvo = service.select_one_meet_info(meet_no);
-
-		log.info("mvo : {}", mvo);
-
 		// 모임 정보 불러오기
+		MeetInfoVO mvo = service.select_one_meet_info(meet_no);
+		log.info("mvo : {}", mvo);
+		
+		// 모임 게시글 피드 불러오기
+		List<MBUserVO> feed = boardService.select_all_board_feed(meet_no);
+		log.info("feed : {}", feed);
+		
+
 		model.addAttribute("mvo", mvo);
+		model.addAttribute("vos", feed);
 		
 		model.addAttribute("list", map);
 

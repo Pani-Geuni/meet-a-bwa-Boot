@@ -61,7 +61,7 @@ public class MeetInfoVO {
 	private Integer meet_nop;
 	
 	@Column(name="meet_age")
-	private Integer meet_age;
+	private String meet_age;
 	
 	@Column(name="meet_date")
 	private Date meet_date;
