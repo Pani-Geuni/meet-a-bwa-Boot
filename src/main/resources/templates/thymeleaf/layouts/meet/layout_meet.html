@@ -4,25 +4,55 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>밋:어봐 모임 페이지</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>밋:어봐 모임 페이지</title>
 
-  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
 
-	<script src="/static/JS/common/jquery-3.6.1.min.js"></script>
-	<script src="/static/JS/common/jquery.cookie.js"></script>
+	<link rel="stylesheet" href="/CSS/common/common.css" />
+	<link rel="stylesheet" href="/CSS/common/header.css" />
+	<link rel="stylesheet" href="/CSS/common/footer.css" />
+	<link rel="stylesheet" href="/CSS/common/toast.css" />
+
+	<link rel="stylesheet" href="/CSS/main/main.css" />
+
+	<link rel="stylesheet" href="/CSS/meet/searchBar.css" />
+	<link rel="stylesheet" href="/CSS/meet/meet-detail.css" />
+	<link rel="stylesheet" href="/CSS/meet/feed.css" />
+	<link rel="stylesheet" href="/CSS/meet/meet-info.css" />
+	<link rel="stylesheet" href="/CSS/meet/post-detail.css" />
+	<link rel="stylesheet" href="/CSS/meet/post-writer.css" />
+	<link rel="stylesheet" href="/CSS/meet/post-update.css" />
+	<link rel="stylesheet" href="/CSS/meet/post-delete.css" />
+
+	<script src="/JS/common/jquery-3.6.1.min.js"></script>
+	<script src="/JS/common/jquery.cookie.js"></script>
 </head>
+
 <body>
-  <!-- <div th:replace="thymeleaf/html/"></div> -->
-  <section class="bodyWrap">
-    <div class="contentWrapRow">
-      <div th:replace="thymeleaf/html/meet/common/leftSidebar :: leftSidebar"></div>
-      <div th:replace="${content} :: meet_content"></div>
-      <div th:replace="thymeleaf/html/meet/common/rightSidebar :: rightSidebar"></div>
-    </div>
-  </section>
+	<!--  START HEADER REPLACE -->
+	<th:block th:replace="thymeleaf/html/common/header :: header(${is_login})"></th:block>
+	<!--  END HEADER REPLACE -->
+
+	<!-- START CONTENT REPLACE -->
+	<div id="bodyWrap">
+		<div id="contentWrapRow">
+			<div th:replace="thymeleaf/html/meet/common/leftSidebar :: leftSidebar"></div>
+			<div th:replace="${content} :: meet_content"></div>
+			<div th:replace="thymeleaf/html/meet/common/rightSidebar :: rightSidebar"></div>
+
+
+		</div>
+		<!--  START FOOTER INCLUDE -->
+		<th:block th:replace="thymeleaf/html/common/footer :: footer"></th:block>
+		<!--  END FOOTER INCLUDE -->
+	</div>
+
+	<!-- END CONTENT REPLACE -->
 </body>
+
 </html>

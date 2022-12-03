@@ -1,0 +1,160 @@
+.post-detail {
+  display: flex;
+  flex-direction: column;
+  width: 630px;
+  height: auto;
+
+  margin-top: 40px;
+  padding: 12px 40px;
+
+  background-color: #ffffff;
+}
+
+.post-detail-top {
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.post-user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-info {
+	display: flex;
+	align-items: center;
+}
+
+.user-nickname {
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 8px;
+  text-align: center;
+}
+
+.write-date {
+  font-size: 12px;
+}
+
+.post-detail-top h1 {
+  font-size: 32px;
+  font-weight: 700;
+
+  margin: 12px 0;
+}
+
+.user-info-profile img {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+}
+
+.btn-post-more {
+  background: url('/meet-a-bwa/resources/img/more.svg');
+  background-size: 18px 18px;
+  width: 18px;
+  height: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+.post-detail-content {
+  margin: 0;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  white-space: pre-wrap;
+
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 24px;
+}
+
+/* ===================== */
+/* 댓글 부분 */
+/* ===================== */
+
+.comment-wrap {
+  width: 100%;
+}
+
+.form-comment {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-comment textarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: 70px;
+  resize: none;
+
+  padding: 12px 12px;
+
+  border: 1px solid #e4e4e4;
+  border-radius: 8px;
+
+  margin-bottom: 8px;
+}
+
+.form-comment button {
+  width: 40px;
+  height: 28px;
+
+  margin-left: auto;
+
+  color: #ffffff;
+  background-color: #3da5f5;
+
+  border: none;
+  border-radius: 8px;
+}
+
+/* 유저의 댓글 모음 */
+.user-comments {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+/* 각 유저의 개인 댓글 */
+.comment-user-info-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-user-info {
+  display: flex;
+  align-items: center;
+}
+
+.comment-user-info-profile img {
+  width: 24px;
+  height: 24px;
+
+  margin-right: 4px;
+}
+
+.comment-user-nickname {
+  font-size: 16px;
+
+  margin-right: 4px;
+}
+
+.comment-write-date {
+  font-size: 12px;
+  color: #444444;
+}
+
+.btn-comment-delete {
+	color: #444444;
+	text-decoration-line: underline;
+	background-color: #ffffff;
+	border: none;
+	
+	height: 24px;
+	
+	cursor: pointer;
+}

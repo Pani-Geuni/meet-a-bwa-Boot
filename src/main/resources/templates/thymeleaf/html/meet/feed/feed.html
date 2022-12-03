@@ -1,3 +1,71 @@
 <!-- ------------ -->
 <!-- @author 전판근 -->
 <!-- ------------ -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<section class="feedWrap" th:fragment="meet_content">
+	<article>
+		<!--  START SEARCHBAR INCLUDE -->
+		<!--  END SEARCHBAR INCLUDE -->
+		<div class="meet-notification">
+			<div class="notification-title">
+				<h3>공지</h3>
+				<a href="./post-detail.html">
+					<p>공지내용 공지내용 공지내용 공지내용 공지내용공지내용 공지내용 공지내용 공지내용 공지내용공지내용
+						공지내용 공지내용 공지내용 공지내용공지내용 공지내용 공지내용 공지내용 공지내용</p>
+				</a>
+			</div>
+		</div>
+		<!-- end meet-notification -->
+
+		<div class="all-feed">
+			<th:block th:if="${#lists.isEmpty(vos)}">
+				<div class="feed-empty">
+					<h1>현재 모임에 작성된 글이 없어요!</h1>
+					<p>모임에 글을 작성해 소통해봐요!</p>
+				</div>
+			</th:block>
+			<th:block th:if="${not #lists.isEmpty(vos) }">
+				<th:block th:each="vo : ${vos}">
+					<div class="feed">
+						<div class="feed-profile">
+							<div class="user-info">
+								<div>
+									<img src="/IMG/common/loopy.svg" alt="프로필 이미지" />
+								</div>
+								<p class="user-nickname">[[${ vo.user_name }]]</p>
+								<p class="write-date">[[${ vo.board_date }]]</p>
+							</div>
+
+							<!--<th:block th:if="${ vo.user_no != list.user_no }">-->
+								<div class="post-more-select">
+									<img class="img-more" src="/IMG/common/more.svg" alt="더보기" />
+
+									<ul class="post-option-list" th:attr="idx=${ vo.board_no }">
+										<li class="post-option-item" data-popup-open="update">수정하기</li>
+										<li class="post-option-item" data-popup-open="delete">
+											삭제하기</li>
+									</ul>
+								</div>
+							<!--</th:block>-->
+						</div>
+						<div class="feed-post">
+							<a href="b_selectOne.do?board_no=${ vo.board_no }">
+								<p>[[${ vo.board_content }]]</p>
+							</a>
+						</div>
+						<div class="feed-options">
+							<p>
+								<a href="#">댓글</a>
+							</p>
+						</div>
+					</div>
+					<!-- end one feed -->
+				</th:block>
+			</th:block>
+		</div>
+		<!-- end all feed -->
+	</article>
+</section>

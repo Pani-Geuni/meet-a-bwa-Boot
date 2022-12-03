@@ -1,0 +1,276 @@
+.feedWrap {
+  width: 750px;
+}
+
+.feedWrap-not-login {
+	width: 100%;
+	height: 500px;
+}
+
+.feed-not-login {
+	display: flex;
+	flex-direction: column;
+	
+	align-items: center;
+	justify-content: center;
+	
+	width: 100%;
+	height: 100%;
+}
+
+.feed-not-login img {
+	width: 150px;
+	height: 150px;
+}
+
+.all-feed {
+  /* background-color: #3da5f5; */
+
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.feed-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.feed-profile {
+  display: flex;
+  box-sizing: border-box;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.feed-profile img {
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 15px;
+  margin-right: 8px;
+}
+
+.user-nickname {
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 8px;
+  text-align: center;
+}
+
+.write-date {
+  font-size: 12px;
+}
+
+/* *********************************** */
+/* CUSTOM SELECT FOR POST MORE SECTION */
+/* *********************************** */
+
+.post-more-select * {
+  box-sizing: border-box;
+}
+
+.post-more-select {
+  position: relative;
+  width: 100px;
+  height: 24px;
+
+  border-radius: 4px;
+
+  text-align: right;
+
+  border: none;
+  cursor: pointer;
+}
+
+.post-option-list {
+  position: absolute;
+  width: 100%;
+  max-height: 0;
+
+  background-color: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  list-style-type: none;
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: 0.3s ease-in;
+}
+
+.post-more-select.active .post-option-list {
+  max-height: 300px;
+}
+
+.post-option-item {
+  width: inherit;
+  text-align: center;
+
+  flex-direction: column;
+  border-bottom: 1px solid #e4e4e4;
+
+  padding: 5px 15px 5px;
+}
+
+.post-option-item:hover {
+  background-color: #e4e4e4;
+  transition: 0.1s;
+}
+
+.post-option-item:last-child {
+  border-bottom: none;
+}
+
+/* ********* */
+/* feed post */
+/* ********* */
+
+.feed-post {
+  /* margin: 0; */
+  padding: 0 24px;
+
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.feed-post a {
+  color: #000000;
+}
+
+.feed-post p {
+  box-sizing: border-box;
+
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 라인수 */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.2em;
+  height: 3.6em;
+
+  margin: 0 0 24px;
+}
+
+.feed-options {
+  margin: 0 24px;
+}
+
+.feed-options a {
+  color: #000000;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* *********** */
+/* Member List */
+/* *********** */
+.feed-member-list {
+  box-sizing: border-box;
+  width: 750px;
+  height: auto;
+  overflow: scroll;
+  
+  background-color: #ffffff;
+  margin-top: 40px;
+  
+  padding: 24px
+}
+
+.feed-member-list-not-login {
+	display: flex;
+	flex-direction: column;
+	
+	align-items: center;
+	justify-content: center;
+	
+	width: 500px;
+	height: 500px;
+	
+	background-color: #ffffff;
+}
+
+.member-list-title {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 6px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.member-list-title h1 {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.member-list-title p {
+  font-size: 24px;
+  color: #48a0fa;
+}
+
+.feed-profile.member-list {
+  display: flex;
+  box-sizing: border-box;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  /* border-bottom: 1px solid #e4e4e4; */
+}
+
+.meet-user.leader {
+  font-size: 8px;
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 4px 8px;
+
+  background-color: #f86d7d;
+}
+
+.meet-user.operator {
+  font-size: 8px;
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 4px 8px;
+
+  background-color: #29ab45;
+}
+
+.meet-member-list {
+  height: auto;
+
+  margin: 0 24px;
+}
+
+.meet-member-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.member-list {
+  width: 100%;
+  margin: 0;
+}

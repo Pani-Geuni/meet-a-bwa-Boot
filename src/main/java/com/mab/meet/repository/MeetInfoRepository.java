@@ -12,6 +12,6 @@ import com.mab.meet.model.MeetInfoVO;
 public interface MeetInfoRepository extends JpaRepository<MeetInfoVO, Object> {
 
 	@Query(nativeQuery = true, 
-			value="select * from meet where meet_no=?1")
+			value="select * from meet_join_user_view where meet_no=?1")
 	public MeetInfoVO select_one_meet_info(String meet_no);
 }
