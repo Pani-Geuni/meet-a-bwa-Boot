@@ -319,7 +319,7 @@ $(function(){
     // 투표 생성 AJAX
     function insert_ajax(time, content_arr){
     	 $.ajax({
-        	url : "/meet-a-bwa/m_vote_create.do",
+        	url : "/meet-a-bwa/vote_create.do",
 			type : "POST",
 			traditional : true, // data value중에 배열있을 때 필요
 			dataType : 'json', // 결과값 받을 타입
