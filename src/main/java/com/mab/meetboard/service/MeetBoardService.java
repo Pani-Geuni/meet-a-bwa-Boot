@@ -34,6 +34,10 @@ public class MeetBoardService {
 		return vos;
 	}
 	
-	
+	public MBUserVO select_one_post_detail(String board_no) {
+		MBUserVO vo = boardRepository.select_one_post_detail(board_no);
+		
+		return vo;
+	}
 	
 }
