@@ -4,8 +4,51 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<section class="meet-info-wrap" th:fragment="meet_content"
+	th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(m_list, list.user_no)}) ">
+	<div class="meet-info-top">
+		<h1 class="meet-info-title">모임소개</h1>
+		<th:block th:if="${ mvo.user_no == list.user_no }">
+			<button id="btn-meet-edit" class="btn-meet-info">수정</button>
+			<button id="btn-meet-remove" class="btn-meet-info">삭제</button>
+		</th:block>
+	</div>
 
-<section class="feedWrap" th:fragment="meet_content">
+	<div class="meet-info-tag">
+		<h3>모임 정보</h3>
+		<div class="tagSection">
+			<th:block th:if="${ mvo.meet_county != null }">
+				<div class="loca_tag tag">
+					<img src="/IMG/common/map.png" class="tag_img" />
+					<span class="location_name font_size_10">[[${ mvo.meet_county }]]</span>
+				</div>
+			</th:block>
+			<th:block th:if="${ mvo.meet_interest_name != null }">
+				<div class="cate_tag tag">
+					<span class="category_name font_size_10">[[${ mvo.meet_interest_name }]]</span>
+				</div>
+			</th:block>
+		</div>
+	</div>
+
+	<div class="meet-info-content">
+		<pre>[[${ mvo.meet_info }]]</pre>
+	</div>
+
+	<div class="meet-info-detail">
+		<h3>모임 정보</h3>
+		<div>
+			<p>모임 개설일</p>
+			<span>[[${ meet_date }]]</span>
+		</div>
+		<div>
+			<p>멤버 수</p>
+			<span>[[${ mvo.user_cnt }]]명</span>
+		</div>
+	</div>
+</section>
+
+<section class="feedWrap" th:fragment="meet_content" th:if="${list.isLogin == true}">
 	<article>
 		<!--  START SEARCHBAR INCLUDE -->
 		<!--  END SEARCHBAR INCLUDE -->
@@ -40,15 +83,15 @@
 							</div>
 
 							<!--<th:block th:if="${ vo.user_no != list.user_no }">-->
-								<div class="post-more-select">
-									<img class="img-more" src="/IMG/common/more.svg" alt="더보기" />
+							<div class="post-more-select">
+								<img class="img-more" src="/IMG/common/more.svg" alt="더보기" />
 
-									<ul class="post-option-list" th:attr="idx=${ vo.board_no }">
-										<li class="post-option-item" data-popup-open="update">수정하기</li>
-										<li class="post-option-item" data-popup-open="delete">
-											삭제하기</li>
-									</ul>
-								</div>
+								<ul class="post-option-list" th:attr="idx=${ vo.board_no }">
+									<li class="post-option-item" data-popup-open="update">수정하기</li>
+									<li class="post-option-item" data-popup-open="delete">
+										삭제하기</li>
+								</ul>
+							</div>
 							<!--</th:block>-->
 						</div>
 						<div class="feed-post">

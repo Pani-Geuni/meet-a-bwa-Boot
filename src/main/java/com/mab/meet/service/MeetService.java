@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.mab.meet.model.MeetActivityVO;
 import com.mab.meet.model.MeetInfoVO;
+import com.mab.meet.model.MeetUserVO;
 import com.mab.meet.model.MeetVoteVO;
 import com.mab.meet.repository.MeetActivityRepository;
 import com.mab.meet.repository.MeetInfoRepository;
+import com.mab.meet.repository.MeetUserRepository;
 import com.mab.meet.repository.MeetVoteRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,9 @@ public class MeetService {
 	
 	@Autowired
 	MeetInfoRepository meetInfoRepository;
+	
+	@Autowired
+	MeetUserRepository meetUserRepository;
 	
 	@Autowired
 	MeetActivityRepository activityRepository;
@@ -41,6 +46,12 @@ public class MeetService {
 		MeetInfoVO vo = meetInfoRepository.select_one_meet_info(meet_no);
 		
 		return vo;
+	}
+	
+	public List<MeetUserVO> select_all_meet_registered_member(String meet_no) {
+		List<MeetUserVO> vos = meetUserRepository.select_all_meet_registered_member(meet_no);
+		
+		return vos;
 	}
 	
 	public List<MeetActivityVO> select_all_activity_for_feed(String meet_no) {

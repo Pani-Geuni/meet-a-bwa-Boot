@@ -4,9 +4,13 @@
 
 package com.mab.meet.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.SimpleFormatter;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mab.meet.model.MeetActivityVO;
 import com.mab.meet.model.MeetInfoVO;
+import com.mab.meet.model.MeetUserVO;
 import com.mab.meet.model.MeetVoteVO;
 import com.mab.meet.service.MeetService;
 import com.mab.meetboard.model.MBUserVO;
@@ -53,7 +58,7 @@ public class MeetController {
 	@ApiOperation(value = "모임 메인 화면", notes = "모임 메인 화면 띄우는 컨트롤러")
 	@GetMapping(value = "/meet-main.do")
 	public String meet_main(@RequestParam("idx") String meet_no, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+			HttpServletResponse response, Model model) throws ParseException {
 		
 		log.info("meet_main Page");
 
@@ -97,12 +102,20 @@ public class MeetController {
 			model.addAttribute("list", map);
 		} else {
 			map.put("isLogin", false);
+			map.put("user_no", "U1002"); 	// 테스트 코드
 			model.addAttribute("list", map);
 		}
+		log.info("list : {}", map);
 
 		// 모임 정보 불러오기
 		MeetInfoVO mvo = service.select_one_meet_info(meet_no);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String meet_date = formatter.format(mvo.getMeet_date());
 		log.info("mvo : {}", mvo);
+		
+		// 모임 가입자 리스트 불러오기
+		List<MeetUserVO> member_list = service.select_all_meet_registered_member(meet_no);
+		log.info("member list : {}", member_list);
 		
 		// 모임 게시글 피드 불러오기
 		List<MBUserVO> feed = boardService.select_all_board_feed(meet_no);
@@ -118,6 +131,8 @@ public class MeetController {
 		
 
 		model.addAttribute("mvo", mvo);
+		model.addAttribute("meet_date", meet_date);
+		model.addAttribute("m_list", member_list);
 		model.addAttribute("vos", feed);
 		model.addAttribute("avos", activities);
 		model.addAttribute("votes", votes);

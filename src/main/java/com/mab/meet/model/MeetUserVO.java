@@ -40,4 +40,7 @@ public class MeetUserVO {
 	
 	@Column(name="user_nickname")
 	private String user_nickname; 
+	
+	@Column(name="oper_state")
+	private String oper_state;
 }
