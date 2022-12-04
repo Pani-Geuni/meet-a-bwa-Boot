@@ -5,12 +5,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <section class="meet-info-wrap" th:fragment="meet_content"
-	th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(m_list, list.user_no)}) ">
+	th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(user_no_list, list.user_no)}) ">
 	<div class="meet-info-top">
 		<h1 class="meet-info-title">모임소개</h1>
-		<th:block th:if="${ mvo.user_no == list.user_no }">
+		<th:block th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)} and ${ mvo.user_no == list.user_no }">
 			<button id="btn-meet-edit" class="btn-meet-info">수정</button>
 			<button id="btn-meet-remove" class="btn-meet-info">삭제</button>
+		</th:block>
+		<th:block th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)} and ${ mvo.user_no != list.user_no }">
+			<button id="btn-meet-exit" class="btn-meet-info">탈퇴</button>
 		</th:block>
 	</div>
 
@@ -48,7 +51,7 @@
 	</div>
 </section>
 
-<section class="feedWrap" th:fragment="meet_content" th:if="${list.isLogin == true}">
+<section class="feedWrap" th:fragment="meet_content" th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)}">
 	<article>
 		<!--  START SEARCHBAR INCLUDE -->
 		<!--  END SEARCHBAR INCLUDE -->

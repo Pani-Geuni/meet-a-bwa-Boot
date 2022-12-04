@@ -9,8 +9,7 @@
 	<div class="right-summary-list" id="event-summary-list">
 		<div class="right-summary-list-top">
 			<h1>모임 내 액티비티</h1>
-			<th:block
-				th:if="(${list.isLogin} != false or ${list.isLogin} != null) and (${#lists.contains(m_list, list.user_no)})">
+			<th:block th:if="${list.isLogin} == true and (${#lists.contains(user_no_list, list.user_no)})">
 				<p>
 					<a href="#">+</a>
 				</p>
@@ -18,17 +17,17 @@
 		</div>
 		<ul class="right-summary-list-contents" id="activity-summary-list">
 			<th:block
-				th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(m_list, list.user_no)})">
+				th:if="(${list.isLogin} == false or ${list.isLogin} == null) or (not ${#lists.contains(user_no_list, list.user_no)})">
 				<div class="no-contents-item">
 					<p>로그인 혹은 가입 후 이용해 주세요.</p>
 				</div>
 			</th:block>
-			<th:block th:if="${ #lists.isEmpty(avos) }">
+			<th:block th:if="${list.isLogin} == true and ${ #lists.isEmpty(avos) }">
 				<div class="no-contents-item">
 					<p>생성된 액티비티가 없습니다.</p>
 				</div>
 			</th:block>
-			<th:block th:if="${ not #lists.isEmpty(avos) }">
+			<th:block th:if="${list.isLogin} == true and ${ not #lists.isEmpty(avos) }">
 				<th:block th:each="avo : ${avos}">
 					<li class="activity_list_item" idx="${ avo.activity_no }">
 						<p>[[${ avo.activity_name }]]</p>
@@ -41,7 +40,7 @@
 		<div class="right-summary-list-top">
 			<h1>투표</h1>
 			<th:block
-				th:if="(${list.isLogin} != false or ${list.isLogin} != null) and (${#lists.contains(m_list, list.user_no)})">
+				<th:block th:if="${list.isLogin} == true and (${#lists.contains(user_no_list, list.user_no)})">
 				<p>
 					<a href="#">+</a>
 				</p>
@@ -49,17 +48,17 @@
 		</div>
 		<ul class="right-summary-list-contents">
 			<th:block
-				th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(m_list, list.user_no)})">
+				th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(user_no_list, list.user_no)})">
 				<div class="no-contents-item">
 					<p>로그인 혹은 가입 후 이용해 주세요.</p>
 				</div>
 			</th:block>
-			<th:block th:if="${ #lists.isEmpty(vvos) }">
+			<th:block th:if="${list.isLogin} == true and ${ #lists.isEmpty(vvos) }">
 				<div class="no-contents-item">
 					<p>생성된 투표가 없습니다.</p>
 				</div>
 			</th:block>
-			<th:block th:if="${ not #lists.isEmpty(vvos) }">
+			<th:block th:if="${list.isLogin} == true and ${ not #lists.isEmpty(vvos) }">
 				<th:block th:each="vvo : ${ vvos }">
 					<li class="vote-list-item" th:attr="vote_no=${ vvo.vote_no }">
 						<p>[[${ vvo.vote_title }]]

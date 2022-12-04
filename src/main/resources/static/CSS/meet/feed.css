@@ -14,7 +14,7 @@
 	align-items: center;
 	justify-content: center;
 	
-	width: 100%;
+	width: 750px;
 	height: 100%;
 }
 
@@ -197,20 +197,27 @@
   background-color: #ffffff;
   margin-top: 40px;
   
-  padding: 24px
+  padding: 24px;
+}
+
+.feed-member-list::-webkit-scrollbar {
+	display: none;
 }
 
 .feed-member-list-not-login {
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	
 	align-items: center;
 	justify-content: center;
 	
-	width: 500px;
+	width: 720px;
 	height: 500px;
-	
 	background-color: #ffffff;
+	
+	margin-top: 40px;
+	padding: 24px;	
 }
 
 .member-list-title {
