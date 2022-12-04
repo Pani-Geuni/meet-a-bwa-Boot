@@ -1,3 +1,91 @@
 <!-- ------------ -->
 <!-- @author 최진실 -->
 <!-- ------------ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>밋;어봐 액티비티</title>
+
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+
+	<link rel="stylesheet" href="/CSS/common/toast.css" />
+	<link rel="stylesheet" href="/CSS/common/common.css" />
+	<link rel="stylesheet" href="/CSS/common/header.css" />
+	<link rel="stylesheet" href="/CSS/common/searchBar.css" />
+	<link rel="stylesheet" href="/CSS/common/footer.css" />
+
+	<link rel="stylesheet" href="/CSS/activity/create.css" />
+	<link rel="stylesheet" href="/CSS/activity/feed.css" />
+	<link rel="stylesheet" href="/CSS/activity/popup.css" />
+	<link rel="stylesheet" href="/CSS/activity/update.css" />
+
+	<script src="/JS/common/jquery-3.6.1.min.js"></script>
+	<script src="/JS/common/jquery.cookie.js"></script>
+	<script src="/JS/activity/create.js"></script>
+	<script src="/JS/activity/update.js"></script>
+
+</head>
+
+<body>
+	<section class="bodyWrap">
+		<div class="contentWrapRow">
+			<div th:replace="${content} :: activity-content(${title})"></div>
+		</div>
+	</section>
+
+	<!-- Popup -->
+	<!-- not null -->
+	<section class="bin-popup blind">
+		<div class="modal-bg">
+			<div class="modal-wrap">
+				<div class="modal-content-wrap">
+					<section class="modal-content-inner">
+						<section class="modal-content1">
+							<p class="bin_obj">빈 항목을 채워주세요!</p>
+						</section>
+						<!--modal-content2-->
+						<section class="modal-content2">
+							<button class="ok">확인</button>
+						</section>
+						<!--modal-content3-->
+					</section>
+					<!--modal-content-inner end-->
+				</div>
+				<!--modal-content-wrap end-->
+			</div>
+			<!--modal-wrap end-->
+		</div>
+		<!--model-bg end-->
+	</section>
+
+	<!-- 이미지 용량 초과 -->
+	<section class="image-popup blind">
+		<div class="modal-bg">
+			<div class="modal-wrap">
+				<div class="modal-content-wrap">
+					<section class="modal-content-inner2">
+						<section class="modal-content1">
+							<p class="font">첨부파일 사이즈</p>
+							<p class="font">10KB 이내로 등록 가능</p>
+						</section>
+						<!--modal-content2-->
+						<section class="modal-content3">
+							<button class="ok">확인</button>
+						</section>
+						<!--modal-content3-->
+					</section>
+					<!--modal-content-inner end-->
+				</div>
+				<!--modal-content-wrap end-->
+			</div>
+			<!--modal-wrap end-->
+		</div>
+		<!--model-bg end-->
+	</section>
+</body>
+
+</html>
