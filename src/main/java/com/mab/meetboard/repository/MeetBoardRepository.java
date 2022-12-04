@@ -18,4 +18,8 @@ public interface MeetBoardRepository extends JpaRepository<MBUserVO, Object> {
 	@Query(nativeQuery = true,
 			value="select * from meetboard_user_view where meet_no=?1 order by board_no desc")
 	public List<MBUserVO> select_all_board_feed(String meet_no);
+	
+	@Query(nativeQuery = true, 
+			value = "select * from meetboard_user_view where board_no=?")
+	public MBUserVO select_one_post_detail(String board_no);
 }

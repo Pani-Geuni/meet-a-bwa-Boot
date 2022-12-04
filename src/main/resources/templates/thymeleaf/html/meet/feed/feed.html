@@ -85,22 +85,20 @@
 								<p class="write-date">[[${ vo.board_date }]]</p>
 							</div>
 
-							<!--<th:block th:if="${ vo.user_no != list.user_no }">-->
-							<div class="post-more-select">
-								<img class="img-more" src="/IMG/common/more.svg" alt="더보기" />
-
-								<ul class="post-option-list" th:attr="idx=${ vo.board_no }">
-									<li class="post-option-item" data-popup-open="update">수정하기</li>
-									<li class="post-option-item" data-popup-open="delete">
-										삭제하기</li>
-								</ul>
-							</div>
-							<!--</th:block>-->
+							<th:block th:if="${ vo.user_no == list.user_no }">
+								<div class="post-more-select">
+									<img class="img-more" src="/IMG/common/more.svg" alt="더보기" />
+	
+									<ul class="post-option-list" th:attr="idx=${ vo.board_no }">
+										<li class="post-option-item" data-popup-open="update">수정하기</li>
+										<li class="post-option-item" data-popup-open="delete">
+											삭제하기</li>
+									</ul>
+								</div>
+							</th:block>
 						</div>
-						<div class="feed-post">
-							<a href="b_selectOne.do?board_no=${ vo.board_no }">
+						<div class="feed-post" th:attr="board_no=${vo.board_no}">
 								<p>[[${ vo.board_content }]]</p>
-							</a>
 						</div>
 						<div class="feed-options">
 							<p>

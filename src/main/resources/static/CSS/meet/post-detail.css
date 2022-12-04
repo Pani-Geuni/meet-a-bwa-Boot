@@ -1,7 +1,8 @@
 .post-detail {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: 630px;
+  width: 750px;
   height: auto;
 
   margin-top: 40px;
@@ -98,7 +99,7 @@
   margin-bottom: 8px;
 }
 
-.form-comment button {
+#btn-comment-insert {
   width: 40px;
   height: 28px;
 
@@ -135,6 +136,7 @@
   height: 24px;
 
   margin-right: 4px;
+  border-radius: 100%;
 }
 
 .comment-user-nickname {
