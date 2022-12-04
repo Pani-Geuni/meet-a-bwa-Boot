@@ -1,3 +1,6 @@
+/**
+ * @author 김예은
+ */
 package com.mab.main.controller;
 
 import java.util.List;
@@ -20,6 +23,8 @@ import com.mab.main.service.MainMeetService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+
+
 @Slf4j
 @Api(tags="HOME 컨트롤러")
 @Controller

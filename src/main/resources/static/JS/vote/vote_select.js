@@ -62,9 +62,9 @@ $(function() {
     		let c_idx = $("#choice_wrap").find(".in_circle.choice").attr("contentidx");
     		
     		if(updateFlag){
-    			location.href = "/meet-a-bwa/re_voteOK.do?vote_no=" + idx + "&user_no=" + $.cookie("user_no") + "&content_no=" + c_idx + "&meet_no=" + location.href.split("idx=")[1];
+    			location.href = "/meet-a-bwa/re_voteOK.do?vote_no=" + idx + "&user_no=" + $.cookie("user_no") + "&content_no=" + c_idx;
     		}else{
-    			location.href = "/meet-a-bwa/voteOK.do?vote_no=" + idx + "&user_no=" + $.cookie("user_no") + "&content_no=" + c_idx + "&meet_no=" + location.href.split("idx=")[1];
+    			location.href = "/meet-a-bwa/voteOK.do?vote_no=" + idx + "&user_no=" + $.cookie("user_no") + "&content_no=" + c_idx;
     		}
     	}
     });
@@ -166,7 +166,7 @@ $(function() {
 	
 	function ajax_load(idx) {
 		$.ajax({
-			url : "/meet-a-bwa/m_vote_view.do",
+			url : "/meet-a-bwa/vote_view.do",
 			type : "GET",
 			data : {
 				user_no : $.cookie("user_no"),
@@ -578,13 +578,13 @@ $(function() {
     
     function update_ajax(time){
         	$.ajax({
-	        	url : "/meet-a-bwa/m_vote_update.do",
+	        	url : "/meet-a-bwa/vote_update.do",
 				type : "POST",
 				dataType : 'json', // 결과값 받을 타입
 				data : {
 					vote_no : vote_no,
 					vote_title : $("#u_vote_title").val().trim(),
-					vote_description : $("#u_vote_description").val().trim(),
+					vote_info : $("#u_vote_description").val().trim(),
 					vote_eod : $("#u_vote_endDate").val().trim() + " " + time
 				},
 				success : function(res) {
