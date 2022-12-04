@@ -1,10 +1,9 @@
 .meet-info-wrap {
-  width: 820px;
+  width: 750px;
   height: 100%;
   background-color: #ffffff;
 
   margin-top: 40px;
-  margin-right: 160px;
 }
 
 .meet-info-top {
@@ -21,25 +20,29 @@
   margin: 0 4px 0 0;
 }
 
-.btn-meet-info-edit {
-  width: 24px;
+.btn-meet-info {
+  width: 40px;
   height: 24px;
-  background-size: 20px 20px;
-  background: url('/meet-a-bwa/resources/img/edit.svg') no-repeat;
+  
+  border-radius: 8px;
   border: none;
-  cursor: pointer;
 
-  margin-right: 4px;
-}
-
-.btn-meet-info-remove {
-  width: 24px;
-  height: 24px;
-  background-size: 20px 20px;
-  background: url('/meet-a-bwa/resources/img/remove.svg') no-repeat;
-  border: none;
+  margin-left: 8px;
+  font-size: 12px;
+  
   cursor: pointer;
 }
+
+#btn-meet-edit {
+	background-color: #ffffff;
+	border: 1px solid #808080;
+}
+
+#btn-meet-remove {
+	background-color: #F86D7D;
+	color: #ffffff;
+}
+
 
 .btn-meet-info-exit {
 	width: 24px;

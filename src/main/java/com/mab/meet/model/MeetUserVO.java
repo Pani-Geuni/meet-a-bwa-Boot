@@ -29,8 +29,8 @@ import lombok.ToString;
 public class MeetUserVO {
 
 	@Id
-	@Column(name="registered_no")
-	private String registered_no;
+	@Column(name="register_no")
+	private String register_no;
 	
 	@Column(name="meet_no")
 	private String meet_no;
@@ -40,4 +40,7 @@ public class MeetUserVO {
 	
 	@Column(name="user_nickname")
 	private String user_nickname; 
+	
+	@Column(name="oper_state")
+	private String oper_state;
 }

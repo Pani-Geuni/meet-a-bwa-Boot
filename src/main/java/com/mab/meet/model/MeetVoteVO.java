@@ -37,8 +37,8 @@ public class MeetVoteVO {
 	@Column(name="vote_title")
 	private String vote_title;
 	
-	@Column(name="vote_content")
-	private String vote_content;
+	@Column(name="vote_info")
+	private String vote_info;
 	
 	@Column(name="vote_eod")
 	private Timestamp vote_eod;

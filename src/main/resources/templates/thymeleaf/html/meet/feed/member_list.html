@@ -1,0 +1,41 @@
+<!-- ------------ -->
+<!-- @author 전판근 -->
+<!-- ------------ -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+<section class="feed-not-login" th:fragment="meet_content"
+	th:if="(${list.isLogin} == false or ${list.isLogin} == null) or (not ${#lists.contains(user_no_list, list.user_no)})">
+	<div class="feed-member-list-not-login">
+		<img src="/IMG/common/worry.svg" alt="worry img" />
+		<h1>로그인 혹은 가입을 한 후에 이용해주세요!</h1>
+	</div>
+</section>
+
+<section class="feed-member-list" th:fragment="meet_content"
+	th:if="${list.isLogin} == true and ${#lists.contains(user_no_list, list.user_no)}">
+	<div class="member-list-title">
+		<h1>멤버</h1>
+		<p id="all-member-count">[[${m_list_cnt}]]</p>
+	</div>
+
+	<div class="meet-member-list">
+		<ul>
+			<th:block th:each="member : ${ m_list }">
+				<li>
+					<div class="feed-profile member-list">
+						<div>
+							<img src="/IMG/common/loopy.svg" alt="" />
+						</div>
+						<p class="user-nickname">[[${ member.user_nickname }]]</p>
+						<span th:if="${mvo.user_no == member.user_no}" class="meet-user leader">리더</span>
+						<p></p>
+					</div>
+				</li>
+			</th:block>
+		</ul>
+	</div>
+</section>
