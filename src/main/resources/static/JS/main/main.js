@@ -222,6 +222,8 @@ $(function() {
 			} else {
 				$(".warning-layer").removeClass("blind");
 			}
+			
+			return false;
 		}
 	});
 	$("#recommend_list_wrap").on("click", ".heartSection", function(event) {

@@ -39,7 +39,7 @@
 	<div class="right-summary-list" id="vote-summary-list">
 		<div class="right-summary-list-top">
 			<h1>투표</h1>
-			<th:block
+			<th:block>
 				<th:block th:if="${list.isLogin} == true and (${#lists.contains(user_no_list, list.user_no)})">
 				<p>
 					<a href="#">+</a>
