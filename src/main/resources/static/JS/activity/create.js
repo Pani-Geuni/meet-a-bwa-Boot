@@ -5,17 +5,12 @@
 $(function() {
 	//******************************프로필 이미지********************************//
 
-	var image = $("#activity_image").val();
-	console.log("image:" + image);
-	if (image !== undefined) {
-		$("#image").attr("src", "https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/" + image);
-	}
-
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				$('#image').attr('src', e.target.result);
+				$("#activity_image").val(e.target.result);
 			}
 			reader.readAsDataURL(input.files[0]);
 
@@ -57,6 +52,8 @@ $(function() {
 
 	$('#delete-file2').click(function() {
 		$('#image').attr('src', "/IMG/activity/default-image2.png");
+		$("#multipartFile_activity").val("");
+		$("#activity_image").val("default-image2.png");
 		$('#delete-file2').css('display', 'none');
 	});
 
@@ -256,78 +253,13 @@ $(function() {
 	cate_init();
 
 	function cate_init() {
-		let sample = $(".interest_opt").eq(0).clone();
+		let sample = $(".interest_opt").eq(1).clone();
 		for (let i = 0; i < interest.length; i++) {
 			sample = sample.clone().text(interest[i]);
 			sample.val(interest[i]);
 			$("#interest").append(sample);
 		}
 	}
-
-
-	/*************************************************** */
-	/** 관심사 태그 추가 */
-	/*************************************************** */
-	let tag = $(".delete_interest:eq(0)").clone();
-	let cnt = 0;
-	var arr = [];
-
-
-	var temp_interest = $("#real-input-interest").val();
-	console.log(temp_interest);
-
-	var arr_interest = [];
-	if (temp_interest !== undefined) {
-		arr_interest = temp_interest.split(",");
-	}
-
-	for (var i = 0; i < arr_interest.length; i++) {
-		tag = tag.clone();
-		tag.removeClass("blind");
-
-		var tagValue = arr_interest[i]; // 값 가져오기
-		if (tagValue !== "") {
-			tag.val(tagValue + " X");
-			arr.push(tagValue);
-			tag.attr("idx", ++cnt);
-			$("#tagWrap").append(tag);
-		}
-
-	}
-
-	$("#interest").on("change", function(e) {
-		tag = tag.clone();
-		tag.removeClass("blind");
-		let select_value = $(this).val();
-
-		if (!arr.includes(select_value) && select_value != '') {
-			//선택한 관심사가 중복으로 들어가지 않도록 includes 함수 사용해서 배열 안에 해당 관심사가 없으면 아래 코드가 동작하게 함.
-			tag.val(select_value + " X");
-			tag.attr("idx", ++cnt);
-			$("#tagWrap").append(tag);
-			arr.push(select_value);
-			$("#real-input-interest").val(arr);
-			console.log("interest::" + $("#real-input-interest").val());
-		}
-	});
-
-
-	/*************************************************** */
-	/** 관심사 태그 삭제 */
-	/*************************************************** */
-	$("#tagWrap").on("click", ".delete_interest", function() {
-		let idx = $(this).attr("idx");
-		let arr = $(".delete_interest").slice();
-
-		$("#tagWrap").empty().append($(arr[0]));
-
-		for (let index = 1; index < arr.length; index++) {
-			if ($(arr[index]).attr("idx") != idx) {
-				$("#tagWrap").append(arr[index]);
-			}
-		}
-	});
-
 
 	//***********************************글자 수**************************************//
 
@@ -406,13 +338,15 @@ $(function() {
 		let activity_name = $.trim($("#activity_name").val()).length;
 		let activity_info = $.trim($("#activity_info").val()).length;
 		let nop = $("#numberofpeople").val();
+		let interest = $.trim($("#interest").val()).length;
+		
 
-		if (activity_name > 0 && activity_info > 0 && nop != 0) {
+		if (activity_name > 0 && activity_info > 0 && nop != 0 && interest>0 ) {
 			$("#real-submit").click();
 			submit_flag = false;
 			//			let user_id = $("#id").val();
 		} else {
-			if (activity_name <= 0 || activity_info <= 0 || nop <= 0) {
+			if (activity_name <= 0 || activity_info <= 0 || nop <= 0 || interest <=0) {
 				$(".bin-popup").removeClass("blind");
 				$(".ok").on("click", function() {
 					$(".bin-popup").addClass("blind");

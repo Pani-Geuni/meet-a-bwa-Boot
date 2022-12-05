@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mab.activity.model.ActivityVO;
-import com.mab.activity.repository.ActivityCreateUpdateRepository;
+import com.mab.activity.repository.ActivityInsertUpdateRepository;
 import com.mab.activity.repository.MeetSelectRepository;
 import com.mab.meet.model.MeetVO;
 
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ActiivityService {
 	
 	@Autowired
-	ActivityCreateUpdateRepository a_repository;
+	ActivityInsertUpdateRepository a_repository;
 	
 	@Autowired
 	MeetSelectRepository m_repository;

@@ -19,7 +19,7 @@ public class ActiivityFileService {
 
 	public ActivityVO activity_image_upload(ActivityVO avo, MultipartHttpServletRequest mtfRequest,
 			MultipartFile multipartFile_activity) {
-		return fao.backoffice_fileupload(avo,mtfRequest,multipartFile_activity);
+		return fao.activity_fileupload(avo,mtfRequest,multipartFile_activity);
 	}
 
 }
