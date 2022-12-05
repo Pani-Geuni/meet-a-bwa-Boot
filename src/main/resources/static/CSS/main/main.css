@@ -316,6 +316,17 @@
 	font-size: 20px;
 }
 
+.age_condition{
+	margin-right:6px;
+	background-color: #e8e8e8;
+	padding : 2px 5px 3px 4px;
+	border-radius: 7px;
+	font-family: "Pretendard";
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
 /* ********************* */
 /** WARNING POPUP SECTION */
 /* ********************* */

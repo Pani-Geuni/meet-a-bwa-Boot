@@ -1,4 +1,3 @@
-
 #menuWrap{
     position : fixed;
     z-index : 100;
@@ -54,7 +53,7 @@
     font-family: 'Happiness-Sans';
     color: white;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 100;
     height: 40px;
     cursor: pointer;
@@ -79,6 +78,11 @@
     width: 95px; 
     background-color: #783DF5;
     border: 1px solid #783DF5;
+	cursor:pointer;
+}
+#loginOK_btn{
+	background-color: #3DA5F5;
+    border: 1px solid #3DA5F5;
 	cursor:pointer;
 }
 

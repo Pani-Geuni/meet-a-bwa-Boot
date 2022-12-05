@@ -101,12 +101,14 @@
 											</div>
 										</th:block>
 	
-										<th:block th:if="${mvo.meet_age}!=0">
+										<th:block th:if="${mvo.meet_age_arr} != null">
 											<!-- 조건있는 모임(조건없을 시 hide 클래스 추가) -->
 											<div class="meet_condition">
 												<img src="/IMG/common/line.svg" alt="line이미지" class="divide">
 												<span class="condition_bold condition_common"><b>모집</b></span>
-												<span class="condition_regular condition_common">[[${mvo.meet_age}]]대</span>
+												<th:block th:each="age : ${mvo.meet_age_arr}">
+													<span class="condition_regular condition_common age_condition">[[${age}]]</span>
+												</th:block>
 											</div>
 										</th:block>
 									</div>
@@ -178,12 +180,14 @@
 											<span class="member_ment">참여 중</span>
 										</div>
 	
-										<th:block th:if="${mvo.meet_age}!=null">
+										<th:block th:if="${mvo.meet_age_arr} != null">
 											<!-- 조건있는 모임(조건없을 시 hide 클래스 추가) -->
 											<div class="meet_condition">
 												<img src="/IMG/common/line.svg" alt="line이미지" class="divide">
 												<span class="condition_bold condition_common"><b>모집</b></span>
-												<span class="condition_regular condition_common">[[${mvo.meet_age}]]</span>
+												<th:block th:each="age : ${mvo.meet_age_arr}">
+													<span class="condition_regular condition_common age_condition">[[${age}]]</span>
+												</th:block>
 											</div>
 										</th:block>
 									</div>
@@ -499,7 +503,6 @@
 									</div>
 								</div>
 
-
 								<div class="bottomWrap">
 									<div class="meet_info">
 										<div class="meet_member_info">
@@ -507,14 +510,14 @@
 											<span class="member_ment">참여 중</span>
 										</div>
 
-										<th:block th:if="${avo.activity_age} != 0">
+										<th:block th:if="${avo.activity_age_arr} != null">
 											<!-- 조건있는 모임(조건없을 시 hide 클래스 추가) -->
 											<div class="meet_condition">
-												<img src="/IMG/common/line.svg" alt="line이미지"
-													class="divide">
+												<img src="/IMG/common/line.svg" alt="line이미지" class="divide">
 												<span class="condition_bold condition_common"><b>모집</b></span>
-												<span
-													class="condition_regular condition_common">[[${avo.activity_age}]]대</span>
+												<th:block th:each="age : ${avo.activity_age_arr}">
+													<span class="condition_regular condition_common age_condition">[[${age}]]</span>
+												</th:block>
 											</div>
 										</th:block>
 									</div>

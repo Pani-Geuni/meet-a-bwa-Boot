@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.data.annotation.Immutable;
 
@@ -69,5 +70,8 @@ public class MainActivityViewVO {
 	
 	@Column(name="user_cnt")
 	private Integer user_cnt;
-	
+
+	@Transient
+	@Column(name="activity_age_arr")
+	private String[] activity_age_arr;
 }

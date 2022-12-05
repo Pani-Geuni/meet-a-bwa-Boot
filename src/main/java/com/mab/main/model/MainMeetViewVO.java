@@ -1,9 +1,12 @@
 package com.mab.main.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.data.annotation.Immutable;
 
@@ -50,7 +53,7 @@ public class MainMeetViewVO {
 	private Integer meet_nop;
 	
 	@Column(name="meet_age")
-	private Integer meet_age;
+	private String meet_age;
 	
 	@Column(name="meet_date")
 	private String meet_date;
@@ -63,5 +66,9 @@ public class MainMeetViewVO {
 	
 	@Column(name="user_cnt")
 	private Integer user_cnt;
+	
+	@Transient
+	@Column(name="meet_age_arr")
+	private String[] meet_age_arr;
 	
 }
