@@ -37,6 +37,9 @@ public class MainActivityViewVO {
 	@Column(name="activity_info")
 	private String activity_info;
 	
+	@Column(name="activity_city")
+	private String activity_city;
+	
 	@Column(name="activity_county")
 	private String activity_county;
 	
@@ -50,7 +53,7 @@ public class MainActivityViewVO {
 	private Integer activity_nop;
 	
 	@Column(name="activity_age")
-	private Integer activity_age;
+	private String activity_age;
 	
 	@Column(name="activity_date")
 	private String activity_date;

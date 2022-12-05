@@ -153,8 +153,7 @@
 	
 											<th:block th:if="${mvo.meet_interest_name} != null">
 												<div class="cate_tag tag">
-													<span
-														class="category_name font_size_10">[[${mvo.meet_interest_name}]]</span>
+													<span class="category_name font_size_10">[[${mvo.meet_interest_name}]]</span>
 												</div>
 											</th:block>
 	
@@ -174,19 +173,17 @@
 	
 								<div class="bottomWrap">
 									<div class="meet_info">
-										<th:block th:if="${mvo.user_cnt} != null">
-											<div class="meet_member_info">
-												<span class="member_cnt member_ment">[[${mvo.user_cnt}]]명</span>
-												<span class="member_ment">참여 중</span>
-											</div>
-										</th:block>
+										<div class="meet_member_info">
+											<span class="member_cnt member_ment">[[${mvo.user_cnt}]]명</span>
+											<span class="member_ment">참여 중</span>
+										</div>
 	
-										<th:block th:if="${mvo.meet_age}!=0">
+										<th:block th:if="${mvo.meet_age}!=null">
 											<!-- 조건있는 모임(조건없을 시 hide 클래스 추가) -->
 											<div class="meet_condition">
 												<img src="/IMG/common/line.svg" alt="line이미지" class="divide">
 												<span class="condition_bold condition_common"><b>모집</b></span>
-												<span class="condition_regular condition_common">[[${mvo.meet_age}]]대</span>
+												<span class="condition_regular condition_common">[[${mvo.meet_age}]]</span>
 											</div>
 										</th:block>
 									</div>
@@ -488,10 +485,10 @@
 												</div>
 											</th:block>
 
-											<th:block th:if="${avo.activity_interest_name} != null">
+											<th:block th:if="${avo.activity_interest} != null">
 												<div class="cate_tag tag">
 													<span
-														class="category_name font_size_10">[[${avo.activity_interest_name}]]</span>
+														class="category_name font_size_10">[[${avo.activity_interest}]]</span>
 												</div>
 											</th:block>
 										</div>
@@ -505,12 +502,10 @@
 
 								<div class="bottomWrap">
 									<div class="meet_info">
-										<th:block th:if="${avo.user_cnt} != null">
-											<div class="meet_member_info">
-												<span class="member_cnt member_ment">[[${avo.user_cnt}]]명</span>
-												<span class="member_ment">참여 중</span>
-											</div>
-										</th:block>
+										<div class="meet_member_info">
+											<span class="member_cnt member_ment">[[${avo.user_cnt}]]명</span>
+											<span class="member_ment">참여 중</span>
+										</div>
 
 										<th:block th:if="${avo.activity_age} != 0">
 											<!-- 조건있는 모임(조건없을 시 hide 클래스 추가) -->
