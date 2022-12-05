@@ -1,0 +1,56 @@
+<!-- ------------ -->
+<!-- @author 전판근 -->
+<!-- ------------ -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<section class="meet-info-wrap" th:fragment="meet_content">
+
+
+	<div class="meet-info-top">
+		<h1 class="meet-info-title">모임소개</h1>
+
+		<th:block
+			th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)} and ${ mvo.user_no == list.user_no }">
+			<button id="btn-meet-edit" class="btn-meet-info">수정</button>
+			<button id="btn-meet-remove" class="btn-meet-info">삭제</button>
+		</th:block>
+		<th:block
+			th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)} and ${ mvo.user_no != list.user_no }">
+			<button id="btn-meet-exit" class="btn-meet-info">탈퇴</button>
+		</th:block>
+	</div>
+
+	<div class="meet-info-tag">
+		<h3>모임 정보</h3>
+		<div class="tagSection">
+			<th:block th:if="${ mvo.meet_county != null }">
+				<div class="loca_tag tag">
+					<img src="/IMG/common/map.png" class="tag_img" />
+					<span class="location_name font_size_10">[[${ mvo.meet_county }]]</span>
+				</div>
+			</th:block>
+			<th:block th:if="${ mvo.meet_interest_name != null }">
+				<div class="cate_tag tag">
+					<span class="category_name font_size_10">[[${ mvo.meet_interest_name }]]</span>
+				</div>
+			</th:block>
+		</div>
+	</div>
+
+	<div class="meet-info-content">
+		<pre>[[${ mvo.meet_info }]]</pre>
+	</div>
+
+	<div class="meet-info-detail">
+		<h3>모임 정보</h3>
+		<div>
+			<p>모임 개설일</p>
+			<span>[[${ meet_date }]]</span>
+		</div>
+		<div>
+			<p>멤버 수</p>
+			<span>[[${ mvo.user_cnt }]]명</span>
+		</div>
+	</div>
+</section>

@@ -16,6 +16,12 @@ $(function() {
 
 		location.href = "/meet-a-bwa/meet-member.do?idx=" + meet_no;
 	});
+	
+	$(".meet-detail-link").on("click", function() {		
+		let idx = $(this).attr("idx");
+		console.log(idx);
+		location.href = "meet-detail.do?idx=" + idx;
+	})
 
 	$(".feed-post").click(function() {
 
