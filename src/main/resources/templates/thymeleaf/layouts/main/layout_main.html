@@ -199,7 +199,7 @@
 					<label for="pw">비밀번호</label>
 					<input type="password" id="pwInput" name="pw" placeholder="비밀번호 입력" />
 
-					<input type="submit" onsubmit="check_length();" value="로그인">
+					<input type="button" id="loginOK_btn" value="로그인">
 					<input type="button" value="창닫기" id="login-popup-closeBtn">
 				</form>
 
@@ -287,6 +287,42 @@
 	</div>
 	<!-- END PW FIND POPUP -->
 
+	<div id="spinner-wrap" class="popup-background blind">
+		<!-- START SPINNER SECTION -->
+		<div id="spinner-section">
+			<img src="/IMG/common/spinner.gif" class="spinner-img">
+		</div>
+	</div>
+
+	<!-- START COMMON ALERT POPUP -->
+	<div id="common-alert-popup-wrap" class="popup-background blind">
+		<div id="common-alert-popup" class="alert-popup">
+			<section class="alert-txt-section">
+				<span class="common-alert-txt">
+					공용 알러트팝업
+				</span>
+			</section>
+			<section id="common-alert-btn" class="alert-btn-section">
+				<span>확인</span>
+			</section>
+		</div>
+	</div>
+
+	<!-- START COMMMON CONFIRM POPUP -->
+	<div id="common-confirm-popup-wrap" class="popup-background">
+		<div class="confirm-popup">
+			<section class="confirm-txt-section">
+				<span class="logout-txt">
+					공용 컨펌팝업
+				</span>
+			</section>
+			<section class="confirm-btn-section">
+				<div class="confirm-yesBtn">예</div>
+				<div class="confirm-noBtn">아니오</div>
+			</section>
+		</div>
+	</div>
+
 	<!-- START toastWrap -->
 	<div id="toastWrap" class="hide">
 		<span id="toast_txt"></span>
@@ -294,4 +330,5 @@
 	<!-- END toastWrap -->
 
 </body>
+
 </html>
