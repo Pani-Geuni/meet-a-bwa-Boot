@@ -21,6 +21,7 @@ public class UserService implements UserDetailsService {
 	//spring security - UserDetailsService
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.info("username:{}",username);
 		UserVO user = repository.findByUser_id(username);
 		log.info("user:{}",user);
 		

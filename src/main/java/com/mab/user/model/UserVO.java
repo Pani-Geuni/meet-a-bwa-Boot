@@ -4,6 +4,7 @@
 
 package com.mab.user.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,8 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "userinfo")
-public class UserVO implements UserDetails {
+@Table(name = "USERINFO")
+public class UserVO implements Serializable,UserDetails {
 
 	@Id // pk설정
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
@@ -45,8 +46,8 @@ public class UserVO implements UserDetails {
 	@Column(name = "user_id")
 	private String user_id;
 
-	@Column(name = "password")
-	private String password;
+	@Column(name = "user_pw")
+	private String user_pw;
 
 	@Column(name = "user_name")
 	private String user_name;
@@ -62,7 +63,10 @@ public class UserVO implements UserDetails {
 
 	@Column(name = "user_birth, insertable= false, updatable = false")
 	private String user_birth;
-
+	
+	@Column(name = "user_gender")
+	private String user_gender;
+	
 	@Column(name = "user_interest")
 	private String user_interest;
 
@@ -91,33 +95,41 @@ public class UserVO implements UserDetails {
 	}
 
 	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.getUser_pw();
+	}
+
+	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		log.info("id::::::::::::::::::{}", this.getUser_id());
+		return this.getUser_id();
+
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }// end class
