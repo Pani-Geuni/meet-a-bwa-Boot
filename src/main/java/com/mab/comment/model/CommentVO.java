@@ -52,4 +52,7 @@ public class CommentVO {
 	@Column(name="meet_no")
 	private String meet_no;
 	
+	@Column(name="delete_state")
+	private String delete_state;
+	
 }
