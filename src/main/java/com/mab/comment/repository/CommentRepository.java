@@ -13,8 +13,8 @@ public interface CommentRepository extends JpaRepository<CommentVO, Object> {
 	@Modifying
 	@Transactional
 	@Query(nativeQuery = true, 
-			value = "INSERT INTO BOARDCOMMENT(COMMENT_NO, MOTHER_NO, COMMENT_DATE, COMMENT_CONTENT, BOARD_NO, USER_NO, MEET_NO) "
-					+ "VALUES ('C'||SEQ_COMMENT.nextval, ?1, CURRENT_DATE, ?2, ?3, ?4, ?5)")
+			value = "INSERT INTO BOARDCOMMENT(COMMENT_NO, MOTHER_NO, COMMENT_DATE, COMMENT_CONTENT, BOARD_NO, USER_NO, MEET_NO, DELETE_STATE) "
+					+ "VALUES ('C'||SEQ_COMMENT.nextval, ?1, CURRENT_DATE, ?2, ?3, ?4, ?5, 'F')")
 	public int insert_comment(String mother_no, String comment_content, String board_no, String user_no, String meet_no);
 
 }
