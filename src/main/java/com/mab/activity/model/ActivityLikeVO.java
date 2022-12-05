@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -26,7 +27,7 @@ import lombok.ToString;
 @ToString
 @Table(name="ACTIVITY_LIKE")
 public class ActivityLikeVO {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQ_ACTIVITY_L")
 	@SequenceGenerator(sequenceName = "SEQ_ACTIVITY_L",allocationSize = 1,name = "SEQ_ACTIVITY_L")

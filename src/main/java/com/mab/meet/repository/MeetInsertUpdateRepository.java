@@ -1,3 +1,6 @@
+/**
+ * @author 최진실
+ */
 package com.mab.meet.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
