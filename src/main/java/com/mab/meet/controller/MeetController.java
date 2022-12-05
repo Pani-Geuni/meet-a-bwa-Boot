@@ -100,9 +100,7 @@ public class MeetController {
 
 			model.addAttribute("list", map);
 		} else {
-//			map.put("isLogin", false);
-			map.put("isLogin", true);		// 테스트 코드
-			map.put("user_no", "U1002"); 	// 테스트 코드
+			map.put("isLogin", false);
 			model.addAttribute("list", map);
 		}
 		log.info("list : {}", map);

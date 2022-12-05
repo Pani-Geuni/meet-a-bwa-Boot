@@ -1,36 +1,33 @@
 <!-- ------------ -->
-<!-- @author 전판근 -->
+<!-- @author 김예은 -->
 <!-- ------------ -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+	<title>밋:어봐</title>
+
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>밋:어봐 모임 페이지</title>
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
-	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
-
+	<link rel="stylesheet" href="/CSS/common/toast.css" />
 	<link rel="stylesheet" href="/CSS/common/common.css" />
 	<link rel="stylesheet" href="/CSS/common/header.css" />
+	<link rel="stylesheet" href="/CSS/common/searchBar.css" />
 	<link rel="stylesheet" href="/CSS/common/footer.css" />
-	<link rel="stylesheet" href="/CSS/common/toast.css" />
 
-	<link rel="stylesheet" href="/CSS/main/main.css" />
+
+	<th:block th:if="${page=='meet_list'}">
+		<link rel="stylesheet" href="/CSS/list/meet-list.css" />
+	</th:block>
+	<th:block th:if="${page=='activity_list'}">
+		<link rel="stylesheet" href="/CSS/list/activity-list.css" />
+	</th:block>
+
 	<link rel="stylesheet" href="/CSS/user/login.css" />
 	<link rel="stylesheet" href="/CSS/user/logout.css" />
 	<link rel="stylesheet" href="/CSS/user/find-popup.css" />
-
-	<link rel="stylesheet" href="/CSS/meet/searchBar.css" />
-	<link rel="stylesheet" href="/CSS/meet/meet-detail.css" />
-	<link rel="stylesheet" href="/CSS/meet/feed.css" />
-	<link rel="stylesheet" href="/CSS/meet/meet-info.css" />
-	<link rel="stylesheet" href="/CSS/meet/post-detail.css" />
-	<link rel="stylesheet" href="/CSS/meet/post-writer.css" />
-	<link rel="stylesheet" href="/CSS/meet/post-update.css" />
-	<link rel="stylesheet" href="/CSS/meet/post-delete.css" />
 
 	<script src="/JS/common/jquery-3.6.1.min.js"></script>
 	<script src="/JS/common/jquery.cookie.js"></script>
@@ -39,10 +36,105 @@
 	<script src="/JS/common/id_find.js"></script>
 	<script src="/JS/common/pw_find.js"></script>
 	<script src="/JS/common/header.js"></script>
+	<script src="/JS/common/searchBar.js"></script>
 
-	<script src="/JS/meet/feed.js"></script>
-	<script src="/JS/meet/post_detail.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var is_login = /*[[${session.user_id}]]*/ "is_login";
+		/*]]*/
+	</script>
 
+	<script>
+		$(function () {
+
+			var user_id = '${user_id}'; //세션값 가져옴
+			
+			// 액티비티 추천 - 카테고리 더보기 버튼 클릭 이벤트
+			$("#plusImg").click(function () {
+				$("#fold_tag").removeClass("blind");
+				$(this).addClass("blind");
+				$("#foldImg").removeClass("blind");
+			});
+
+			// 액티비티 추천 - 카테고리 접기 버튼 클릭 이벤트
+			$("#foldImg").click(function () {
+				$("#fold_tag").addClass("blind");
+				$(this).addClass("blind");
+				$("#plusImg").removeClass("blind");
+			});
+
+			// 액티비티 추천 - 카테고리 클릭 이벤트
+			$(".tagItem").click(function (e) {
+				$(".tagItem").removeClass("check");
+				$(e.target).addClass("check");
+				let category = $(this).text();
+				location.href = "/meet-a-bwa/a_selectOne.do?category=" + category;
+			});
+
+			// 상세 리스트 클릭 이벤트
+			$("#meet-list-section").on("click", ".content-list.meet-list", function () {
+				let idx = $(this).attr("idx");
+				location.href = "/meet-a-bwa/meet-main.do?idx=" + idx;
+			});
+			
+			$("#activity-list-section").on("click", ".content-list.activity-list", function () {
+				let idx = $(this).attr("idx");
+				console.log(idx);
+				location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
+			});
+
+			$("#meet-list-section").on("click", ".heartSection", function (event) {
+				event.stopPropagation();
+
+				if ($.cookie("isLogin") == 'true') {
+					if ($.cookie('user_interest') == "" || $.cookie('user_interest') == undefined) {
+						// 좋아요 추가
+						if ($(this).find(".afterLike_heart").hasClass("blind")) {
+							location.href = "/meet-a-bwa/meet_more_like_insert.do?type=county&typeData=" + $.cookie('user_county') + "&searchWord=&meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+						}
+						// 좋아요 삭제
+						else {
+							location.href = "/meet-a-bwa/meet_more_like_delete.do?type=county&typeData=" + $.cookie('user_county') + "&searchWord=&meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+						}
+					} else {
+						// 좋아요 추가
+						if ($(this).find(".afterLike_heart").hasClass("blind")) {
+							console.log($.cookie('user_interest'));
+							location.href = "/meet-a-bwa/meet_more_like_insert.do?type=interest&typeData=" + $.cookie('user_interest') + "&searchWord=&meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+						}
+						// 좋아요 삭제
+						else {
+							location.href = "/meet-a-bwa/meet_more_like_delete.do?type=interest&typeData=" + $.cookie('user_interest') + "&searchWord=&meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+						}
+					}
+
+				} else {
+					$(".warning-layer").removeClass("blind");
+				}
+			});
+
+			// 모임 좋아요 처리
+			let like_meet_arr = $.cookie('like_meet');
+			if (like_meet_arr != undefined) {
+				like_meet_arr = like_meet_arr.split("/");
+
+				let meet_elements = $(".content-list.meet-list").slice();
+				for (like_meet of like_meet_arr) {
+					for (list of meet_elements) {
+						if ($(list).attr("idx") == like_meet) {
+							$(list).find(".beforeLike_heart").addClass("blind");
+							$(list).find(".afterLike_heart").removeClass("blind");
+						}
+					}
+				}
+			}
+
+			// 경고 팝업 닫기 버튼 클릭 이벤트
+			$(".warning-close").click(function () {
+				$(".warning-layer").addClass("blind");
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -50,39 +142,19 @@
 	<th:block th:replace="thymeleaf/html/common/header :: header(${is_login})"></th:block>
 	<!--  END HEADER REPLACE -->
 
-	<!-- START CONTENT REPLACE -->
 	<div id="bodyWrap">
-		<div id="contentWrapRow">
-			<div th:replace="thymeleaf/html/meet/common/leftSidebar :: leftSidebar"></div>
-			<div th:replace="${content} :: meet_content"></div>
-			<div th:replace="thymeleaf/html/meet/common/rightSidebar :: rightSidebar"></div>
+		<!--  START SEARCHBAR REPLACE -->
+		<th:block th:replace="thymeleaf/html/common/searchBar :: searchBar"></th:block>
+		<!--  END SEARCHBAR REPLACE -->
 
+		<!--  START MAIN REPLACE -->
+		<div th:replace="${content} :: main(${is_login})"></div>
+		<!--  END MAIN REPLACE -->
 
-		</div>
 		<!--  START FOOTER INCLUDE -->
 		<th:block th:replace="thymeleaf/html/common/footer :: footer"></th:block>
 		<!--  END FOOTER INCLUDE -->
 	</div>
-
-	<!-- END CONTENT REPLACE -->
-
-	<!-- *************************  -->
-	<!-- START delete popup SECTION -->
-	<!-- *************************  -->
-	<div class="delete-popup-layer" data-popup="delete">
-		<div class="delete-popup-wrap">
-			<img src="/IMG/common/worry.svg" alt="" />
-			<h1>정말 삭제 하시겠습니까?</h1>
-
-			<div class="btn-group">
-				<button id="btn-delete" class="btn-delete" data-popup-close="delete">삭제</button>
-				<button class="btn-cancel" data-popup-close="delete">취소</button>
-			</div>
-		</div>
-	</div>
-	<!-- *************************  -->
-	<!-- END delete popup SECTION -->
-	<!-- *************************  -->
 
 	<!-- START LOGIN POPUP -->
 	<div class="login-layer blind">
@@ -228,6 +300,7 @@
 		<span id="toast_txt"></span>
 	</div>
 	<!-- END toastWrap -->
+
 </body>
 
 </html>
