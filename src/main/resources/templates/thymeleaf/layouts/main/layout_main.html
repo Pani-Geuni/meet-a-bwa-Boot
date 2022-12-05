@@ -39,41 +39,41 @@
 	</script>
 
 	<script>
-			$(function () {
-				// 모임 추천 -  +더보기 버튼 클릭
-				$("#plusBtn_meet").click(function () {
-					if (is_login == null) {
-						location.href = "/meet-a-bwa/meet-list.do?type=like&&typeData=&&searchWord=";
+		$(function () {
+			// 모임 추천 -  +더보기 버튼 클릭
+			$("#plusBtn_meet").click(function () {
+				if (is_login == null) {
+					location.href = "/meet-a-bwa/meet-list.do?type=like&&typeData=&&searchWord=";
+				}
+				else if (is_login != null) {
+					if ($.cookie('user_interest') == "" || $.cookie('user_interest') == undefined) {
+						location.href = "/meet-a-bwa/meet-list.do?type=county&&typeData=" + $.cookie('user_county') + "&&searchWord=";
+					} else {
+						location.href = "/meet-a-bwa/meet-list.do?type=interest&&typeData=" + $.cookie('user_interest') + "&&searchWord=";
 					}
-					else if (is_login != null) {
-						if ($.cookie('user_interest') == "" || $.cookie('user_interest') == undefined) {
-							location.href = "/meet-a-bwa/meet-list.do?type=county&&typeData=" + $.cookie('user_county') + "&&searchWord=";
-						} else {
-							location.href = "/meet-a-bwa/meet-list.do?type=interest&&typeData=" + $.cookie('user_interest') + "&&searchWord=";
-						}
-					}
-				});
-
-				// 상세 리스트 클릭 이벤트
-				$("#meet_recommendSection").on("click", ".content_list.meet-list", function(){
-					if($(this).prop('tagName') == 'DIV' && $(this).prop('tagName') != 'SECTION'){
-						let idx = $(this).attr("idx");
-						window.location.href = "/meet-a-bwa/meet-main.do?idx=" + idx;
-					}
-				});
-				$("#recommend_list_wrap").on("click", ".content_list.activity-list", function(){
-					if($(this).prop('tagName') == 'DIV' && $(this).prop('tagName') != 'SECTION'){
-						let idx = $(this).attr("idx");
-						window.location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
-					}
-				});
-
-				// 경고 팝업 닫기 버튼 클릭 이벤트
-				$(".warning-close").click(function () {
-					$(".warning-layer").addClass("blind");
-				});
-
+				}
 			});
+
+			// 상세 리스트 클릭 이벤트
+			$("#meet_recommendSection").on("click", ".content_list.meet-list", function(){
+				if($(this).prop('tagName') == 'DIV' && $(this).prop('tagName') != 'SECTION'){
+					let idx = $(this).attr("idx");
+					window.location.href = "/meet-a-bwa/meet-main.do?idx=" + idx;
+				}
+			});
+			$("#recommend_list_wrap").on("click", ".content_list.activity-list", function(){
+				if($(this).prop('tagName') == 'DIV' && $(this).prop('tagName') != 'SECTION'){
+					let idx = $(this).attr("idx");
+					window.location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
+				}
+			});
+
+			// 경고 팝업 닫기 버튼 클릭 이벤트
+			$(".warning-close").click(function () {
+				$(".warning-layer").addClass("blind");
+			});
+
+		});
 	</script>
 </head>
 

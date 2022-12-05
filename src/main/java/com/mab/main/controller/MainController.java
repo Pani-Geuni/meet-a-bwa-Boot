@@ -106,7 +106,7 @@ public class MainController {
 					}
 				}
 			}else {
-				meet_list = meet_service.SQL_SELECT_ALL_COUNTY(uvo.getUser_interest());
+				meet_list = meet_service.SQL_SELECT_ALL_COUNTY(uvo.getUser_county());
 			}
 			
 			for(MainMeetViewVO mvo : meet_list) {
