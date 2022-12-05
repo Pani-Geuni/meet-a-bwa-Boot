@@ -7,19 +7,17 @@ package com.mab.event.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.mab.event.model.EventVO;
 import com.mab.event.repository.EventRepository;
-import com.mab.main.model.MainMeetViewVO;
-import com.mab.main.repository.MainMeetRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class EventService {
+	
 	@Autowired
 	EventRepository repo;
 	
