@@ -2,7 +2,7 @@
  * @author 김예은
  */
 
-package com.mab.activity.model;
+package com.mab.meet.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -25,17 +24,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Table(name="ACTIVITY_LIKE")
-public class ActivityLikeVO {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQ_ACTIVITY_L")
-	@SequenceGenerator(sequenceName = "SEQ_ACTIVITY_L",allocationSize = 1,name = "SEQ_ACTIVITY_L")
-	@Column(name="activity_like_no")
-	private String activity_like_no;
+@Table(name="MEETLIKE")
+public class MeetLikeVO {
 	
-	@Column(name="activity_no")
-	private String activity_no;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQ_MEET_L")
+	@SequenceGenerator(sequenceName = "SEQ_MEET_L",allocationSize = 1,name = "SEQ_MEET_L")
+	@Column(name="meet_like_no")
+	private String meet_like_no;
+	
+	@Column(name="meet_no")
+	private String meet_no;
 	
 	@Column(name="user_no")
 	private String user_no;

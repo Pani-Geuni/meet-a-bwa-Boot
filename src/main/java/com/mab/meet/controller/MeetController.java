@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mab.comment.service.CommentService;
 import com.mab.meet.model.MeetActivityVO;
 import com.mab.meet.model.MeetInfoVO;
 import com.mab.meet.model.MeetUserVO;
@@ -53,6 +54,9 @@ public class MeetController {
 	
 	@Autowired
 	MeetBoardService boardService;
+	
+	@Autowired
+	CommentService commentService;
 
 	@ApiOperation(value = "모임 메인 화면", notes = "모임 메인 화면 띄우는 컨트롤러")
 	@GetMapping(value = "/meet-main.do")
@@ -126,6 +130,12 @@ public class MeetController {
 		List<MBUserVO> feed = boardService.select_all_board_feed(meet_no);
 		log.info("feed : {}", feed);
 		
+		// 피드의 댓글 개수 불러오기
+		for (MBUserVO post : feed) {
+			Integer comment_cnt = commentService.select_comment_cnt(post.getBoard_no());
+			post.setComment_cnt(comment_cnt);
+		}
+		
 		// 액티비티 불러오기
 		List<MeetActivityVO> activities = service.select_all_activity_for_feed(meet_no);
 		log.info("activities : {}", activities);
@@ -196,8 +206,6 @@ public class MeetController {
 			model.addAttribute("list", map);
 		} else {
 			map.put("isLogin", false);
-//			map.put("isLogin", true);		// 테스트 코드
-			map.put("user_no", "U1002"); 	// 테스트 코드
 			model.addAttribute("list", map);
 		}
 		log.info("list : {}", map);
@@ -292,8 +300,6 @@ public class MeetController {
 			model.addAttribute("list", map);
 		} else {
 			map.put("isLogin", false);
-//			map.put("isLogin", true);		// 테스트 코드
-			map.put("user_no", "U1002"); 	// 테스트 코드
 			model.addAttribute("list", map);
 		}
 		log.info("list : {}", map);

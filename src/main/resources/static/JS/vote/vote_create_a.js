@@ -113,7 +113,7 @@ $(function(){
     });
     
 
-    $("#ampm_choice").on("click", ".ampm-list", function(event){
+    $("#ampm_choice").on("click", ".ampm-list", function(){
         $(".ampm-list").removeClass("time_choice");
         $(this).addClass("time_choice");
 
@@ -126,7 +126,7 @@ $(function(){
             $("#customTimePicker").addClass("blind");
         }
     });
-    $("#time_choice").on("click", ".time-list", function(event){
+    $("#time_choice").on("click", ".time-list", function(){
         $(".time-list").removeClass("time_choice");
         $(this).addClass("time_choice");
 
@@ -139,7 +139,7 @@ $(function(){
             $("#customTimePicker").addClass("blind");
         }
     });
-    $("#minute_choice").on("click", ".minute-list", function(event){
+    $("#minute_choice").on("click", ".minute-list", function(){
         $(".minute-list").removeClass("time_choice");
         $(this).addClass("time_choice");
 

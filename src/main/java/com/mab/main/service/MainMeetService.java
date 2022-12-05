@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.mab.main.model.MainMeetViewVO;
 import com.mab.main.repository.MainMeetRepository;
+import com.mab.meet.model.MeetLikeVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +26,18 @@ public class MainMeetService {
 		log.info("MainMeetService()...");
 	}
 	
+	
+	public int insert_meet_like(MeetLikeVO vo){
+		int result = meet_repo.SQL_INSERT_MEET_LIKE(vo);
+		
+		return result;
+	}
+	
+	public int delete_meet_like(MeetLikeVO vo){
+		int result = meet_repo.SQL_DELETE_MEET_LIKE(vo);
+		
+		return result;
+	}
 	
 	public List<MainMeetViewVO> SQL_SELECT_ALL_LIKE(){
 		List<MainMeetViewVO> list = meet_repo.SQL_SELECT_ALL_LIKE();

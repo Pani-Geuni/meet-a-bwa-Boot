@@ -8,11 +8,13 @@
 	th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(user_no_list, list.user_no)}) ">
 	<div class="meet-info-top">
 		<h1 class="meet-info-title">모임소개</h1>
-		<th:block th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)} and ${ mvo.user_no == list.user_no }">
+		<th:block
+			th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)} and ${ mvo.user_no == list.user_no }">
 			<button id="btn-meet-edit" class="btn-meet-info">수정</button>
 			<button id="btn-meet-remove" class="btn-meet-info">삭제</button>
 		</th:block>
-		<th:block th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)} and ${ mvo.user_no != list.user_no }">
+		<th:block
+			th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)} and ${ mvo.user_no != list.user_no }">
 			<button id="btn-meet-exit" class="btn-meet-info">탈퇴</button>
 		</th:block>
 	</div>
@@ -51,7 +53,8 @@
 	</div>
 </section>
 
-<section class="feedWrap" th:fragment="meet_content" th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)}">
+<section class="feedWrap" th:fragment="meet_content"
+	th:if="${list.isLogin == true} and ${#lists.contains(user_no_list, list.user_no)}">
 	<article>
 		<!--  START SEARCHBAR INCLUDE -->
 		<!--  END SEARCHBAR INCLUDE -->
@@ -88,7 +91,7 @@
 							<th:block th:if="${ vo.user_no == list.user_no }">
 								<div class="post-more-select">
 									<img class="img-more" src="/IMG/common/more.svg" alt="더보기" />
-	
+
 									<ul class="post-option-list" th:attr="idx=${ vo.board_no }">
 										<li class="post-option-item" data-popup-open="update">수정하기</li>
 										<li class="post-option-item" data-popup-open="delete">
@@ -98,12 +101,11 @@
 							</th:block>
 						</div>
 						<div class="feed-post" th:attr="board_no=${vo.board_no}">
-								<p>[[${ vo.board_content }]]</p>
+							<p>[[${ vo.board_content }]]</p>
 						</div>
 						<div class="feed-options">
-							<p>
-								<a href="#">댓글</a>
-							</p>
+							<p>댓글</p>
+							<span>[[${ vo.comment_cnt }]]개</span>
 						</div>
 					</div>
 					<!-- end one feed -->
