@@ -31,6 +31,10 @@ public interface MainMeetRepository extends JpaRepository<MainMeetViewVO, Object
 			+ "WHERE MEET_COUNTY = ?1 AND ROWNUM BETWEEN 1 AND 6")
 	public List<MainMeetViewVO> SQL_SELECT_ALL_COUNTY(String country);
 	
+	@Query(nativeQuery = true, value = 
+			"SELECT MEET_NO FROM MEETLIKE WHERE USER_NO = ?")
+	public List<String> SQL_SELECT_ALL_LIKE_USER_NO(String user_no);
+	
 
 //	@Transactional
 //	@Modifying
