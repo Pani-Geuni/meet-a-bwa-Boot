@@ -3,12 +3,14 @@ package com.mab.activity.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Api(tags="액티비티 컨트롤러")
 @RequestMapping("/meet-a-bwa")
-public class ActivityCRUDController {
+public class ActivityInfoController {
 	
 	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -57,10 +59,10 @@ public class ActivityCRUDController {
 
 		model.addAttribute("meet_no", meet_no);
 		model.addAttribute("user_no", user_no);
-		model.addAttribute("content", "thymeleaf/html/activity/create/create");
+		model.addAttribute("content", "thymeleaf/html/activity/insert/insert");
 		model.addAttribute("title", "액티비티 생성");
 
-		return "thymeleaf/layouts/activity/layout_activity";
+		return "thymeleaf/layouts/activity/layout_info_activity";
 	}
 	
 	/**
@@ -116,7 +118,7 @@ public class ActivityCRUDController {
 	/**
 	 * 액티비티 수정 폼
 	 */
-	@ApiOperation(value="액티비티 생성", notes="액티비티 생성 페이지입니다.")
+	@ApiOperation(value="액티비티 수정", notes="액티비티 수정 페이지입니다.")
 	@GetMapping("/activity_update")
 	public String activity_update(Model model, String activity_no) {
 		log.info("/activity_update...");
@@ -131,11 +133,11 @@ public class ActivityCRUDController {
 		model.addAttribute("content", "thymeleaf/html/activity/update/update");
 		model.addAttribute("title", "액티비티 수정");
 
-		return "thymeleaf/layouts/activity/layout_activity";
+		return "thymeleaf/layouts/activity/layout_info_activity";
 	}
 	
 	/**
-	 * 액티비티 생성 처리
+	 * 액티비티 수정 처리
 	 * @throws ParseException 
 	 */
 	@ApiOperation(value="액티비티 수정 처리", notes="액티비티 수정 처리입니다.")
@@ -169,11 +171,12 @@ public class ActivityCRUDController {
 		
 		// 이미지 파일
 		ActivityVO avo2 = service.select_one_activity_info(avo.getActivity_no());
-		if(!multipartFile_activity.getOriginalFilename().equals(avo2.getActivity_image())) {
-			// 이미지 파일
-			avo = fileService.activity_image_upload(avo, mtfRequest, multipartFile_activity);
+		log.info("avo2 : {}", avo2.getActivity_image());
+		log.info("avo : {}", avo.getActivity_image());
+		if (!avo.getActivity_image().equals(avo2.getActivity_image())) {
+			avo = fileService.activity_image_upload(avo,mtfRequest, multipartFile_activity);
 			log.info("filupload activity:{}", avo);
-		} 
+		}
 		
 		int result = service.activity_update(avo);
 		

@@ -6,12 +6,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-	<div class="activity-create-wrap" th:fragment="activity-content(title)">
+	<div class="meet-create-wrap" th:fragment="meet-content(title)">
 		<div id="bodyWrap">
-			<form class="innerBodyWrap" name="activity_create_form" action="activity_insertOK" method="post"
+			<form class="innerBodyWrap" name="meet_create_form" action="meet_insertOK" method="post"
 				enctype="multipart/form-data">
-				<div class="activityCUDWrap">
-					<h2 id="activityTitle">[[${title}]]</h2>
+				<div class="meetingCUDWrap">
+					<h2 id="meetTitle">[[${title}]]</h2>
 					<hr class="StartLine">
 					<div id="img_la">
 						<label for="img_header">프로필 사진</label>
@@ -19,27 +19,26 @@
 					<div id="imgWrap">
 						<section class="img_body">
 							<div id="input-image">
-								<img src="/IMG/activity/default-image2.png" width=300px; height=200px;  id="image" name="image" />
+								<img src="https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/meet/default_image.jpg" width=300px; height=200px;  id="image" name="image" />
 							</div>
 							<div class="img_btn_meet_activity">
-								<label class="input-file-btn" for="multipartFile_activity"> 
-								<img src="/IMG/activity/imageAddBtn2.svg" width=70px; height=70px;>
+								<label class="input-file-btn" for="multipartFile_meet"> 
+								<img src="/IMG/meet/imageAddBtn2.svg" width=70px; height=70px;>
 								</label> 
-								 <input type="file" id="multipartFile_activity" name="multipartFile_activity" class="input-file"/>	
-<!--								<input type="file" name="upFile" id="input-file" class="input-file">-->
+								 <input type="file" id="multipartFile_meet" name="multipartFile_meet" class="input-file"/>	
 
 								<button type="button" id="delete-file2" value="삭제">
-									<img src="/IMG/activity/imageDropBtn2.svg" width=70px; height=70px; alt="삭제">
+									<img src="/IMG/meet/imageDropBtn2.svg" width=70px; height=70px; alt="삭제">
 								</button>
 							</div>
 						</section>
 					</div>
 					<div id="namediv">
 						<div id="nameLa">
-							<label>액티비티 이름</label>
+							<label>모임 이름</label>
 						</div>
-						<input type="text" placeholder="액티비티 이름을 입력해주세요. (10자 이내)" id="activity_name"
-							name="activity_name" value="" />
+						<input type="text" placeholder="모임 이름을 입력해주세요. (10자 이내)" id="meet_name"
+							name="meet_name" value="" />
 						<p class="textCount_name blind">0자</p>
 						<div id="toastWrap_name" class="hide">
 							<p class="toastText">글자수를 초과하였습니다.</p>
@@ -49,11 +48,11 @@
 
 					<section id="introducediv">
 						<section id="introduceLa">
-							<label>액티비티 소개</label>
+							<label>모임 소개</label>
 						</section>
 						<section class="textLengthWrap">
-							<textarea rows="8" cols="36" placeholder="액티비티에 대해서 자세하게 설명해주세요." id="activity_info"
-								name="activity_info"></textarea>
+							<textarea rows="8" cols="36" placeholder="모임에 대해서 자세하게 설명해주세요." id="meet_info"
+								name="meet_info"></textarea>
 							<!-- maxlength="500" -->
 							<section class="textLength">
 								<p class="textCount">0자</p>
@@ -72,11 +71,11 @@
 						<div id="city_la">
 							<label>활동 지역</label>
 						</div>
-						<select id="city" name='activity_city' class="input">
+						<select id="city" name='meet_city' class="input">
 							<option class="city_list" value='' hidden>도/시 선택</option>
 							<option class="city_list" value='전체'>전체</option>
 						</select>
-						<select name='activity_county' id="country" class=select>
+						<select name='meet_county' id="country" class=select>
 							<option class="country_option" value='' hidden>군/구 선택</option>
 							<option class="country_option" value='전체'>전체</option>
 						</select>
@@ -87,14 +86,10 @@
 						<div id="interestLa">
 							<label>활동 카테고리</label>
 						</div>
-						<select id="interest" name="interest">
+						<select id="interest" name="meet_interest_name">
+							<option class="interest_opt" hidden >선택</option>
 							<option value="" class="interest_opt">선택</option>
 						</select>
-					</div>
-
-					<div id="tagWrap">
-						<input type="hidden" value="" name="activity_interest" id="real-input-interest" />
-						<input type="button" class="delete_interest interest_result blind">
 					</div>
 
 
@@ -102,7 +97,7 @@
 					<section class="conditionWrap">
 						<section class="conditionHeader">
 							<hr class="conditionLine">
-							<h5>* 액티비티에 가입할 회원들을 아래 선택 항목(성별,인원 수, 연령대) 기준으로 제한합니다.</h5>
+							<h5>* 모임에 가입할 회원들을 아래 선택 항목(성별,인원 수, 연령대) 기준으로 제한합니다.</h5>
 						</section>
 						<!--conditionHeader end-->
 						<section class="conditionBody">
@@ -110,7 +105,7 @@
 								<section id="genderLa">
 									<label>성별</label>
 								</section>
-								<select id="gender" name="activity_gender">
+								<select id="gender" name="meet_gender">
 									<option value="무관">선택</option>
 									<option value="여">여</option>
 									<option value="남">남</option>
@@ -121,7 +116,7 @@
 								<section id="nopLa">
 									<label>인원 수 (필수입력)</label>
 								</section>
-								<select id="numberofpeople" class="numberofpeople" name="activity_nop">
+								<select id="numberofpeople" class="numberofpeople" name="meet_nop">
 									<option value="0">선택</option>
 									<option th:each="num : ${#numbers.sequence(1,20)}" th:text="${num}"></option>
 								</select>
@@ -136,7 +131,7 @@
 									<option th:each="num : ${#numbers.sequence(10,100,10)}" th:text="${num}+대"></option>
 								</select>
 								<div id="tagWrap_age">
-									<input type="hidden" value="" name="activity_age" id="real-input-age" />
+									<input type="hidden" value="" name="meet_age" id="real-input-age" />
 									<input type="button" class=" delete_age age_result blind">
 								</div>
 							</section>
@@ -152,15 +147,11 @@
 						<label for="user_no">user_no:</label>
 						<input type="text" id="user_no" name="user_no" th:value="${user_no}">
 					</section>
-					<section class="blind">
-						<label for="meet_no">meet_no:</label>
-						<input type="text" id="meet_no" name="meet_no" th:value="${meet_no}">
-					</section>
 					<!-- ************************************************************* -->
 
 					<div class="submit">
-						<input type="button" id="submit_activity" class="submit-application" value="액티비티 생성">
-						<input type="submit" id="real-submit" class="submit-application" value="액티비티 생성"
+						<input type="button" id="submit_meet" class="submit-application" value="모임 생성">
+						<input type="submit" id="real-submit" class="submit-application" value="모임 생성"
 							style="display:none;">
 					</div>
 				</div>

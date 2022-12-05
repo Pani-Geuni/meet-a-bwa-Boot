@@ -22,10 +22,10 @@
 					</div>
 					<div id="imgWrap">
 						<section class="img_body">
-							<div id="input-image" th:with="a=${avo.activity_image}">
-								<img src="https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/"
-									width=300px; height=200px; id="image" />
-								<input type="hidden" th:value="${avo.activity_image}" id="activity_image" />
+							<div id="input-image">
+								<img th:src="@{https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/}+${avo.activity_image}"
+									width=300px; height=200px; id="image"/>
+								<input type="hidden" id="activity_image" th:value="${avo.activity_image}" name="activity_image" />
 							</div>
 							<div class="img_btn_meet_activity">
 								<label class="input-file-btn" for="multipartFile_activity">
@@ -80,21 +80,21 @@
 						<select id="city" name='activity_city' class="input" th:field="*{avo.activity_city}"
 							th:value="${avo.activity_city}">
 							<th:block th:if="${not #strings.isEmpty(avo.activity_city)}">
-								<option class="city_list" value='' hidden th:text="${avo.activity_city}"></option>
+								<option class="city_list" th:value="${avo.activity_city}" hidden th:text="${avo.activity_city}"></option>
 							</th:block>
 							<th:block th:unless="${not #strings.isEmpty(avo.activity_city)}">
 								<option class="city_list" value='' hidden>도/시 선택</option>
 							</th:block>
-							<option class="city_list" value='전체'>전체</option>
+							<option class="city_list" th:value='전체'>전체</option>
 						</select>
-						<select name='activity_country' id="country" class=select th:value="${avo.activity_county}">
+						<select name='activity_county' id="country" class=select th:value="${avo.activity_county}">
 							<th:block th:if="${not #strings.isEmpty(avo.activity_county)}">
-								<option class="country_option" value='' hidden th:text="${avo.activity_county}"></option>
+								<option class="country_option" th:value="${avo.activity_county}" hidden th:text="${avo.activity_county}"></option>
 							</th:block>
 							<th:block th:unless="${not #strings.isEmpty(avo.activity_city)}">
 								<option class="country_option" value='' hidden>군/구 선택</option>
 							</th:block>
-							<option class="country_option" value='전체'>전체</option>
+							<option class="country_option" th:value='전체'>전체</option>
 						</select>
 					</div>
 					<!--citydiv end-->
@@ -103,15 +103,12 @@
 						<div id="interestLa">
 							<label>활동 카테고리</label>
 						</div>
-						<select id="interest" name="interest">
+						<select id="interest" name="activity_interest" th:field="*{avo.activity_interest}">
+							<th:block th:if="${not #strings.isEmpty(avo.activity_interest)}">
+								<option class="interest_opt" th:value="${avo.activity_interest}" hidden th:text="${avo.activity_interest}"></option>
+							</th:block>
 							<option value="" class="interest_opt">선택</option>
 						</select>
-					</div>
-
-					<div id="tagWrap" th:if="${not #strings.isEmpty(avo.activity_interest)}">
-						<input type="hidden" value="" name="activity_interest" id="real-input-interest"
-							th:value="${avo.activity_interest}" />
-						<input type="button" class="delete_interest interest_result blind">
 					</div>
 
 					<!--*************** 모임 가입 조건*************** -->
