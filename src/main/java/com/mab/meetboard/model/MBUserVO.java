@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.data.annotation.Immutable;
 
@@ -57,4 +58,8 @@ public class MBUserVO {
 	
 	@Column(name="user_name")
 	private String user_name;
+	
+	@Transient
+	@Column(name="comment_cnt")
+	private Integer comment_cnt;
 }
