@@ -52,7 +52,7 @@
 
 	<th:block
 		th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(user_no_list, list.user_no)})">
-		<button type="button" class="btn-meet join" th:attr="meet_no=${ mvo.meet_no }, user_no=${list.user_no}">모임
+		<button type="button" class="btn-meet join" th:attr="meet_no=${ mvo.meet_no }">모임
 			가입하기</button>
 	</th:block>
 </div>
