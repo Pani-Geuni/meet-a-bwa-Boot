@@ -68,7 +68,7 @@ public class ActivityFAOImpl implements ActivityFAO {
 				}
 
 		} else if (avo.getActivity_image() == null) {
-			avo.setActivity_image("img_room_001.jpg");
+			avo.setActivity_image("default-image2.png");
 		}
 
 		return avo;
