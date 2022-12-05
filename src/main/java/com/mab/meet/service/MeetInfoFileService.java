@@ -1,3 +1,6 @@
+/**
+ * @author 최진실
+ */
 package com.mab.meet.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class MeetInsertUpdateFileService {
+public class MeetInfoFileService {
 
 	@Autowired
 	MeetFAO fao;

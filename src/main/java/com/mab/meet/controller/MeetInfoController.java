@@ -1,3 +1,6 @@
+/**
+ * @author 최진실
+ */
 package com.mab.meet.controller;
 
 import java.text.ParseException;
@@ -20,8 +23,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mab.activity.model.ActivityVO;
 import com.mab.meet.model.MeetVO;
-import com.mab.meet.service.MeetInsertUpdateFileService;
-import com.mab.meet.service.MeetInsertUpdateService;
+import com.mab.meet.service.MeetInfoFileService;
+import com.mab.meet.service.MeetInfoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,10 +39,10 @@ public class MeetInfoController {
 	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Autowired
-	MeetInsertUpdateService service;
+	MeetInfoService service;
 
 	@Autowired
-	MeetInsertUpdateFileService fileService;
+	MeetInfoFileService fileService;
 
 	@Autowired
 	HttpSession session;
