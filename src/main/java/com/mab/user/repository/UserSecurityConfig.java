@@ -64,9 +64,9 @@ public class UserSecurityConfig {
 				.and()
 				.formLogin() // 로그인 폼은
 				.loginPage("/") // 해당 주소로 로그인 페이지를 호출한다.
-				.loginProcessingUrl("/rence/loginOK") // 해당 URL로 요청이 오면 스프링 시큐리티가 가로채서 로그인처리를 한다. -> loadUserByName
-				.successForwardUrl("/rence/loginSuccess") // 성공시 요청을 처리할 핸들러
-				.failureForwardUrl("/rence/loginFail") // 실패시 요청을 처리할 핸들러
+				.loginProcessingUrl("/meet-a-bwa/m_loginOK.do") // 해당 URL로 요청이 오면 스프링 시큐리티가 가로채서 로그인처리를 한다. -> loadUserByName
+				.successForwardUrl("/meet-a-bwa/loginSuccess") // 성공시 요청을 처리할 핸들러
+				.failureForwardUrl("/meet-a-bwa/loginFail") // 실패시 요청을 처리할 핸들러
 				.permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/rence/user_logoutOK")) // 로그아웃
 																													// URL
 				.logoutSuccessUrl("/") // 성공시 리턴 URL

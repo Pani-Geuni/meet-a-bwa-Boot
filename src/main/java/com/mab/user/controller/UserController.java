@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Api(tags = "유저 컨트롤러")
 @Slf4j
 @Controller
-@RequestMapping("/rence")
+@RequestMapping("/meet-a-bwa")
 public class UserController {
 
 	@Autowired
