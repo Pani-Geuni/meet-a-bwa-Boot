@@ -38,33 +38,33 @@ public interface VoteRepository extends JpaRepository<VoteViewVO, Object> {
 	@Modifying
 	@Query(nativeQuery = true, value 
 		= "INSERT INTO VOTE(VOTE_NO, VOTE_TITLE, VOTE_INFO, VOTE_EOD, VOTE_STATE, USER_NO, MEET_NO, ACTIVITY_NO, PRIVATE_STATE)"
-		+ "VALUES ('V'||SEQ_VOTE.NEXTVAL, :#{#vo2?.VOTE_TITLE}, :#{#vo2?.VOTE_INFO}, :#{#vo2?.VOTE_EOD}, 'Y', :#{#vo2?.USER_NO},"
-		+ ":#{#vo2?.MEET_NO}, :#{#vo2?.ACTIVITY_NO}, :#{#vo2?.PRIVATE_STATE})")
+		+ "VALUES ('V'||SEQ_VOTE.NEXTVAL, :#{#vo2?.vote_title}, :#{#vo2?.vote_info}, :#{#vo2?.vote_eod}, 'y', :#{#vo2?.user_no},"
+		+ ":#{#vo2?.meet_no}, :#{#vo2?.activity_no}, :#{#vo2?.private_state})")
 	public int SQL_INSERT_VOTE(@Param("vo2") VoteVO vo2);
 	
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value 
 		= "INSERT INTO VOTE_CONTENT(CONTENT_NO, VOTE_NO, VOTE_CONTENT) "
-		+ "VALUES ('VC'||SEQ_VOTE_CONTENT.NEXTVAL, :#{#vo2?.VOTE_NO}, :#{#vo2?.VOTE_CONTENT})")
+		+ "VALUES ('VC'||SEQ_VOTE_CONTENT.NEXTVAL, :#{#vo2?.vote_no}, :#{#vo2?.vote_content})")
 	public int SQL_INSERT_VOTE_CONTENT(@Param("vo2") VoteContentVO vo2);
 
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value 
-		= "UPDATE VOTE SET VOTE_TITLE = :#{#vo2?.VOTE_TITLE}, VOTE_INFO = :#{#vo2?.VOTE_INFO}, VOTE_EOD = :#{#vo2?.VOTE_EOD}"
-		+ "WHERE VOTE_NO = :#{#vo2?.VOTE_NO}")
+		= "UPDATE VOTE SET VOTE_TITLE = :#{#vo2?.vote_title}, VOTE_INFO = :#{#vo2?.vote_info}, VOTE_EOD = :#{#vo2?.vote_eod}"
+		+ "WHERE VOTE_NO = :#{#vo2?.vote_no}")
 	public int SQL_UPDATE_VOTE(@Param("vo2") VoteVO vo2);
 	
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value 
-		= "UPDATE TEST_VOTE SET VOTE_STATE = 'N' WHERE VOTE_NO = :#{#vo2?.VOTE_NO}")
+		= "UPDATE TEST_VOTE SET VOTE_STATE = 'N' WHERE VOTE_NO = :#{#vo2?.vote_no}")
 	public int SQL_UPDATE_VOTE_STATE(@Param("vo2") VoteVO vo2);
 
 	@Transactional
 	@Modifying
-	@Query(nativeQuery = true, value = "DELETE FROM TEST_VOTE WHERE VOTE_NO = :#{#vo2?.VOTE_NO}")
+	@Query(nativeQuery = true, value = "DELETE FROM TEST_VOTE WHERE VOTE_NO = :#{#vo2?.vote_no}")
 	public int SQL_DELETE_VOTE(@Param("vo2") VoteVO vo2);
 	
 
@@ -72,14 +72,14 @@ public interface VoteRepository extends JpaRepository<VoteViewVO, Object> {
 	@Modifying
 	@Query(nativeQuery = true, value 
 		= "INSERT INTO VOTERESULT(VOTE_RESULT_NO, VOTE_NO, USER_NO, CONTENT_NO)"
-		+ "VALUES ('VR'||SEQ_VOTE_RESULT.NEXTVAL, :#{#vo2?.VOTE_NO}, :#{#vo2?.USER_NO}, :#{#vo2?.CONTENT_NO})")
+		+ "VALUES ('VR'||SEQ_VOTE_RESULT.NEXTVAL, :#{#vo2?.vote_no}, :#{#vo2?.user_no}, :#{#vo2?.content_no})")
 	public int SQL_INSERT_VOTE_RESULT(@Param("vo2") VoteResultVO vo2);
 	
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value 
-		= "UPDATE VOTERESULT SET CONTENT_NO = :#{#vo2?.CONTENT_NO}"
-		+ "WHERE VOTE_NO = :#{#vo2?.VOTE_NO} AND USER_NO = :#{#vo2?.USER_NO}")
+		= "UPDATE VOTERESULT SET CONTENT_NO = :#{#vo2?.content_no}"
+		+ "WHERE VOTE_NO = :#{#vo2?.vote_no} AND USER_NO = :#{#vo2?.user_no}")
 	public int SQL_UPDATE_VOTE_RESULT(@Param("vo2") VoteResultVO vo2);
 
 	@Query(nativeQuery = true, value 
