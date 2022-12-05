@@ -9,12 +9,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mab.main.model.MainMeetViewVO;
 import com.mab.meet.model.MeetActivityVO;
 import com.mab.meet.model.MeetInfoVO;
 import com.mab.meet.model.MeetUserVO;
 import com.mab.meet.model.MeetVoteVO;
 import com.mab.meet.repository.MeetActivityRepository;
 import com.mab.meet.repository.MeetInfoRepository;
+import com.mab.meet.repository.MeetListRepository;
 import com.mab.meet.repository.MeetUserRepository;
 import com.mab.meet.repository.MeetVoteRepository;
 
@@ -36,6 +38,9 @@ public class MeetService {
 	
 	@Autowired
 	MeetVoteRepository voteRepository;
+	
+	@Autowired
+	MeetListRepository listRepository;
 	
 	public MeetService() {
 		log.info("MeetService()...");
@@ -65,4 +70,33 @@ public class MeetService {
 		
 		return vos;
 	}
+	
+	public List<MainMeetViewVO> select_all_more_like(String searchWord) {
+		String likeSearchWord = "%" + searchWord + "%";
+		log.info("likeSearchWord : {}", likeSearchWord);
+		
+		List<MainMeetViewVO> vos = listRepository.select_all_more_like(likeSearchWord);
+		
+		return vos;
+	}
+	
+	public List<MainMeetViewVO> select_all_more_interest(String typeData, String searchWord) {
+		String likeSearchWord = "%" + searchWord + "%";
+		log.info("likeSearchWord : {}", likeSearchWord);
+		
+		List<MainMeetViewVO> vos = listRepository.select_all_more_interest(typeData, likeSearchWord);
+		
+		return vos;
+	}
+	
+	public List<MainMeetViewVO> select_all_more_county(String typeData, String searchWord) {
+		String likeSearchWord = "%" + searchWord + "%";
+		log.info("likeSearchWord : {}", likeSearchWord);
+		
+		List<MainMeetViewVO> vos = listRepository.select_all_more_county(typeData, likeSearchWord);
+		
+		return vos;
+	}
+	
+	
 }
