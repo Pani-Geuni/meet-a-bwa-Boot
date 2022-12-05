@@ -188,7 +188,7 @@
 
 .notification-title h3::before {
   content: '';
-  background: url('/meet-a-bwa/resources/img/notification.svg');
+  background: url('/IMG/common/notification.svg');
   background-size: 16px 16px;
   display: inline-block;
   width: 16px;
