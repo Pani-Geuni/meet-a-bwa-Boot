@@ -18,6 +18,7 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	UserRepository repository;
 	
+	//spring security - UserDetailsService
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserVO user = repository.findByUser_id(username);
@@ -28,7 +29,6 @@ public class UserService implements UserDetailsService {
 		return user;
 	}
 	
-	
 	//로그인
 	public UserVO user_login_info(String username) {
 		// TODO Auto-generated method stub
@@ -37,15 +37,32 @@ public class UserService implements UserDetailsService {
 
 	//아이디 찾기-사용자 이메일 불러오기
 	public UserVO user_email_select(UserVO uvo) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("user_id_email_select()....");
+		log.info("uvo: {}", uvo);
+		return repository.user_email_select(uvo.getUser_email());
 	}
 	
-	//아이디 찾기-사용자 이메일 불러오기
+	
 	public UserVO select_user_info(String user_no) {
 		UserVO vo = repository.SQL_SELECT_ONE(user_no);
 		
 		return vo;
 	}
+
+	//비밀번호 찾기 - 아이디 이메일 불러오기
+	public UserVO user_id_email_select(UserVO uvo) {
+		log.info("user_id_email_select()....");
+		log.info("uvo: {}", uvo);
+		return repository.user_id_email_select(uvo.getUser_id(), uvo.getUser_email());
+	}
+
+	//비밀번호 찾기 - 비번 초기화 저장
+	public int user_pw_init(UserVO uvo) {
+		log.info("user_pw_init()....");
+		log.info("uvo: {}", uvo);
+
+		return repository.user_pw_init(uvo.getPassword(), uvo.getUser_id());
+	}
 	
-}
+	
+}//end class
