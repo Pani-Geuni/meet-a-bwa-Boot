@@ -37,4 +37,10 @@ public class MainMeetService {
 		
 		return list;
 	}
+	
+	public List<String> SELECT_ALL_LIKE_USER_NO(String user_no){
+		List<String> list = meet_repo.SQL_SELECT_ALL_LIKE_USER_NO(user_no);
+		
+		return list;
+	}
 }

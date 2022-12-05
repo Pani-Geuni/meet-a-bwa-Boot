@@ -6,7 +6,7 @@
     let category = [];
     
     $("#detailCategory").click(function(){
-    	$.getJSON("/meet-a-bwa/resources/json/cate.json", function(data) {
+    	$.getJSON("/json/cate.json", function(data) {
             category = data.category;
             category_load(category);
         });
@@ -26,11 +26,17 @@
         let sample = $(".detailCate_list:eq(0)").clone();
         $("#detailCategory").empty().append(".detailCate_list:eq(0)");
 
+        let init = sample.clone();
+        init.text('전체');
+        init.val('전체');
+        init.attr("idx", 0);
+        $("#detailCategory").append(init);
+        
         for(x of arr){
             let list = sample.clone();
             list.text(x);
             list.val(x);
-            list.attr("idx", cnt++);
+            list.attr("idx", ++cnt);
             $("#detailCategory").append(list);
         }
     }

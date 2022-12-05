@@ -74,4 +74,8 @@ public class MainActivityViewVO {
 	@Transient
 	@Column(name="activity_age_arr")
 	private String[] activity_age_arr;
+	
+	@Transient
+	@Column(name="like_activity_list")
+	private String[] like_activity_list;
 }

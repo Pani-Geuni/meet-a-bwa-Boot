@@ -30,44 +30,24 @@
 	<script src="/JS/common/pw_find.js"></script>
 	<script src="/JS/common/header.js"></script>
 	<script src="/JS/common/searchBar.js"></script>
+	<script src="/JS/main/main.js"></script>
 
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var is_login = /*[[${session.user_id}]]*/ "is_login";
 		/*]]*/
+		var user_no = $.cookie("user_no");
 	</script>
 
 	<script>
 		$(function () {
-			// 액티비티 추천 - 카테고리 더보기 버튼 클릭 이벤트
-			$("#plusImg").click(function () {
-				$("#fold_tag").removeClass("blind");
-				$(this).addClass("blind");
-				$("#foldImg").removeClass("blind");
-			});
-
-			// 액티비티 추천 - 카테고리 접기 버튼 클릭 이벤트
-			$("#foldImg").click(function () {
-				$("#fold_tag").addClass("blind");
-				$(this).addClass("blind");
-				$("#plusImg").removeClass("blind");
-			});
-
-			// 액티비티 추천 - 카테고리 클릭 이벤트
-			$(".tagItem").click(function (e) {
-				$(".tagItem").removeClass("check");
-				$(e.target).addClass("check");
-				let category = $(this).text();
-				location.href = "/meet-a-bwa/a_selectOne.do?category=" + category;
-			});
-
 
 			// 모임 추천 -  +더보기 버튼 클릭
 			$("#plusBtn_meet").click(function () {
-				if ($.cookie('isLogin') == "false" || $.cookie('isLogin') == "" || $.cookie('isLogin') == undefined) {
+				if (is_login == null) {
 					location.href = "/meet-a-bwa/meet-list.do?type=like&&typeData=&&searchWord=";
 				}
-				else if ($.cookie('isLogin') == "true") {
+				else if (is_login != null) {
 					if ($.cookie('user_interest') == "" || $.cookie('user_interest') == undefined) {
 						location.href = "/meet-a-bwa/meet-list.do?type=county&&typeData=" + $.cookie('user_county') + "&&searchWord=";
 					} else {
@@ -76,26 +56,10 @@
 				}
 			});
 
-			// 액티비티 추천 - +더보기 버튼 클릭
-			$("#plusBtn_act").click(function () {
-				let category = $(".tagItem.check").text();
-				location.href = "/meet-a-bwa/activity-list.do?category=" + category + "&&searchWord=";
-			});
-
-			// 상세 리스트 클릭 이벤트
-			$("#meet_recommendSection").on("click", ".content_list.meet-list", function () {
-				let idx = $(this).attr("idx");
-				location.href = "/meet-a-bwa/meet-main.do?idx=" + idx;
-			});
-			$("#recommend_list_wrap").on("click", ".content_list.activity-list", function () {
-				let idx = $(this).attr("idx");
-				location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
-			});
-
 			$("#meet_recommendSection").on("click", ".heartSection", function (event) {
 				event.stopPropagation();
 
-				if ($.cookie("isLogin") == 'true') {
+				if (is_login != null) {
 					// 좋아요 추가
 					if ($(this).find(".afterLike_heart").hasClass("blind")) {
 						location.href = "/meet-a-bwa/main_meet_like_insert.do?meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
@@ -110,7 +74,8 @@
 			});
 			$("#recommend_list_wrap").on("click", ".heartSection", function (event) {
 				event.stopPropagation();
-				if ($.cookie("isLogin") == 'true') {
+				
+				if (is_login != null) {
 					// 좋아요 추가
 					if ($(this).find(".afterLike_heart").hasClass("blind")) {
 						location.href = "/meet-a-bwa/main_activity_like_insert.do?activity_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
@@ -123,38 +88,6 @@
 					$(".warning-layer").removeClass("blind");
 				}
 			});
-
-			// 모임 좋아요 처리
-			let like_meet_arr = $.cookie('like_meet');
-			if (like_meet_arr != undefined) {
-				like_meet_arr = like_meet_arr.split("/");
-
-				let meet_elements = $(".content_list.meet-list").slice();
-				for (like_meet of like_meet_arr) {
-					for (list of meet_elements) {
-						if ($(list).attr("idx") == like_meet) {
-							$(list).find(".beforeLike_heart").addClass("blind");
-							$(list).find(".afterLike_heart").removeClass("blind");
-						}
-					}
-				}
-			}
-
-			// 액티비티 좋아요 처리
-			let like_activity_arr = $.cookie('like_activity');
-			if (like_activity_arr != undefined) {
-				like_activity_arr = like_activity_arr.split("/");
-
-				let activity_elements = $(".content_list.activity-list").slice();
-				for (like_activity of like_activity_arr) {
-					for (list of activity_elements) {
-						if ($(list).attr("idx") == like_activity) {
-							$(list).find(".beforeLike_heart").addClass("blind");
-							$(list).find(".afterLike_heart").removeClass("blind");
-						}
-					}
-				}
-			}
 
 			// 경고 팝업 닫기 버튼 클릭 이벤트
 			$(".warning-close").click(function () {

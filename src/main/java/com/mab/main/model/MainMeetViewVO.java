@@ -71,4 +71,8 @@ public class MainMeetViewVO {
 	@Column(name="meet_age_arr")
 	private String[] meet_age_arr;
 	
+	@Transient
+	@Column(name="like_meet_list")
+	private String[] like_meet_list;
+	
 }

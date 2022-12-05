@@ -8,6 +8,11 @@ $(function() {
     $("#common-alert-btn").click(function(){
         $("#common-alert-popup-wrap").addClass("blind");
     });
+    
+    $("#idInput, #pwInput").click(function(){
+		if($(this).hasClass("length_error"))
+        	$(this).removeClass("length_error");
+    });
 
 	// 로그인 팝업 - 창닫기 버튼 클릭
 	$("#login-popup-closeBtn").click(function() {
