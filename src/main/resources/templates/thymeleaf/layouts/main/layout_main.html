@@ -39,62 +39,41 @@
 	</script>
 
 	<script>
-		$(function () {
-			console.log(is_login);
-			
-			// 모임 추천 -  +더보기 버튼 클릭
-			$("#plusBtn_meet").click(function () {
-				if (is_login == null) {
-					location.href = "/meet-a-bwa/meet-list.do?type=like&&typeData=&&searchWord=";
-				}
-				else if (is_login != null) {
-					if ($.cookie('user_interest') == "" || $.cookie('user_interest') == undefined) {
-						location.href = "/meet-a-bwa/meet-list.do?type=county&&typeData=" + $.cookie('user_county') + "&&searchWord=";
-					} else {
-						location.href = "/meet-a-bwa/meet-list.do?type=interest&&typeData=" + $.cookie('user_interest') + "&&searchWord=";
+			$(function () {
+				// 모임 추천 -  +더보기 버튼 클릭
+				$("#plusBtn_meet").click(function () {
+					if (is_login == null) {
+						location.href = "/meet-a-bwa/meet-list.do?type=like&&typeData=&&searchWord=";
 					}
-				}
-			});
+					else if (is_login != null) {
+						if ($.cookie('user_interest') == "" || $.cookie('user_interest') == undefined) {
+							location.href = "/meet-a-bwa/meet-list.do?type=county&&typeData=" + $.cookie('user_county') + "&&searchWord=";
+						} else {
+							location.href = "/meet-a-bwa/meet-list.do?type=interest&&typeData=" + $.cookie('user_interest') + "&&searchWord=";
+						}
+					}
+				});
 
-			$("#meet_recommendSection").on("click", ".heartSection", function (event) {
-				event.stopPropagation();
+				// 상세 리스트 클릭 이벤트
+				$("#meet_recommendSection").on("click", ".content_list.meet-list", function(){
+					if($(this).prop('tagName') == 'DIV' && $(this).prop('tagName') != 'SECTION'){
+						let idx = $(this).attr("idx");
+						window.location.href = "/meet-a-bwa/meet-main.do?idx=" + idx;
+					}
+				});
+				$("#recommend_list_wrap").on("click", ".content_list.activity-list", function(){
+					if($(this).prop('tagName') == 'DIV' && $(this).prop('tagName') != 'SECTION'){
+						let idx = $(this).attr("idx");
+						window.location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
+					}
+				});
 
-				if (is_login != null) {
-					// 좋아요 추가
-					if ($(this).find(".afterLike_heart").hasClass("blind")) {
-						location.href = "/meet-a-bwa/main_meet_like_insert.do?meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
-					}
-					// 좋아요 삭제
-					else {
-						location.href = "/meet-a-bwa/main_meet_like_delete.do?meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
-					}
-				} else {
-					$(".warning-layer").removeClass("blind");
-				}
-			});
-			$("#recommend_list_wrap").on("click", ".heartSection", function (event) {
-				event.stopPropagation();
-				
-				if (is_login != null) {
-					// 좋아요 추가
-					if ($(this).find(".afterLike_heart").hasClass("blind")) {
-						location.href = "/meet-a-bwa/main_activity_like_insert.do?activity_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
-					}
-					// 좋아요 삭제
-					else {
-						location.href = "/meet-a-bwa/main_activity_like_delete.do?activity_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
-					}
-				} else {
-					$(".warning-layer").removeClass("blind");
-				}
-			});
+				// 경고 팝업 닫기 버튼 클릭 이벤트
+				$(".warning-close").click(function () {
+					$(".warning-layer").addClass("blind");
+				});
 
-			// 경고 팝업 닫기 버튼 클릭 이벤트
-			$(".warning-close").click(function () {
-				$(".warning-layer").addClass("blind");
 			});
-
-		});
 	</script>
 </head>
 
@@ -107,9 +86,9 @@
 		<!--  START SEARCHBAR REPLACE -->
 		<th:block th:replace="thymeleaf/html/common/searchBar :: searchBar"></th:block>
 		<!--  END SEARCHBAR REPLACE -->
-		
+
 		<!--  START MAIN REPLACE -->
-		<th:block th:replace="thymeleaf/html/main/main :: main(${is_login})"></th:block>
+		<th:block th:replace="thymeleaf/html/main/main :: main(${session.user_id})"></th:block>
 		<!--  END MAIN REPLACE -->
 
 		<!--  START FOOTER INCLUDE -->

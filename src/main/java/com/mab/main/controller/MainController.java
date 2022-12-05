@@ -5,6 +5,8 @@ package com.mab.main.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,10 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mab.activity.model.ActivityLikeVO;
 import com.mab.main.model.MainActivityViewVO;
 import com.mab.main.model.MainMeetViewVO;
 import com.mab.main.service.MainActivityService;
 import com.mab.main.service.MainMeetService;
+import com.mab.meet.model.MeetLikeVO;
 import com.mab.user.model.UserVO;
 import com.mab.user.service.UserService;
 
@@ -81,6 +85,12 @@ public class MainController {
 		if(session.getAttribute("user_id") != null) {
 			UserVO uvo = user_service.select_user_info(user_no);
 			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("nick_name", uvo.getUser_nickname());
+			map.put("interest", uvo.getUser_interest());
+			map.put("county", uvo.getUser_county());
+			model.addAttribute("list", map);
+			
 			/* 회원이 설정한 관심사가 있을 때 */
 			if(uvo.getUser_interest() != null) {
 				/* 회원이 설정한 관심사가 여러개일 때 */
@@ -90,8 +100,13 @@ public class MainController {
 					meet_list = meet_service.SQL_SELECT_ALL_COUNTY(interest_arr[0]);
 				}
 				/* 회원이 설정한 관심사가 하나일 때 */
-				else 
-					meet_list = meet_service.SQL_SELECT_ALL_COUNTY(uvo.getUser_interest());
+				else {
+					if(uvo.getUser_interest().equals("전체")) {
+						meet_list = meet_service.SQL_SELECT_ALL_LIKE();
+					}
+				}
+			}else {
+				meet_list = meet_service.SQL_SELECT_ALL_COUNTY(uvo.getUser_interest());
 			}
 			
 			for(MainMeetViewVO mvo : meet_list) {
@@ -106,11 +121,19 @@ public class MainController {
 				}
 			}
 			
+			String like_meet_txt = "";
 			List<String> like_meet_list = meet_service.SELECT_ALL_LIKE_USER_NO(user_no);
+			for(String meet_no : like_meet_list) {
+				like_meet_txt += meet_no+",";
+			}
+			String like_activity_txt = "";
 			List<String> like_activity_list = activity_service.SELECT_ALL_LIKE_USER_NO(user_no);
+			for(String activity_no : like_activity_list) {
+				like_activity_txt += activity_no+",";
+			}
 			
-			model.addAttribute("like_meet_list", like_meet_list);
-			model.addAttribute("like_activity_list", like_activity_list);
+			model.addAttribute("like_meet_list", like_meet_txt);
+			model.addAttribute("like_activity_list", like_activity_txt);
 		}
 		/* 로그인 안되어 있을 시*/
 		else {
@@ -138,6 +161,7 @@ public class MainController {
 					tmp[0] = avo.getActivity_age();
 					avo.setActivity_age_arr(tmp);
 				}
+				avo.setActivity_image("https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/" + avo.getActivity_image());
 			}
 		}
 		
@@ -172,10 +196,79 @@ public class MainController {
 					tmp[0] = avo.getActivity_age();
 					avo.setActivity_age_arr(tmp);
 				}
+				avo.setActivity_image("https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/" + avo.getActivity_image());
 			}
 		}
 		
 		String json = gson.toJson(list);
+		return json;
+	}
+	
+	@ApiOperation(value="메인 - 모임 좋아요 추가", notes="메인에서 좋아요 추가하는 컨트롤러")
+	@GetMapping("/main_meet_like_insert")
+	@ResponseBody
+	public String main_meet_like_insert(MeetLikeVO vo){
+		Map<String, String> map = new HashMap<String, String>();
+		int result = meet_service.insert_meet_like(vo);
+		
+		if(result == 1) {
+			map.put("result", "1");
+		}else {
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
+		return json;
+	}
+	
+	@ApiOperation(value="메인 - 모임 좋아요 삭제", notes="메인에서 좋아요 삭제하는 컨트롤러")
+	@GetMapping("/main_meet_like_delete")
+	@ResponseBody
+	public String main_meet_like_delete(MeetLikeVO vo){
+		Map<String, String> map = new HashMap<String, String>();
+		int result = meet_service.delete_meet_like(vo);
+		
+		if(result == 1) {
+			map.put("result", "1");
+		}else {
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
+		return json;
+	}
+	
+	@ApiOperation(value="메인 - 액티비티 좋아요 추가", notes="메인에서 액티비티 좋아요 추가하는 컨트롤러")
+	@GetMapping("/main_activity_like_insert")
+	@ResponseBody
+	public String main_activity_like_insert(ActivityLikeVO vo){
+		Map<String, String> map = new HashMap<String, String>();
+		int result = activity_service.insert_activity_like(vo);
+		
+		if(result == 1) {
+			map.put("result", "1");
+		}else {
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
+		return json;
+	}
+	
+	@ApiOperation(value="메인 - 액티비티 좋아요 삭제", notes="메인에서 액티비티 좋아요 삭제하는 컨트롤러")
+	@GetMapping("/main_activity_like_delete")
+	@ResponseBody
+	public String main_activity_like_delete(ActivityLikeVO vo){
+		Map<String, String> map = new HashMap<String, String>();
+		int result = activity_service.delete_activity_like(vo);
+		
+		if(result == 1) {
+			map.put("result", "1");
+		}else {
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
 		return json;
 	}
 
