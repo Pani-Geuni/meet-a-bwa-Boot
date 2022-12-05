@@ -34,14 +34,14 @@
 
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-		var is_login = /*[[${session.user_id}]]*/ "is_login";
+		var is_login = /*[[${session.user_id}]]*/
 		/*]]*/
-		var user_no = $.cookie("user_no");
 	</script>
 
 	<script>
 		$(function () {
-
+			console.log(is_login);
+			
 			// 모임 추천 -  +더보기 버튼 클릭
 			$("#plusBtn_meet").click(function () {
 				if (is_login == null) {
@@ -100,14 +100,14 @@
 
 <body>
 	<!--  START HEADER REPLACE -->
-	<th:block th:replace="thymeleaf/html/common/header :: header(${is_login})"></th:block>
+	<th:block th:replace="thymeleaf/html/common/header :: header(${session.user_id})"></th:block>
 	<!--  END HEADER REPLACE -->
 
 	<div id="bodyWrap">
 		<!--  START SEARCHBAR REPLACE -->
 		<th:block th:replace="thymeleaf/html/common/searchBar :: searchBar"></th:block>
 		<!--  END SEARCHBAR REPLACE -->
-
+		
 		<!--  START MAIN REPLACE -->
 		<th:block th:replace="thymeleaf/html/main/main :: main(${is_login})"></th:block>
 		<!--  END MAIN REPLACE -->
