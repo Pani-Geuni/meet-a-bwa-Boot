@@ -71,7 +71,7 @@ input[type=button]{
     
     background-color : rgba(0, 0, 0, 0.5);
 
-    z-index: 100;
+    z-index: 200;
 }
 .spinner-img{
     width: 140px;
@@ -82,8 +82,8 @@ input[type=button]{
 /*  CUSTOM ALERT POPUP SECTION */
 /* ************* */
 .alert-popup{
-    width: 350px;
-    height: 180px;
+    width: 285px;
+    height: 170px;
     background-color: #ffffff;
     border-radius: 5px;
     z-index: 100;
@@ -117,7 +117,7 @@ input[type=button]{
 /*  CUSTOM CONFIRM POPUP SECTION */
 /* ***************************** */
 .confirm-popup{
-    width: 300px;
+    width: 280px;
     height: 180px;
     background-color: #ffffff;
     border-radius: 5px;

@@ -53,7 +53,7 @@ $(function() {
 							window.location.reload();
 						} else {
 							$("#common-alert-popup-wrap").removeClass("blind");
-							$(".common-alert-txt").text("로그인에 실패하였습니다.\n다시 시도해주세요!");
+							$(".common-alert-txt").html("로그인에 실패하였습니다.<br>다시 시도해주세요!");
 						}
 					},
 					error: function() {
@@ -61,7 +61,7 @@ $(function() {
 						$("#spinner-wrap").addClass("blind");
 
 						$("#common-alert-popup-wrap").removeClass("blind");
-						$(".common-alert-txt").text("오류로 인해 로그인에 실패하였습니다.\n이용에 불편을 드려 죄송합니다!");
+						$(".common-alert-txt").html("오류로 인해 로그인에 실패하였습니다.<br>이용에 불편을 드려 죄송합니다!");
 					}
 				});
 			} else {
