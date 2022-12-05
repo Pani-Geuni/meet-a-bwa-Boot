@@ -17,4 +17,10 @@ public interface CommentRepository extends JpaRepository<CommentVO, Object> {
 					+ "VALUES ('C'||SEQ_COMMENT.nextval, ?1, CURRENT_DATE, ?2, ?3, ?4, ?5, 'F')")
 	public int insert_comment(String mother_no, String comment_content, String board_no, String user_no, String meet_no);
 
+	
+	@Modifying
+	@Transactional
+	@Query(nativeQuery = true,
+			value = "update boardcomment set delete_state='T' where comment_no=?1")
+	public int update_comment(String comment_no);
 }

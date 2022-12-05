@@ -34,15 +34,13 @@
 	<pre class="post-detail-content">[[${ post_detail.board_content }]]</pre>
 
 	<div class="comment-wrap">
-		<!--		<form action="c_insertOK.do" method="post" class="form-comment">-->
 		<div class="form-comment">
 			<textarea name="comment_content" id="comment_content" placeholder="댓글을 남겨주세요."></textarea>
 			<input type="button" id="btn-comment-insert" value="등록" th:attr="board_no=${post_detail.board_no}, user_no=${list.user_no}">
 		</div>
-		<!--		</form>-->
 
 		<th:block th:each="comment : ${ comment_list }">
-			<div class="user-comments">
+			<div class="user-comments" th:if="${comment.delete_state == 'F'}">
 				<div class="user-comment">
 					<div class="comment-user-info-top">
 						<div class="comment-user-info">
@@ -52,9 +50,9 @@
 							<p class="comment-user-nickname">[[${ comment.user_nickname }]]</p>
 							<p class="comment-write-date">[[${ comment.comment_date }]]</p>
 						</div>
-						<c:if test="${ comment.user_no eq list.user_no }">
-							<button class="btn-comment-delete" idx="${ comment.comment_no }">삭제</button>
-						</c:if>
+						<th:block th:if="${ comment.user_no == list.user_no }">
+							<button class="btn-comment-delete" th:attr="comment_no=${ comment.comment_no }">삭제</button>
+						</th:block>
 					</div>
 					<pre class="post-detail-comment">[[${ comment.comment_content }]]</pre>
 				</div>

@@ -32,6 +32,12 @@ public class CommentService {
 		return result;
 	}
 	
+	public int update_comment(String comment_no) {
+		int result = commentRepository.update_comment(comment_no);
+		
+		return result;
+	}
+	
 	public List<CommentUserVO> select_all_board_comment(String board_no) {
 		List<CommentUserVO> vos = commentUserRepository.select_all_post_comment(board_no);
 		

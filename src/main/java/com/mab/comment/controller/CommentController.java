@@ -31,7 +31,7 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 	
-	@ApiOperation(value = "모임 메인 화면", notes = "모임 메인 화면 띄우는 컨트롤러")
+	@ApiOperation(value = "댓글 추가", notes = "게시글에 댓글을 추가하는 컨트롤러")
 	@GetMapping(value = "/comment_insert.do")
 	@ResponseBody
 	public String comment_insert(CommentVO cvo, Model model) {
@@ -51,4 +51,28 @@ public class CommentController {
 		
 		return json;
 	}
+	
+	@ApiOperation(value = "댓글 삭제", notes = "게시글에 댓글을 삭제하는 컨트롤러")
+	@GetMapping(value = "/comment_delete.do")
+	@ResponseBody
+	public String comment_delete(CommentVO cvo, Model model) {
+		
+		Map<String, String> map = new HashMap<>();
+		
+		int result = commentService.update_comment(cvo.getComment_no());
+		log.info("delete result :: {}", result);
+		
+		if (result == 1) {
+			map.put("result", "1");			
+		} else {
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
+		
+		return json;
+	}
+	
+	
+	
 }
