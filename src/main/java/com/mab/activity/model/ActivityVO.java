@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -27,8 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ActivityVO implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQ_BACKOFFICE")
-	@SequenceGenerator(sequenceName = "SEQ_BACKOFFICE",allocationSize = 1,name = "SEQ_BACKOFFICE")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQ_ACTIVITY")
+	@SequenceGenerator(sequenceName = "SEQ_ACTIVITY",allocationSize = 1,name = "SEQ_ACTIVITY")
 	@Column(name="activity_no")
 	private String activity_no;
 	
@@ -59,19 +60,24 @@ public class ActivityVO implements Serializable{
 	@Column(name="activity_age")
 	private String activity_age;
 	
+	@Transient
 	@Column(name="activity_date, insertable= false, updatable = false")
 	@ColumnDefault(value="current_date")
 	private Date activity_date;
 	
+	@Transient
 	@Column(name="recruitment_stime")
 	private Date recruitment_stime;
 	
+	@Transient
 	@Column(name="recruitment_etime")
 	private Date recruitment_etime;
 	
+	@Transient
 	@Column(name="activity_stime")
 	private Date activity_stime;
 	
+	@Transient
 	@Column(name="activity_etime")
 	private Date activity_etime;
 	

@@ -8,7 +8,7 @@
 <body>
 	<div class="activity-create-wrap" th:fragment="activity-content(title)">
 		<div id="bodyWrap">
-			<form class="innerBodyWrap" name="activity_create_form" action="insertOK" method="post"
+			<form class="innerBodyWrap" name="activity_create_form" action="activity_insertOK" method="post"
 				enctype="multipart/form-data">
 				<div class="activityCUDWrap">
 					<h2 id="activityTitle">[[${title}]]</h2>
@@ -73,11 +73,11 @@
 							<label>활동 지역</label>
 						</div>
 						<select id="city" name='activity_city' class="input">
-							<option class="city_list" value=''>도/시 선택</option>
+							<option class="city_list" value='' hidden>도/시 선택</option>
 							<option class="city_list" value='전체'>전체</option>
 						</select>
 						<select name='activity_county' id="country" class=select>
-							<option class="country_option" value=''>군/구 선택</option>
+							<option class="country_option" value='' hidden>군/구 선택</option>
 							<option class="country_option" value='전체'>전체</option>
 						</select>
 					</div>
@@ -148,18 +148,18 @@
 
 					<!-- ************************************************************* -->
 					<!-- 액티비티 개설자와 해당 모임 -->
-<!--					<section class="blind">-->
-<!--						<label for="user_no">user_no:</label>-->
-<!--						<input type="text" id="user_no" name="user_no" th:value="${avo.user_no}">-->
-<!--					</section>-->
-<!--					<section class="blind">-->
-<!--						<label for="meet_no">meet_no:</label>-->
-<!--						<input type="text" id="meet_no" name="meet_no" th:value="${avo.meet_no}">-->
-<!--					</section>-->
+					<section class="blind">
+						<label for="user_no">user_no:</label>
+						<input type="text" id="user_no" name="user_no" th:value="${user_no}">
+					</section>
+					<section class="blind">
+						<label for="meet_no">meet_no:</label>
+						<input type="text" id="meet_no" name="meet_no" th:value="${meet_no}">
+					</section>
 					<!-- ************************************************************* -->
 
 					<div class="submit">
-						<input type="button" id="create_activity" class="submit-application" value="액티비티 생성">
+						<input type="button" id="submit_activity" class="submit-application" value="액티비티 생성">
 						<input type="submit" id="real-submit" class="submit-application" value="액티비티 생성"
 							style="display:none;">
 					</div>

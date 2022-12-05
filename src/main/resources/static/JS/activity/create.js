@@ -4,6 +4,13 @@
 
 $(function() {
 	//******************************프로필 이미지********************************//
+
+	var image = $("#activity_image").val();
+	console.log("image:" + image);
+	if (image !== undefined) {
+		$("#image").attr("src", "https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/" + image);
+	}
+
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -65,6 +72,7 @@ $(function() {
 	let flag = true; //중복적인 $.getJSON 을 막기휘안 변수
 
 	$("#city").on("click", function(e) {
+		//		$("#city_value").addClass('blind');
 		if (flag) {
 			flag = false;
 
@@ -111,7 +119,7 @@ $(function() {
 		for (x of arr2) {
 			$("#city").append($(x));
 		}
-		let sample = $(".city_list:eq(0)").clone();
+		let sample = $(".city_list:eq(1)").clone();
 
 		for (x of arr) {
 			let list = sample.clone();
@@ -133,7 +141,7 @@ $(function() {
 		}
 
 		//도/시 선택에 맞는 시/군 세팅
-		let sample = $(".country_option:eq(0)").clone();
+		let sample = $(".country_option:eq(1)").clone();
 
 		for (x of arr) {
 			let list = sample.clone();
@@ -151,6 +159,36 @@ $(function() {
 	var age_arr = [];
 	var age_arr_x = [];
 
+	var temp_age = $("#real-input-age").val();
+	console.log(temp_age);
+
+	var arr = [];
+	if (temp_age !== undefined) {
+		arr = temp_age.split(",");
+	}
+
+	for (var i = 0; i < arr.length; i++) {
+		age_tag = age_tag.clone();
+		age_tag.removeClass("blind"); // 초기에 자동 생성된 버튼 숨기기
+
+		var tagValue = arr[i]; // 값 가져오기
+
+		if (tagValue !== "") {
+			age_tag.val(tagValue + " X");
+			age_arr.push(tagValue);
+			//		age_tag.length = ++age_cnt;
+			age_tag.attr("idx", ++age_cnt);
+			$("#tagWrap_age").append(age_tag);
+			age_arr_x.push(tagValue + " X");
+
+			console.log("age_tag::" + age_tag.val());
+			console.log("age_arr::" + age_arr);
+			console.log("activity_age::" + $("#real-input-age").val());
+			console.log("age_arr_x::" + age_arr_x);
+		}
+
+	}
+
 	$("#ageBody").on("change", function(e) {
 		age_tag = age_tag.clone();
 		age_tag.removeClass("blind"); // 초기에 자동 생성된 버튼 숨기기
@@ -163,6 +201,7 @@ $(function() {
 			age_tag.attr("idx", ++age_cnt);
 			$("#tagWrap_age").append(age_tag);
 			age_arr_x.push(select_value + " X");
+
 			$("#real-input-age").val(age_arr);
 			console.log("age_tag::" + age_tag.val());
 			console.log("age_arr::" + age_arr);
@@ -175,21 +214,11 @@ $(function() {
 		let idx = $(this).attr("idx"); // 현재 배열 크기
 		let age_arr = $(".delete_age").slice(); // 태그 배열 전체 복시
 
-		let select_value = $(this).val();
-
 		$("#tagWrap_age").empty().append($(age_arr[0]));
 
 		for (let index = 1; index < age_arr.length; index++) {
-			if ($(age_arr[index]).attr("idx") != idx) { // 삭제할 값과 같지 않은 데이터들만
-				$("#tagWrap_age").append(age_arr[index]); //부모에 붙여줌.
-			}
-		}
-
-		for (let i = 0; i < result_x.length; i++) {
-			if (result_x[i] == select_value) {
-				result.splice(i, 1);
-				result_x.splice(i, 1);
-				i--;
+			if ($(age_arr[index]).attr("idx") != idx) {
+				$("#tagWrap_age").append(age_arr[index]);
 			}
 		}
 	});
@@ -197,6 +226,7 @@ $(function() {
 
 
 	//***************************관심사 셀렉트, 태그***********************//
+
 	var interest = ["취미",
 		"팬클럽",
 		"방송/연예",
@@ -242,6 +272,29 @@ $(function() {
 	let cnt = 0;
 	var arr = [];
 
+
+	var temp_interest = $("#real-input-interest").val();
+	console.log(temp_interest);
+
+	var arr_interest = [];
+	if (temp_interest !== undefined) {
+		arr_interest = temp_interest.split(",");
+	}
+
+	for (var i = 0; i < arr_interest.length; i++) {
+		tag = tag.clone();
+		tag.removeClass("blind");
+
+		var tagValue = arr_interest[i]; // 값 가져오기
+		if (tagValue !== "") {
+			tag.val(tagValue + " X");
+			arr.push(tagValue);
+			tag.attr("idx", ++cnt);
+			$("#tagWrap").append(tag);
+		}
+
+	}
+
 	$("#interest").on("change", function(e) {
 		tag = tag.clone();
 		tag.removeClass("blind");
@@ -277,6 +330,12 @@ $(function() {
 
 
 	//***********************************글자 수**************************************//
+
+	if ($("#activity_info").val() != null) {
+		var len = $("#activity_info").val().length;
+		$(".textCount").text(len + "자");
+	}
+
 	let text_flag = true; // 꼭 전역변수로 선언
 
 	//*********토스트 보이게 하는 함수*************
@@ -343,25 +402,24 @@ $(function() {
 
 	/** 액티비티 생성 버튼 클릭 */
 	var submit_flag = true;
-	$("#create_activity").on('click', function() {
+	$("#submit_activity").on('click', function() {
 		let activity_name = $.trim($("#activity_name").val()).length;
 		let activity_info = $.trim($("#activity_info").val()).length;
 		let nop = $("#numberofpeople").val();
 
 		if (activity_name > 0 && activity_info > 0 && nop != 0) {
-			console.log("응이이잉");
 			$("#real-submit").click();
 			submit_flag = false;
-//			let user_id = $("#id").val();
+			//			let user_id = $("#id").val();
 		} else {
-			if (activity_name <= 0 || activity_description <= 0 || nop <= 0) {
+			if (activity_name <= 0 || activity_info <= 0 || nop <= 0) {
 				$(".bin-popup").removeClass("blind");
 				$(".ok").on("click", function() {
 					$(".bin-popup").addClass("blind");
 				});
 			}
 		}
-		
+
 	});
 
 
