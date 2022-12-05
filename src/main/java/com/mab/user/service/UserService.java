@@ -40,7 +40,12 @@ public class UserService implements UserDetailsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
-
+	//아이디 찾기-사용자 이메일 불러오기
+	public UserVO select_user_info(String user_no) {
+		UserVO vo = repository.SQL_SELECT_ONE(user_no);
+		
+		return vo;
+	}
+	
 }

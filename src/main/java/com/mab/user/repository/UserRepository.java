@@ -18,6 +18,9 @@ public interface UserRepository extends JpaRepository<UserVO, Object> {
 	//로그인
 	@Query(nativeQuery = true, value = "SELECT * from userinfo where user_id=?1 and user_state !='N'")
 	public UserVO user_login_info(String username);
+
+	@Query(nativeQuery = true, value = "SELECT * from userinfo where user_no=?1")
+	public UserVO SQL_SELECT_ONE(String user_no);
 	
 	
 	

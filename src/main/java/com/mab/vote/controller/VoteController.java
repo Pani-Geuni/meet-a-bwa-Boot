@@ -29,6 +29,7 @@ import com.mab.main.model.MainActivityViewVO;
 import com.mab.main.model.MainMeetViewVO;
 import com.mab.main.service.MainActivityService;
 import com.mab.main.service.MainMeetService;
+import com.mab.user.service.UserService;
 import com.mab.vote.model.VoteContentVO;
 import com.mab.vote.model.VoteResultVO;
 import com.mab.vote.model.VoteVO;
@@ -50,6 +51,9 @@ public class VoteController {
 	
 	@Autowired
 	VoteService service;
+	
+	@Autowired
+	UserService user_service;
 	
 	
 	//자동 개행 및 줄 바꿈 (new Gson은 일자로 나옴)
@@ -109,7 +113,7 @@ public class VoteController {
 		map_wrap.put("isVote", my_result);
 		map_wrap.put("content_arr", arr);
 		map_wrap.put("user_no", writer_no);
-//		map_wrap.put("user_name", mem_dao.selectOne_name(writer_no));
+		map_wrap.put("user_name", user_service.select_user_info(writer_no).getUser_name());
 		map_wrap.put("vote_state", vote_state);
 		map_wrap.put("vote_eod", vote_eod);
 		map_wrap.put("vote_description", vote_description);
