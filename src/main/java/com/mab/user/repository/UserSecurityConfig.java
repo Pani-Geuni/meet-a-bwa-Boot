@@ -60,7 +60,7 @@ public class UserSecurityConfig {
 						"/swagger-resources/**", "webjars/**", "/v2/api-docs", "/user/insertOK", "/js/**", "/css/**",
 						"/images/**", "/error")
 				.permitAll() // 해당 경로들은 접근을 허용
-				.antMatchers("/master/**").hasRole("ADMIN")
+				.antMatchers("/master/**").hasRole("M")
 				.and()
 				.formLogin() // 로그인 폼은
 				.loginPage("/") // 해당 주소로 로그인 페이지를 호출한다.
