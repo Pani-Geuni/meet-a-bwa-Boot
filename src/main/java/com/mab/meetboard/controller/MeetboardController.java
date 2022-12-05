@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -155,4 +156,26 @@ public class MeetboardController {
 		model.addAttribute("content", "thymeleaf/html/meet/feed/post_detail");
 		return "thymeleaf/layouts/meet/layout_meet";
 	}
+	
+	
+	@ApiOperation(value = "모임 게시글 삭제", notes = "게시글 삭제 컨트롤러")
+	@GetMapping(value = "/post-delete.do")
+	@ResponseBody
+	public String post_delete(String board_no, Model model) {
+		Map<String, String> map = new HashMap<>();
+		
+		int result = boardService.delete_post(board_no);
+		
+		if (result == 1) {
+			map.put("result", "1");			
+		} else {
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
+		
+		return json;
+	}
+
+	
 }

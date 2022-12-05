@@ -29,7 +29,7 @@
 			</th:block>
 			<th:block th:if="${list.isLogin} == true and ${ not #lists.isEmpty(avos) }">
 				<th:block th:each="avo : ${avos}">
-					<li class="activity_list_item" idx="${ avo.activity_no }">
+					<li class="activity_list_item" th:attr="idx=${ avo.activity_no }">
 						<p>[[${ avo.activity_name }]]</p>
 					</li>
 				</th:block>
