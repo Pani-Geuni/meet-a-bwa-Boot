@@ -61,7 +61,7 @@ public class UserVO implements Serializable,UserDetails {
 	@Column(name = "user_tel")
 	private String user_tel;
 
-	@Column(name = "user_birth, insertable= false, updatable = false")
+	@Column(name = "user_birth")
 	private String user_birth;
 	
 	@Column(name = "user_gender")

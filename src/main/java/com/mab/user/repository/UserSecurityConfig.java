@@ -67,7 +67,7 @@ public class UserSecurityConfig {
 				.loginProcessingUrl("/meet-a-bwa/m_loginOK.do") // 해당 URL로 요청이 오면 스프링 시큐리티가 가로채서 로그인처리를 한다. -> loadUserByName
 				.successForwardUrl("/meet-a-bwa/loginSuccess") // 성공시 요청을 처리할 핸들러
 				.failureForwardUrl("/meet-a-bwa/loginFail") // 실패시 요청을 처리할 핸들러
-				.permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/rence/user_logoutOK")) // 로그아웃
+				.permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/meet-a-bwa/m_logoutOK.do")) // 로그아웃
 																													// URL
 				.logoutSuccessUrl("/") // 성공시 리턴 URL
 				.invalidateHttpSession(true) // 인증정보를 지우하고 세션을 무효화

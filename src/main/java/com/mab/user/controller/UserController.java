@@ -65,7 +65,7 @@ public class UserController {
 	
 
 		UserVO uvo = service.user_login_info(username);
-
+		log.info("uvo: {}",uvo);
 		Map<String, String> map = new HashMap<String, String>();
 
 		session.setAttribute("user_id", uvo.getUser_id());
@@ -107,7 +107,7 @@ public class UserController {
 	// 아이디 찾기
 	// **********************
 	@ApiOperation(value = "아이디 찾기", notes = "아이디 찾기 입니다")
-	@PostMapping("/find_id")
+	@PostMapping("/id_find.do")
 	@ResponseBody
 	public String user_find_id(UserVO uvo, EmailVO evo) {
 		log.info("user_find_id ()...");
@@ -140,7 +140,7 @@ public class UserController {
 	// **********************
 	// 사용자가 비밀번호를 찾으면 초기화된 비밀번호를 이메일로 전송,데이터베이스에는 초기화된 비번 저장
 	@ApiOperation(value = "비밀번호 찾기", notes = "비밀번호 찾기 입니다")
-	@PostMapping("/find_pw")
+	@PostMapping("/pw_find.do")
 	@ResponseBody
 	public String user_find_pw(UserVO uvo, EmailVO evo) {
 		log.info("user_find_pw ()...");
