@@ -10,11 +10,12 @@ $(function() {
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				$('#image').attr('src', e.target.result);
+				$("#activity_image").val(e.target.result);
 			}
 			reader.readAsDataURL(input.files[0]);
 
 			$('#imgWrap').hover(function() {
-				if ($("#image").attr('src') != "/IMG/meet/default-image2.png") {
+				if ($("#image").attr('src') != "https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/default-image.jpg") {
 					$('#delete-file2').css('display', 'block');
 					$('#delete-file2').css('opacity', '1');
 				}
@@ -27,7 +28,7 @@ $(function() {
 		}
 	}
 
-	$("#multipartFile_meet").off().on("change", function() {
+	$("#multipartFile_activity").off().on("change", function() {
 		if (this.files && this.files[0]) {
 			var maxSize = 10 * 1024 * 1024; // 10MB
 			var fileSize = this.files[0].size;
@@ -45,13 +46,14 @@ $(function() {
 		}
 	});
 
-	$("#multipartFile_meet").change(function() {
+	$("#multipartFile_activity").change(function() {
 		readURL(this);
 	});
 
 	$('#delete-file2').click(function() {
-		$('#image').attr('src', "/IMG/meet/default-image2.png");
-		$("#multipartFile_meet").val("");
+		$('#image').attr('src', "https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/default-image.jpg");
+		$("#multipartFile_activity").val("");
+		$("#activity_image").val("default-image2.png");
 		$('#delete-file2').css('display', 'none');
 	});
 
@@ -178,7 +180,7 @@ $(function() {
 
 			console.log("age_tag::" + age_tag.val());
 			console.log("age_arr::" + age_arr);
-			console.log("meet_age::" + $("#real-input-age").val());
+			console.log("activity_age::" + $("#real-input-age").val());
 			console.log("age_arr_x::" + age_arr_x);
 		}
 
@@ -200,7 +202,7 @@ $(function() {
 			$("#real-input-age").val(age_arr);
 			console.log("age_tag::" + age_tag.val());
 			console.log("age_arr::" + age_arr);
-			console.log("meet_age::" + $("#real-input-age").val());
+			console.log("activity_age::" + $("#real-input-age").val());
 			console.log("age_arr_x::" + age_arr_x);
 		}
 	});
@@ -251,7 +253,7 @@ $(function() {
 	cate_init();
 
 	function cate_init() {
-		let sample = $(".interest_opt").eq(0).clone();
+		let sample = $(".interest_opt").eq(1).clone();
 		for (let i = 0; i < interest.length; i++) {
 			sample = sample.clone().text(interest[i]);
 			sample.val(interest[i]);
@@ -259,75 +261,10 @@ $(function() {
 		}
 	}
 
-
-	/*************************************************** */
-	/** 관심사 태그 추가 */
-	/*************************************************** */
-	let tag = $(".delete_interest:eq(0)").clone();
-	let cnt = 0;
-	var arr = [];
-
-
-	var temp_interest = $("#real-input-interest").val();
-	console.log(temp_interest);
-
-	var arr_interest = [];
-	if (temp_interest !== undefined) {
-		arr_interest = temp_interest.split(",");
-	}
-
-	for (var i = 0; i < arr_interest.length; i++) {
-		tag = tag.clone();
-		tag.removeClass("blind");
-
-		var tagValue = arr_interest[i]; // 값 가져오기
-		if (tagValue !== "") {
-			tag.val(tagValue + " X");
-			arr.push(tagValue);
-			tag.attr("idx", ++cnt);
-			$("#tagWrap").append(tag);
-		}
-
-	}
-
-	$("#interest").on("change", function(e) {
-		tag = tag.clone();
-		tag.removeClass("blind");
-		let select_value = $(this).val();
-
-		if (!arr.includes(select_value) && select_value != '') {
-			//선택한 관심사가 중복으로 들어가지 않도록 includes 함수 사용해서 배열 안에 해당 관심사가 없으면 아래 코드가 동작하게 함.
-			tag.val(select_value + " X");
-			tag.attr("idx", ++cnt);
-			$("#tagWrap").append(tag);
-			arr.push(select_value);
-			$("#real-input-interest").val(arr);
-			console.log("interest::" + $("#real-input-interest").val());
-		}
-	});
-
-
-	/*************************************************** */
-	/** 관심사 태그 삭제 */
-	/*************************************************** */
-	$("#tagWrap").on("click", ".delete_interest", function() {
-		let idx = $(this).attr("idx");
-		let arr = $(".delete_interest").slice();
-
-		$("#tagWrap").empty().append($(arr[0]));
-
-		for (let index = 1; index < arr.length; index++) {
-			if ($(arr[index]).attr("idx") != idx) {
-				$("#tagWrap").append(arr[index]);
-			}
-		}
-	});
-
-
 	//***********************************글자 수**************************************//
 
-	if ($("#meet_info").val() != null) {
-		var len = $("#meet_info").val().length;
+	if ($("#activity_info").val() != null) {
+		var len = $("#activity_info").val().length;
 		$(".textCount").text(len + "자");
 	}
 
@@ -338,11 +275,11 @@ $(function() {
 		if (text_flag) {
 			text_flag = false;
 
-			if (element.attr("id") == 'meet_name') {
+			if (element.attr("id") == 'activity_name') {
 				$("#toastWrap_name").removeClass("hide");
 				$("#toastWrap_name").removeClass("fade-out");
 				$("#toastWrap_name").addClass("fade-in");
-			} else if (element.attr("id") == 'meet_info') {
+			} else if (element.attr("id") == 'activity_info') {
 				$("#toastWrap_des").removeClass("hide");
 				$("#toastWrap_des").removeClass("fade-out");
 				$("#toastWrap_des").addClass("fade-in");
@@ -351,10 +288,10 @@ $(function() {
 			setTimeout(function() {
 				text_flag = true; // 추후에 사용할 수 있도록 변수값 변경
 
-				if (element.attr("id") == 'meet_name') {
+				if (element.attr("id") == 'activity_name') {
 					$("#toastWrap_name").removeClass("fade-in");
 					$("#toastWrap_name").addClass("fade-out");
-				} else if (element.attr("id") == 'meet_info') {
+				} else if (element.attr("id") == 'activity_info') {
 					$("#toastWrap_des").removeClass("fade-in");
 					$("#toastWrap_des").addClass("fade-out");
 				}
@@ -381,33 +318,35 @@ $(function() {
 
 	//***********키보드 함수***************
 	//액티비티 이름 글자수 제한
-	$('#meet_name').keyup(function() {
+	$('#activity_name').keyup(function() {
 		textLengthCnt(10, $(this), $(".textCount_name"));
 	});
-	$('#meet_name').keydown(function() {
+	$('#activity_name').keydown(function() {
 		textLengthCnt(10, $(this), $(".textCount_name"));
 	});
 	//액티비티 소개 글자수 제한
-	$('#meet_info').keyup(function() {
+	$('#activity_info').keyup(function() {
 		textLengthCnt(500, $(this), $(".textCount"));
 	});
-	$('#meet_info').keydown(function() {
+	$('#activity_info').keydown(function() {
 		textLengthCnt(500, $(this), $('.textCount'));
 	});
 
 	/** 액티비티 생성 버튼 클릭 */
 	var submit_flag = true;
-	$("#submit_meet").on('click', function() {
-		let meet_name = $.trim($("#meet_name").val()).length;
-		let meet_info = $.trim($("#meet_info").val()).length;
+	$("#submit_activity").on('click', function() {
+		let activity_name = $.trim($("#activity_name").val()).length;
+		let activity_info = $.trim($("#activity_info").val()).length;
 		let nop = $("#numberofpeople").val();
+		let interest = $.trim($("#interest").val()).length;
+		
 
-		if (meet_name > 0 && meet_info > 0 && nop != 0) {
+		if (activity_name > 0 && activity_info > 0 && nop != 0 && interest>0 ) {
 			$("#real-submit").click();
 			submit_flag = false;
 			//			let user_id = $("#id").val();
 		} else {
-			if (meet_name <= 0 || meet_info <= 0 || nop <= 0) {
+			if (activity_name <= 0 || activity_info <= 0 || nop <= 0 || interest <=0) {
 				$(".bin-popup").removeClass("blind");
 				$(".ok").on("click", function() {
 					$(".bin-popup").addClass("blind");

@@ -112,7 +112,7 @@ body {
     height: 40px; 
 }
 
-#nameLa, #introduceLa, #city_la, #genderLa, #nopLa, #interestLa, #introLa, #ageHeader {
+#nameLa, #introduceLa, #city_la, #genderLa, #nopLa, #introLa, #ageHeader {
     font-weight: bold;
     padding: 5px;
 }

@@ -10,12 +10,12 @@ $(function() {
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				$('#image').attr('src', e.target.result);
-				$("#activity_image").val(e.target.result);
+				$("#meet_image").val(e.target.result);
 			}
 			reader.readAsDataURL(input.files[0]);
 
 			$('#imgWrap').hover(function() {
-				if ($("#image").attr('src') != "/IMG/activity/default-image2.png") {
+				if ($("#image").attr('src') != "https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/meet/default_image.jpg") {
 					$('#delete-file2').css('display', 'block');
 					$('#delete-file2').css('opacity', '1');
 				}
@@ -28,7 +28,7 @@ $(function() {
 		}
 	}
 
-	$("#multipartFile_activity").off().on("change", function() {
+	$("#multipartFile_meet").off().on("change", function() {
 		if (this.files && this.files[0]) {
 			var maxSize = 10 * 1024 * 1024; // 10MB
 			var fileSize = this.files[0].size;
@@ -46,14 +46,14 @@ $(function() {
 		}
 	});
 
-	$("#multipartFile_activity").change(function() {
+	$("#multipartFile_meet").change(function() {
 		readURL(this);
 	});
 
 	$('#delete-file2').click(function() {
-		$('#image').attr('src', "/IMG/activity/default-image2.png");
-		$("#multipartFile_activity").val("");
-		$("#activity_image").val("default-image2.png");
+		$('#image').attr('src', "https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/meet/default_image.jpg");
+		$("#multipartFile_meet").val("");
+		$("#meet_image").val("default_image.jpg");
 		$('#delete-file2').css('display', 'none');
 	});
 
@@ -180,7 +180,7 @@ $(function() {
 
 			console.log("age_tag::" + age_tag.val());
 			console.log("age_arr::" + age_arr);
-			console.log("activity_age::" + $("#real-input-age").val());
+			console.log("meet_age::" + $("#real-input-age").val());
 			console.log("age_arr_x::" + age_arr_x);
 		}
 
@@ -202,7 +202,7 @@ $(function() {
 			$("#real-input-age").val(age_arr);
 			console.log("age_tag::" + age_tag.val());
 			console.log("age_arr::" + age_arr);
-			console.log("activity_age::" + $("#real-input-age").val());
+			console.log("meet_age::" + $("#real-input-age").val());
 			console.log("age_arr_x::" + age_arr_x);
 		}
 	});
@@ -261,10 +261,12 @@ $(function() {
 		}
 	}
 
+
+
 	//***********************************글자 수**************************************//
 
-	if ($("#activity_info").val() != null) {
-		var len = $("#activity_info").val().length;
+	if ($("#meet_info").val() != null) {
+		var len = $("#meet_info").val().length;
 		$(".textCount").text(len + "자");
 	}
 
@@ -275,11 +277,11 @@ $(function() {
 		if (text_flag) {
 			text_flag = false;
 
-			if (element.attr("id") == 'activity_name') {
+			if (element.attr("id") == 'meet_name') {
 				$("#toastWrap_name").removeClass("hide");
 				$("#toastWrap_name").removeClass("fade-out");
 				$("#toastWrap_name").addClass("fade-in");
-			} else if (element.attr("id") == 'activity_info') {
+			} else if (element.attr("id") == 'meet_info') {
 				$("#toastWrap_des").removeClass("hide");
 				$("#toastWrap_des").removeClass("fade-out");
 				$("#toastWrap_des").addClass("fade-in");
@@ -288,10 +290,10 @@ $(function() {
 			setTimeout(function() {
 				text_flag = true; // 추후에 사용할 수 있도록 변수값 변경
 
-				if (element.attr("id") == 'activity_name') {
+				if (element.attr("id") == 'meet_name') {
 					$("#toastWrap_name").removeClass("fade-in");
 					$("#toastWrap_name").addClass("fade-out");
-				} else if (element.attr("id") == 'activity_info') {
+				} else if (element.attr("id") == 'meet_info') {
 					$("#toastWrap_des").removeClass("fade-in");
 					$("#toastWrap_des").addClass("fade-out");
 				}
@@ -317,36 +319,35 @@ $(function() {
 	}
 
 	//***********키보드 함수***************
-	//액티비티 이름 글자수 제한
-	$('#activity_name').keyup(function() {
+	//모임 이름 글자수 제한
+	$('#meet_name').keyup(function() {
 		textLengthCnt(10, $(this), $(".textCount_name"));
 	});
-	$('#activity_name').keydown(function() {
+	$('#meet_name').keydown(function() {
 		textLengthCnt(10, $(this), $(".textCount_name"));
 	});
 	//액티비티 소개 글자수 제한
-	$('#activity_info').keyup(function() {
+	$('#meet_info').keyup(function() {
 		textLengthCnt(500, $(this), $(".textCount"));
 	});
-	$('#activity_info').keydown(function() {
+	$('#meet_info').keydown(function() {
 		textLengthCnt(500, $(this), $('.textCount'));
 	});
 
-	/** 액티비티 생성 버튼 클릭 */
+	/** 모임 생성 버튼 클릭 */
 	var submit_flag = true;
-	$("#submit_activity").on('click', function() {
-		let activity_name = $.trim($("#activity_name").val()).length;
-		let activity_info = $.trim($("#activity_info").val()).length;
+	$("#submit_meet").on('click', function() {
+		let meet_name = $.trim($("#meet_name").val()).length;
+		let meet_info = $.trim($("#meet_info").val()).length;
 		let nop = $("#numberofpeople").val();
 		let interest = $.trim($("#interest").val()).length;
-		
 
-		if (activity_name > 0 && activity_info > 0 && nop != 0 && interest>0 ) {
+		if (meet_name > 0 && meet_info > 0 && nop != 0 && interest>0 ) {
 			$("#real-submit").click();
 			submit_flag = false;
 			//			let user_id = $("#id").val();
 		} else {
-			if (activity_name <= 0 || activity_info <= 0 || nop <= 0 || interest <=0) {
+			if (meet_name <= 0 || meet_info <= 0 || nop <= 0 || interest <=0) {
 				$(".bin-popup").removeClass("blind");
 				$(".ok").on("click", function() {
 					$(".bin-popup").addClass("blind");

@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Api(tags = "모임 생성, 수정 컨트롤러")
 @RequestMapping("/meet-a-bwa")
-public class MeetInsertUpdateController {
+public class MeetInfoController {
 
 	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -55,10 +55,10 @@ public class MeetInsertUpdateController {
 		user_no = "U1002";
 
 		model.addAttribute("user_no", user_no);
-		model.addAttribute("content", "thymeleaf/html/meet/create/create");
+		model.addAttribute("content", "thymeleaf/html/meet/insert/insert");
 		model.addAttribute("title", "모임 생성");
 
-		return "thymeleaf/layouts/meet/layout_insert_update_meet";
+		return "thymeleaf/layouts/meet/layout_info_meet";
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class MeetInsertUpdateController {
 
 		String rt = "";
 		if (result == 1) {
-			rt = "redirect:meet-main.do?meet_no=" + mvo.getMeet_no();
+			rt = "redirect:meet-main.do?idx=" + mvo.getMeet_no();
 		} else {
 			rt = "redirect:meet_insert";
 		}
@@ -110,7 +110,7 @@ public class MeetInsertUpdateController {
 		model.addAttribute("content", "thymeleaf/html/meet/update/update");
 		model.addAttribute("title", "모임 수정");
 
-		return "thymeleaf/layouts/meet/layout_insert_update_meet";
+		return "thymeleaf/layouts/meet/layout_info_meet";
 	}
 
 	/**
@@ -121,16 +121,16 @@ public class MeetInsertUpdateController {
 	@ApiOperation(value = "모임 수정 처리", notes = "모임 수정 처리입니다.")
 	@PostMapping("/meet_updateOK")
 	public String meet_updateOK(Model model, MeetVO mvo, MultipartHttpServletRequest mtfRequest,
-			@RequestParam(value = "multipartFile_activity") MultipartFile multipartFile_meet) throws ParseException {
+			@RequestParam(value = "multipartFile_meet") MultipartFile multipartFile_meet) throws ParseException {
 		log.info("/meet_updateOK...");
+		log.info("mvo : {}",mvo);
 
 		// 이미지 파일
 		MeetVO mvo2 = service.select_one_meet_info(mvo.getMeet_no());
-		if (multipartFile_meet.getSize()>0) {
+		log.info("mvo2 : {}",mvo2);
+		if (!mvo.getMeet_image().equals(mvo2.getMeet_image())) {
 			mvo = fileService.meet_image_upload(mvo, mtfRequest, multipartFile_meet);
 			log.info("filupload meet:{}", mvo);
-		}else {
-			mvo.setMeet_image(mvo2.getMeet_image());
 		}
 
 		// 엠블럼
@@ -143,9 +143,9 @@ public class MeetInsertUpdateController {
 
 		String rt = "";
 		if (result == 1) {
-			rt = "redirect:meet-main.do?meet_no=" + mvo2.getMeet_no();
+			rt = "redirect:meet-main.do?idx=" + mvo2.getMeet_no();
 		} else {
-			rt = "redirect:activity_update";
+			rt = "redirect:meet_update";
 		}
 
 		return rt;

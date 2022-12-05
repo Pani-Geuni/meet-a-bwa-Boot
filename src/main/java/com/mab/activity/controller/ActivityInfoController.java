@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Api(tags="액티비티 컨트롤러")
 @RequestMapping("/meet-a-bwa")
-public class ActivityCRUDController {
+public class ActivityInfoController {
 	
 	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -59,10 +59,10 @@ public class ActivityCRUDController {
 
 		model.addAttribute("meet_no", meet_no);
 		model.addAttribute("user_no", user_no);
-		model.addAttribute("content", "thymeleaf/html/activity/create/create");
+		model.addAttribute("content", "thymeleaf/html/activity/insert/insert");
 		model.addAttribute("title", "액티비티 생성");
 
-		return "thymeleaf/layouts/activity/layout_activity";
+		return "thymeleaf/layouts/activity/layout_info_activity";
 	}
 	
 	/**
@@ -133,7 +133,7 @@ public class ActivityCRUDController {
 		model.addAttribute("content", "thymeleaf/html/activity/update/update");
 		model.addAttribute("title", "액티비티 수정");
 
-		return "thymeleaf/layouts/activity/layout_activity";
+		return "thymeleaf/layouts/activity/layout_info_activity";
 	}
 	
 	/**

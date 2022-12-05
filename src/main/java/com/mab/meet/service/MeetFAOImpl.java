@@ -68,8 +68,8 @@ public class MeetFAOImpl implements MeetFAO {
 					e.printStackTrace();
 				}
 
-		} else if (mvo.getMeet_image() == null) {
-			mvo.setMeet_image("default-image2.png");
+		} else {
+			mvo.setMeet_image("default_image.jpg");
 		}
 
 		return mvo;

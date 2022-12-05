@@ -1,5 +1,5 @@
 /**
- * @author 전판근
+ * @author 최진실
  */
 
 package com.mab.meet.model;
@@ -23,12 +23,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Immutable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 @Table(name="MEET")
 public class MeetVO {
 	
