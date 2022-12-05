@@ -1,0 +1,12 @@
+<!-- ------------ -->
+<!-- @author 전판근 -->
+<!-- ------------ -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<section class="feed-not-login" th:fragment="meet_content"
+	th:if="(${list.isLogin} == false or ${list.isLogin} == null) or (not ${#lists.contains(user_no_list, list.user_no)})">
+	
+	<h1>hihi</h1>
+</section>
