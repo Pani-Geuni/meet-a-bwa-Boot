@@ -39,7 +39,7 @@ public class UserSendEmail {
 		log.info("vo: {}", vo);
 
 		// 이메일 제목, 내용 설정
-		evo.setSubject("[rence] 회원가입 이메일 인증코드");
+		evo.setSubject("[밋:어봐] 회원가입 이메일 인증코드");
 
 		// 인증코드 생성
 		int RANDOM_BOUND = 100000;
@@ -72,7 +72,7 @@ public class UserSendEmail {
 		log.info("User findId");
 		log.info("uvo: {}", uvo);
 		// 이메일 제목, 내용 설정
-		evo.setSubject("[rence] User 아이디 재설정");
+		evo.setSubject("[밋:어봐] User 아이디 재설정");
 		
 		try {
 			// 전송
@@ -107,7 +107,7 @@ public class UserSendEmail {
 		log.info("uvo.getUser_pw: {}", uvo.getPassword());
 
 		// 이메일 제목, 내용 설정
-		evo.setSubject("[rence] 비밀번호 재설정");
+		evo.setSubject("[밋:어봐] 비밀번호 재설정");
 
 		try {
 			// 전송
