@@ -5,7 +5,7 @@
  $(function(){
  
  	$("#logo_img").click(function(){
-	 	window.location.href="/meet-a-bwa/index.do";
+	 	window.location.href="/";
  	});
  	
  	$("#mypageBtn").click(function(){
