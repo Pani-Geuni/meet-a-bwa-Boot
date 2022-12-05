@@ -103,7 +103,7 @@ public class UserSendEmail {
 
 		// 비밀번호 암호화
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		uvo.setPassword(encoder.encode(random_pw));
+		uvo.setUser_pw(encoder.encode(random_pw));
 		log.info("uvo.getUser_pw: {}", uvo.getPassword());
 
 		// 이메일 제목, 내용 설정
