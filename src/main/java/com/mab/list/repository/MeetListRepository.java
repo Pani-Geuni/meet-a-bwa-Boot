@@ -1,4 +1,4 @@
-package com.mab.meet.repository;
+package com.mab.list.repository;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.mab.main.model.MainMeetViewVO;
 
 public interface MeetListRepository extends JpaRepository<MainMeetViewVO, Object> {
-
 	
 	@Query(nativeQuery = true, 
 			value = "select * from MAINMEETVIEW "

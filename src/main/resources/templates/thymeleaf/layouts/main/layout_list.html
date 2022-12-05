@@ -18,7 +18,12 @@
 	<link rel="stylesheet" href="/CSS/common/footer.css" />
 
 
-	<link rel="stylesheet" href="/CSS/list/meet-list.css" />
+	<th:block th:if="${page=='meet_list'}">
+		<link rel="stylesheet" href="/CSS/list/meet-list.css" />
+	</th:block>
+	<th:block th:if="${page=='activity_list'}">
+		<link rel="stylesheet" href="/CSS/list/activity-list.css" />
+	</th:block>
 
 	<link rel="stylesheet" href="/CSS/user/login.css" />
 	<link rel="stylesheet" href="/CSS/user/logout.css" />
@@ -43,11 +48,39 @@
 		$(function () {
 
 			var user_id = '${user_id}'; //세션값 가져옴
+			
+			// 액티비티 추천 - 카테고리 더보기 버튼 클릭 이벤트
+			$("#plusImg").click(function () {
+				$("#fold_tag").removeClass("blind");
+				$(this).addClass("blind");
+				$("#foldImg").removeClass("blind");
+			});
+
+			// 액티비티 추천 - 카테고리 접기 버튼 클릭 이벤트
+			$("#foldImg").click(function () {
+				$("#fold_tag").addClass("blind");
+				$(this).addClass("blind");
+				$("#plusImg").removeClass("blind");
+			});
+
+			// 액티비티 추천 - 카테고리 클릭 이벤트
+			$(".tagItem").click(function (e) {
+				$(".tagItem").removeClass("check");
+				$(e.target).addClass("check");
+				let category = $(this).text();
+				location.href = "/meet-a-bwa/a_selectOne.do?category=" + category;
+			});
 
 			// 상세 리스트 클릭 이벤트
 			$("#meet-list-section").on("click", ".content-list.meet-list", function () {
 				let idx = $(this).attr("idx");
 				location.href = "/meet-a-bwa/meet-main.do?idx=" + idx;
+			});
+			
+			$("#activity-list-section").on("click", ".content-list.activity-list", function () {
+				let idx = $(this).attr("idx");
+				console.log(idx);
+				location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
 			});
 
 			$("#meet-list-section").on("click", ".heartSection", function (event) {
@@ -115,7 +148,6 @@
 		<!--  END SEARCHBAR REPLACE -->
 
 		<!--  START MAIN REPLACE -->
-		<!--		<th:block th:replace="thymeleaf/html/main/main :: main(${is_login})"></th:block>-->
 		<div th:replace="${content} :: main(${is_login})"></div>
 		<!--  END MAIN REPLACE -->
 
