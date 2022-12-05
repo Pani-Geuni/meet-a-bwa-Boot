@@ -32,8 +32,8 @@ public class UserService implements UserDetailsService {
 	
 	//로그인
 	public UserVO user_login_info(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("user_login_info()....");
+		return repository.user_login_info(username);
 	}
 
 	//아이디 찾기-사용자 이메일 불러오기
