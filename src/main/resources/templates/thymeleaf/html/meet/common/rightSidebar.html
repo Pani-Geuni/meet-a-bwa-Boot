@@ -41,10 +41,8 @@
 			<h1>투표</h1>
 			<th:block>
 				<th:block th:if="${list.isLogin} == true and (${#lists.contains(user_no_list, list.user_no)})">
-				<p>
-					<a href="#">+</a>
-				</p>
-			</th:block>
+					<p id="vote_create_btn">+</p>
+				</th:block>
 		</div>
 		<ul class="right-summary-list-contents">
 			<th:block
