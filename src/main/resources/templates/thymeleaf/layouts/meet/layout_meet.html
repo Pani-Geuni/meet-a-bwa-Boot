@@ -66,7 +66,7 @@
 
 	<script src="/JS/vote/vote_create.js"></script>
 	<script src="/JS/vote/vote_select.js"></script>
-	
+
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var is_login = /*[[${session.user_id}]]*/ "is_login";
@@ -84,7 +84,14 @@
 				focus: true,
 				lang: "ko-KR",
 
-
+				toolbar: [
+					['style', ['style']],
+					['font', ['bold', 'underline', 'clear']],
+					['fontname', ['fontname']],
+					['color', ['color']],
+					['para', ['ul', 'ol', 'paragraph']],
+					['insert', ['link', 'picture', 'video']]
+				]
 			});
 		})
 	</script>
