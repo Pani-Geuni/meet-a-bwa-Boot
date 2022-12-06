@@ -90,13 +90,13 @@
 							<!--user에게 보이는 탈퇴 버튼-->
 							<th:block th:if="${avo.user_no==cookie}">
 								<input type="image" src="/IMG/activity/edit.svg" class="activityUpdateBtn font_size_10"
-									value="수정">
+									value="수정"  th:attr="idx=${avo.activity_no}">
 								<input type="image" src="/IMG/activity/remove.svg"
-									class="activityDeleteBtn font_size_10" value="삭제">
+									class="activityDeleteBtn font_size_10" value="삭제"  th:attr="idx=${avo.activity_no}"> 
 							</th:block>
 							<th:block th:if="${avo.user_no!=cookie} and ${#lists.contains(regi_user_no,cookie)}">
 								<input type="image" src="/IMG/activity/exit.svg" class="activityExitBtn font_size_10"
-									value="탈퇴" idx="${avo.activity_no}">
+									value="탈퇴"  th:attr="idx=${avo.activity_no}">
 							</th:block>
 						</section>
 						<hr class="firstLine">
@@ -151,7 +151,7 @@
 												</section>
 												<section>
 													<div class="content_list_activity event-list vote_action"
-														idx="${vvos.vote_no}">
+														 th:attr="idx=${vvos.vote_no}">
 														<section class="blind">
 															<label
 																for="vote_no">vote_no:</label>[[${vvos.vote_no}]]<input
@@ -228,7 +228,7 @@
 
 												<section>
 													<div class="content_list_activity event-list event_action"
-														idx="${evos.event_no}">
+														 th:attr="idx=${evos.event_no}">
 														<section class="blind">
 															<label
 																for="event_no">event_no:</label>[[${evos.event_no}]]<input
@@ -413,6 +413,10 @@
 					<section class="blind">
 						<label for="meet_no">meet_no:</label> <input type="text" id="meet_no" name="meet_no"
 							th:value="${avo.meet_no}">
+					</section>
+					<section class="blind">
+						<input type="text" id="recruitment_etime" name="recruitment_etime"
+							th:value="${avo.recruitment_etime}">
 					</section>
 					<!-- ************************************************************* -->
 

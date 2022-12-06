@@ -146,8 +146,8 @@ public class ActivityInfoController {
 			,ActivityVO avo, MultipartHttpServletRequest mtfRequest, @RequestParam(value = "multipartFile_activity") MultipartFile multipartFile_activity) throws ParseException {
 		log.info("/activity_updateOK...");
 		
-		recruitment_stime = "2022-12-04";
-		recruitment_etime = "2022-12-05";
+		recruitment_stime = "2022-12-07";
+		recruitment_etime = "2022-12-10";
 		activity_stime = "2022-12-27";
 		activity_etime = "2022-12-27";
 		
