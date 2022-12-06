@@ -9,8 +9,16 @@ $(function(){
     let ajax_flag = true;
     
     plus_list();
-	
     
+	// 공용 알러트 창 닫기버튼
+	$("#common-alert-btn").click(function() {
+		if ($(this).attr("reload")) {
+			$(this).attr("reload", false);
+			window.location.reload();
+		}
+		else $("#common-alert-popup-wrap").addClass("blind");
+	});
+	
     
     /************************************************ */
     /** 버튼 클릭 이벤트 SECTION */
@@ -57,6 +65,7 @@ $(function(){
 		$(".vote-create-update-wrap").addClass("blind");
 	});
     
+    var vote_create_flag = true;
     // 투표 생성 버튼 클릭 이벤트
     $("#vote_createBtn").click(function(){
         let title_length = $("#vote_title").val().trim().length;
@@ -73,14 +82,14 @@ $(function(){
         		if(Number(arr[1]) != 12){
         			time = (Number(arr[1]) + 12) + ":" + arr[2] + ":59";
         		}else{
-        			console.log("dd");
         			time = arr[1] + ":" + arr[2] + ":59";
         		}
         	}else if(ampm == "오전"){
         		time = arr[1] + ":" + arr[2] + ":59";
         	}
         	
-            insert_ajax(time, content_arr);
+            if(vote_create_flag)
+            	insert_ajax(time, content_arr);
         }
         else{
             fade_in_out(undefined, undefined, "빈 항목이 존재합니다.");
@@ -318,6 +327,10 @@ $(function(){
     
     // 투표 생성 AJAX
     function insert_ajax(time, content_arr){
+		//로딩 화면
+		$("#spinner-wrap").removeClass("blind");
+		vote_create_flag = false;
+		
     	 $.ajax({
         	url : "/meet-a-bwa/vote_create.do",
 			type : "POST",
@@ -325,21 +338,33 @@ $(function(){
 			dataType : 'json', // 결과값 받을 타입
 			data : {
 				vote_title : $("#vote_title").val().trim(),
-				vote_description : $("#vote_description").val().trim(),
+				vote_info : $("#vote_description").val().trim(),
 				vote_eod : $("#vote_endDate").val().trim() + " " + time,
 				user_no : $.cookie("user_no"),
 				meet_no : location.href.split("idx=")[1],
+				activity_no:null,
+				private_state:'T',
 				contents : content_arr
 			},
 			success : function(res) {
-		        if(res.result == "insert success"){
-		        	location.reload();
-		        }else if(res.result == "insert fail"){
-		        	fade_in_out(undefined, undefined, "오류로 인해 투표 생성에 실패하였습니다.");
+				vote_create_flag = true;
+				$("#spinner-wrap").addClass("blind");
+				
+		        if(res.result == "1"){
+					$(".vote-create-update-wrap").addClass("blind");
+					$("#event-create").addClass("blind");
+		
+		        	$("#common-alert-popup-wrap").removeClass("blind");
+					$(".common-alert-txt").html("투표가 생성되었습니다.");
+					$("#common-alert-btn").attr("reload", true);
+		        }else if(res.result == "0"){
+		        	fade_in_out(undefined, undefined, "투표 생성에 실패하였습니다.");
 		        }
 			},
-			error : function(error) {
-			 	console.log(error);
+			error : function() {
+				vote_create_flag = true;
+			 	$("#spinner-wrap").addClass("blind");
+			 	fade_in_out(undefined, undefined, "오류로 인해 투표 생성에 실패하였습니다.");
 			 }
         });
     }

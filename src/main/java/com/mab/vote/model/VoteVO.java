@@ -6,6 +6,8 @@
 
 package com.mab.vote.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,12 +55,15 @@ public class VoteVO {
 	private String user_no;
 	
 	@Column(name="meet_no")
-	private Integer meet_no;
+	private String meet_no;
 	
 	@Column(name="activity_no")
-	private Integer activity_no;
+	private String activity_no;
 	
 	@Column(name="private_state")
-	private Integer private_state;
+	private String private_state;
 	
+	@Transient
+	@Column(name="vote_eod_sql")
+	private Timestamp vote_eod_sql;
 }

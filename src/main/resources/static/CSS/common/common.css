@@ -71,7 +71,7 @@ input[type=button]{
     
     background-color : rgba(0, 0, 0, 0.5);
 
-    z-index: 200;
+    z-index: 400;
 }
 .spinner-img{
     width: 140px;
