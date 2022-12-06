@@ -3,18 +3,22 @@ package com.mab.activity.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -51,11 +55,20 @@ public class ActivityInfoController {
 	 */
 	@ApiOperation(value="액티비티 생성", notes="액티비티 생성 페이지입니다.")
 	@GetMapping("/activity_insert")
-	public String activity_insert(Model model, String meet_no, String user_no) {
+	public String activity_insert(Model model, String meet_no, HttpServletRequest request) {
 		log.info("/activity_insert...");
 		
 		meet_no="M1002";
-		user_no="U1002";
+		
+		Cookie[] cookies = request.getCookies();
+		String user_no = "";
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("user_no")) {
+					user_no = cookie.getValue();
+				}
+			}
+		}
 
 		model.addAttribute("meet_no", meet_no);
 		model.addAttribute("user_no", user_no);
@@ -106,7 +119,8 @@ public class ActivityInfoController {
 		
 		String rt ="";
 		if(result==1) {
-			rt="redirect:activity_feed?activity_no="+avo.getActivity_no();
+			ActivityVO avo2 = service.select_one_activity_no(avo.getUser_no()); 
+			rt="redirect:activity_main?activity_no="+avo2.getActivity_no();
 		}else {
 			rt="redirect:activity_insert"; 
 		}
@@ -182,12 +196,50 @@ public class ActivityInfoController {
 		
 		String rt ="";
 		if(result==1) {
-			rt="redirect:activity_feed?activity_no="+avo.getActivity_no();
+			rt="redirect:activity_main?activity_no="+avo.getActivity_no();
 		}else {
 			rt="redirect:activity_update"; 
 		}
 		
 		return rt;
+	}
+	
+	/**
+	 * 액티비티 삭제 처리
+	 */
+	@ApiOperation(value="액티비티 삭제 처리", notes="액티비티 삭제 처리입니다.")
+	@PostMapping("/activity_delete")
+	@ResponseBody
+	public String activity_delete(Model model, String activity_no) throws ParseException {
+		log.info("/activity_delete...");
+		
+		
+		Map<String,String> map = new HashMap<String,String>();
+		
+		List<String> mem = service.select_activity_registered_member_user_no(activity_no);
+		int result = 0;
+		if (mem!=null) {
+			result = service.activity_member_delete(activity_no); // 멤버 삭제
+		}else {
+			result=1;
+		}
+		
+		if(result==1) { // 가입된 멤버 삭제 success
+			int flag = service.activity_delete(activity_no); // 액티비티 삭제
+			if (flag==1) { // 삭제 성공
+				ActivityVO avo = service.select_one_activity_info(activity_no);//meet_no
+				map.put("result", "1"); 
+				map.put("meet_no", avo.getMeet_no());
+			}else { // 삭제 실패
+				map.put("result", "0");
+			}
+		}else { // 가입된 멤버 삭제 fail
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
+		
+		return json;
 	}
 	
 

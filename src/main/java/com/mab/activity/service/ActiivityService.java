@@ -59,6 +59,12 @@ public class ActiivityService {
 		log.info("activity_insert().....");
 		return a_repository.activity_insert(avo);
 	}
+	
+	// 액티비티 생성 후 정보 가져오기
+	public ActivityVO select_one_activity_no(String user_no) {
+		log.info("select_one_activity_no().....");
+		return a_repository.select_one_activity_no(user_no);
+	}
 
 	// 액티비티 수정을 위한 기존 정보 select
 	public ActivityVO select_one_activity_info(String activity_no) {
@@ -126,6 +132,20 @@ public class ActiivityService {
 		log.info("select_one_meet_registered_userinfo().....");
 		return m_repository.select_one_meet_registered_userinfo(meet_no, user_no);
 	}
+
+	// 액티비티 삭제
+	public int activity_delete(String activity_no) {
+		log.info("activity_delete().....");
+		return a_repository.activity_delete(activity_no);
+	}
+
+	// 가입된 액티비티 멤버 삭제
+	public int activity_member_delete(String activity_no) {
+		log.info("activity_member_delete().....");
+		return a_member_repository.activity_member_delete(activity_no);
+	}
+
+
 
 
 

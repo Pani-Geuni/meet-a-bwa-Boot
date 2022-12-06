@@ -16,6 +16,12 @@ public interface ActivityRegisteredRepository extends JpaRepository<ActivityRegi
 				+  "values('AR'||SEQ_ACTIVITYREGISTEREDMEMBER.nextval, ?1, ?2, 'T')")
 	public int activity_application(String activity_no, String user_no);
 
+	// 액티비티에 가입된 회원 모두 삭제
+	@Modifying
+	@Transactional
+	@Query(nativeQuery = true, value="delete from activityregisteredmember where activity_no=?")
+	public int activity_member_delete(String activity_no);
+
 //	@Query(nativeQuery = true, value="select user_no from userinfo where user_id=?1")
 //	public String select_user_no(String username);
 
