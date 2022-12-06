@@ -248,7 +248,7 @@ $(function() {
 		text_limit(15, $(this), $("#event_u_title_text_length"));
 	});
 
-	// 투표 설명 글자수 제한
+	// 이벤트 설명 글자수 제한
 	$("#event_u_event_description").keydown(function() {
 		text_limit(200, $(this), $("#event_u_description_text_length"));
 	});

@@ -6,6 +6,8 @@
 
 package com.mab.event.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.data.annotation.Immutable;
 
@@ -41,8 +44,8 @@ public class EventVO {
 	@Column(name="event_title")
 	private String event_title;
 	
-	@Column(name="event_description")
-	private String event_description;
+	@Column(name="event_content")
+	private String event_content;
 	
 	@Column(name="event_date")
 	private String event_date;
@@ -55,5 +58,10 @@ public class EventVO {
 	
 	@Column(name="user_no")
 	private String user_no;
+	
+
+	@Transient
+	@Column(name="vote_eod_sql")
+	private Timestamp event_d_day_sql;
 	
 }

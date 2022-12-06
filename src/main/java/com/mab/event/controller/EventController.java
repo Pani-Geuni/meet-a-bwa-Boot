@@ -6,6 +6,9 @@
 
 package com.mab.event.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +62,7 @@ public class EventController {
 		Map<String, String> map =  new HashMap<String, String>();
 		map.put("event_no", vo.getEvent_no());
 		map.put("event_title", vo.getEvent_title());
-		map.put("event_description", vo.getEvent_description());
+		map.put("event_description", vo.getEvent_content());
 		map.put("activity_no", vo.getActivity_no());
 		map.put("user_no", vo.getUser_no());
 		
@@ -77,6 +80,11 @@ public class EventController {
 	@ResponseBody
 	public String event_create(EventVO vo2) {
 		log.info("/event_create.do");
+		
+		DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(vo2.getEvent_d_day()));
+        Timestamp ts = Timestamp.valueOf(localDateTime);
+        vo2.setEvent_d_day_sql(ts);
 		
 		int result = service.SQL_INSERT_EVENT(vo2);
 		
