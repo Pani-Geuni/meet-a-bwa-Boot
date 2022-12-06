@@ -79,6 +79,14 @@ $(function() {
 		e.preventDefault();
 	});
 
+	$("#btn-meet-write").on('click', function() {
+		
+		let meet_no = window.location.href.split("idx=")[1].split("&")[0];
+		
+		location.href = "/meet-a-bwa/post-write.do?idx=" + meet_no;
+	})
+
+
 	$("#btn-delete").on('click', function() {
 		console.log(idx);
 
@@ -103,6 +111,7 @@ $(function() {
 			}
 		});
 	});
+	
 
 
 	$("#activity-summary-list").on("click", ".activity_list_item", function() {
