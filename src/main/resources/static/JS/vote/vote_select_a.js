@@ -46,21 +46,95 @@ $(function() {
 		$("#choice_wrap").empty().append(sample);
 	});
 
+	var vote_result_update_flag = true;
+	var vote_result_flag = true;
 	// 투표 버튼 클릭
 	$("#voteBtn").click(function() {
 		let isChoice = $("#choice_wrap").find(".in_circle").hasClass("choice");
+
 		if (!isChoice) {
 			fade_in_out("투표 항목을 선택해주세요.");
 		} else {
 			let c_idx = $("#choice_wrap").find(".in_circle.choice").attr("contentidx");
 
 			if (updateFlag) {
-				location.href = "/meet-a-bwa/re_voteOK.do?vote_no=" + idx + "&user_no=" + $.cookie("user_no") + "&content_no=" + c_idx;
+				if (vote_result_update_flag) {
+					//로딩 화면
+					$("#spinner-wrap").removeClass("blind");
+					vote_result_update_flag = false;
+
+					$.ajax({
+						url: "/meet-a-bwa/re_voteOK.do",
+						type: "POST",
+						traditional: true, // data value중에 배열있을 때 필요
+						dataType: 'json', // 결과값 받을 타입
+						data: {
+							vote_no: idx,
+							user_no: $.cookie("user_no"),
+							content_no: c_idx
+						},
+						success: function(res) {
+							vote_result_update_flag = true;
+							$("#spinner-wrap").addClass("blind");
+
+							if (res.result == "1") {
+								$(".vote-view-wrap").addClass("blind");
+
+								$("#common-alert-popup-wrap").removeClass("blind");
+								$(".common-alert-txt").html("성공적으로 재투표되었습니다.");
+								$("#common-alert-btn").attr("reload", true);
+							} else if (res.result == "0") {
+								fade_in_out(undefined, undefined, "재투표에 실패하였습니다.");
+							}
+						},
+						error: function() {
+							vote_result_update_flag = true;
+							$("#spinner-wrap").addClass("blind");
+							fade_in_out(undefined, undefined, "오류로 인해 투표 재참여에 실패하였습니다.");
+						}
+					});
+				}
 			} else {
-				location.href = "/meet-a-bwa/voteOK.do?vote_no=" + idx + "&user_no=" + $.cookie("user_no") + "&content_no=" + c_idx;
+				if (vote_result_flag) {
+					//로딩 화면
+					$("#spinner-wrap").removeClass("blind");
+					vote_result_flag = false;
+
+					$.ajax({
+						url: "/meet-a-bwa/voteOK.do",
+						type: "POST",
+						traditional: true, // data value중에 배열있을 때 필요
+						dataType: 'json', // 결과값 받을 타입
+						data: {
+							user_no: $.cookie("user_no"),
+							content_no: c_idx,
+							vote_no: idx
+						},
+						success: function(res) {
+							vote_result_flag = true;
+							$("#spinner-wrap").addClass("blind");
+
+							if (res.result == "1") {
+								$(".vote-view-wrap").addClass("blind");
+
+								$("#common-alert-popup-wrap").removeClass("blind");
+								$(".common-alert-txt").html("성공적으로 투표 결과에 반영되었습니다.");
+								$("#common-alert-btn").attr("reload", true);
+							} else if (res.result == "0") {
+								fade_in_out(undefined, undefined, "투표 참여에 실패하였습니다.");
+							}
+						},
+						error: function() {
+							vote_result_flag = true;
+							$("#spinner-wrap").addClass("blind");
+							fade_in_out(undefined, undefined, "오류로 인해 투표 참여에 실패하였습니다.");
+						}
+					});
+				}
 			}
 		}
 	});
+
 	// 재투표 버튼 클릭
 	$("#re_voteBtn").click(function() {
 		flag = true;
@@ -70,9 +144,45 @@ $(function() {
 		$("#choice_wrap").find(".list_percentage_wrap").addClass("blind");
 	});
 
+	var vote_state_update_flag = true;
 	// 투표 마감 여부 묻는 컨펌 창 버튼 이벤트
 	$("#end_yesBtn").click(function() {
-		location.href = "/meet-a-bwa/a_vote_stateUpdate.do?vote_no=" + vote_idx + "&activity_no=" + location.href.split("idx=")[1];
+		if (vote_state_update_flag) {
+			//로딩 화면
+			$("#spinner-wrap").removeClass("blind");
+			vote_state_update_flag = false;
+
+			$.ajax({
+				url: "/meet-a-bwa/vote_stateUpdate.do",
+				type: "GET",
+				traditional: true, // data value중에 배열있을 때 필요
+				dataType: 'json', // 결과값 받을 타입
+				data: {
+					vote_no: vote_idx,
+					meet_no: window.location.href.split("idx=")[1]
+				},
+				success: function(res) {
+					vote_state_update_flag = true;
+					$("#spinner-wrap").addClass("blind");
+
+					if (res.result == "1") {
+						$(".update-confirm-wrap").addClass("blind");
+						$(".vote-view-wrap").addClass("blind");
+
+						$("#common-alert-popup-wrap").removeClass("blind");
+						$(".common-alert-txt").html("투표가 조기마감되었습니다.");
+						$("#common-alert-btn").attr("reload", true);
+					} else if (res.result == "0") {
+						fade_in_out(undefined, undefined, "투표 조기마감에 실패하였습니다.");
+					}
+				},
+				error: function() {
+					vote_state_update_flag = true;
+					$("#spinner-wrap").addClass("blind");
+					fade_in_out(undefined, undefined, "오류로 인해 투표 조기마감에 실패하였습니다.");
+				}
+			});
+		}
 	});
 	$("#end_noBtn").click(function() {
 		$(".update-confirm-wrap").addClass("blind");
@@ -147,9 +257,45 @@ $(function() {
 		}
 	});
 
+	var vote_delete_flag = true;
 	// 삭제 컨펌 팝업 - '예'버튼 클릭 시 삭제 로직 처리
 	$("#yesBtn").click(function() {
-		location.href = "/meet-a-bwa/a_vote_delete.do?vote_no=" + vote_idx + "&activity_no=" + location.href.split("idx=")[1];
+		if (vote_delete_flag) {
+			//로딩 화면
+			$("#spinner-wrap").removeClass("blind");
+			vote_delete_flag = false;
+
+			$.ajax({
+				url: "/meet-a-bwa/vote_delete.do",
+				type: "get",
+				traditional: true, // data value중에 배열있을 때 필요
+				dataType: 'json', // 결과값 받을 타입
+				data: {
+					vote_no: vote_idx,
+					meet_no: location.href.split("idx=")[1]
+				},
+				success: function(res) {
+					vote_delete_flag = true;
+					$("#spinner-wrap").addClass("blind");
+
+					if (res.result == "1") {
+						$("#confirmWrap").addClass("blind");
+						$(".vote-view-wrap").addClass("blind");
+
+						$("#common-alert-popup-wrap").removeClass("blind");
+						$(".common-alert-txt").html("투표가 삭제되었습니다.");
+						$("#common-alert-btn").attr("reload", true);
+					} else if (res.result == "0") {
+						fade_in_out(undefined, undefined, "투표 삭제에 실패하였습니다.");
+					}
+				},
+				error: function() {
+					vote_delete_flag = true;
+					$("#spinner-wrap").addClass("blind");
+					fade_in_out(undefined, undefined, "오류로 인해 투표 삭제에 실패하였습니다.");
+				}
+			});
+		}
 	});
 	// 삭제 컨펌 팝업에서 아니오 클릭
 	$("#noBtn").click(function() {
@@ -195,6 +341,8 @@ $(function() {
 		$(".vote-create-update-wrap").addClass("blind");
 		$("#event-update").addClass("blind");
 	});
+
+	var vote_update_flag = true;
 	$("#vote_updateBtn").click(function() {
 		let title_length = $("#u_vote_title").val().trim().length;
 		let endDate_length = $("#u_vote_endDate").val().trim().length;
@@ -210,13 +358,20 @@ $(function() {
 				if (Number(arr[1]) != 12) {
 					tmp_time = (Number(arr[1]) + 12) + ":" + arr[2] + ":59";
 				} else {
-					tmp_time = arr[1] + ":" + arr[2] + ":59";
+					if (Number(arr[1]) < 10)
+						tmp_time = "0" + arr[1] + ":" + arr[2] + ":59";
+					else
+						tmp_time = arr[1] + ":" + arr[2] + ":59";
 				}
 			} else if (ampm == "오전") {
-				tmp_time = arr[1] + ":" + arr[2] + ":59";
+				if (Number(arr[1]) < 10)
+					tmp_time = "0" + arr[1] + ":" + arr[2] + ":59";
+				else
+					tmp_time = arr[1] + ":" + arr[2] + ":59";
 			}
 
-			update_ajax(tmp_time);
+			if (vote_update_flag)
+				update_ajax(tmp_time);
 		}
 		else {
 			fade_in_out(undefined, undefined, "빈 항목이 존재합니다.");
@@ -251,12 +406,14 @@ $(function() {
 	});
 
 
-	$("#u_ampm_choice").on("click", ".ampm-list", function(event) {
+	$("#u_ampm_choice").on("click", ".ampm-list", function() {
 		$(".ampm-list").removeClass("time_choice");
 		$(this).addClass("time_choice");
 
 		let arr = $("#u_timeValue").text().split(":");
 		arr[0] = $(this).attr("type");
+		if (Number(arr[1]) < 10)
+			arr[1] = "0" + arr[1];
 
 		$("#u_timeValue").text(arr.join(":"));
 
@@ -406,7 +563,7 @@ $(function() {
 	function ajax_load(idx) {
 		//로딩 화면
 		$("#spinner-wrap").removeClass("blind");
-		
+
 		$.ajax({
 			url: "/meet-a-bwa/vote_view.do",
 			type: "GET",
@@ -417,11 +574,12 @@ $(function() {
 			dataType: "JSON",
 			success: function(res) {
 				$("#spinner-wrap").addClass("blind");
-				
+
 				vote_no = res.vote_no;
 				title = res.vote_title;
 				description = res.vote_description;
 				vote_date = res.vote_eod.split(" ")[0];
+				vote_date = vote_date.replaceAll("-", "/");
 				vote_contents = res.content_arr.map(v => v.content).slice();
 
 				// 투표 정보 세팅
@@ -435,18 +593,23 @@ $(function() {
 				$("#vote_writer").text("작성자 : " + res.user_name);
 
 				let date = res.vote_eod.split(" ")[0];
+				date = date.replaceAll("-", "/");
 				let time = res.vote_eod.split(" ")[1];
 				let timeArr = time.split(":");
 				let timeString = "";
 
 				if (timeArr[0] > 12) {
-					if ((timeArr[0] - 12) < 10) {
+					if (Number(timeArr[0] - 12) < 10) {
 						timeString = "오후0" + (timeArr[0] - 12) + ":" + timeArr[1] + ":" + timeArr[2];
 					} else {
 						timeString = "오후" + (timeArr[0] - 12) + ":" + timeArr[1] + ":" + timeArr[2];
 					}
 				} else {
-					timeString = "오전" + timeArr[0] + ":" + timeArr[1] + ":" + timeArr[2];
+					if (Number(timeArr[0]) < 10) {
+						timeString = "오전0" + timeArr[0] + ":" + timeArr[1] + ":" + timeArr[2];
+					} else {
+						timeString = "오전" + timeArr[0] + ":" + timeArr[1] + ":" + timeArr[2];
+					}
 				}
 				vote_time = timeString.substring(0, 2) + ":" + timeString.substring(2, 4) + ":" + timeArr[1];
 
@@ -463,9 +626,10 @@ $(function() {
 				if (new Date().getTime() <= new Date(res.vote_eod).getTime() && res.vote_state == "Y") {
 					$("#end_date").text("투표마감 : " + date + " " + timeString);
 					$("#end").removeClass("blind");
+					$("#dropdown").find("#update").removeClass("blind");
 
 					// 투표한적없음
-					if(res.isVote == "" || res.isVote == undefined){
+					if (res.isVote == "" || res.isVote == undefined) {
 						flag = true;
 						updateFlag = false;
 
@@ -555,17 +719,17 @@ $(function() {
 					if (res.vote_result.length > 0) {
 						let total_cnt = 0;
 						for (var j = 0; j < res.vote_result.length; j++) {
-							total_cnt += Number(res.vote_result[j].cnt);
+							total_cnt += Number(res.vote_result[j][1]);
 						}
 
 						let tmp_arr = $("#choice_wrap").children(".choiceList:gt(0)").slice();
 						for (var i = 0; i < tmp_arr.length; i++) {
 							let tmp = false;
 							for (var j = 0; j < res.vote_result.length; j++) {
-								if ($(tmp_arr[i]).find(".in_circle").attr("contentIdx") == res.vote_result[j].content_no) {
+								if ($(tmp_arr[i]).find(".in_circle").attr("contentIdx") == res.vote_result[j][0]) {
 									tmp = true;
-									$(tmp_arr[i]).find(".choice_mem_cnt").text(res.vote_result[j].cnt + "명");
-									$(tmp_arr[i]).find(".list_percentage").css("width", Math.round((res.vote_result[j].cnt / total_cnt) * 100) + "%");
+									$(tmp_arr[i]).find(".choice_mem_cnt").text(res.vote_result[j][1] + "명");
+									$(tmp_arr[i]).find(".list_percentage").css("width", Math.round((res.vote_result[j][1] / total_cnt) * 100) + "%");
 								}
 							}
 							if (!tmp) {
@@ -584,6 +748,11 @@ $(function() {
 		})
 	}
 	function update_ajax(time) {
+		vote_update_flag = false;
+
+		//로딩 화면
+		$("#spinner-wrap").removeClass("blind");
+
 		$.ajax({
 			url: "/meet-a-bwa/vote_update.do",
 			type: "POST",
@@ -592,16 +761,27 @@ $(function() {
 				vote_no: vote_no,
 				vote_title: $("#u_vote_title").val().trim(),
 				vote_info: $("#u_vote_description").val().trim(),
-				vote_eod: $("#u_vote_endDate").val().trim() + " " + time
+				vote_eod: $("#u_vote_endDate").val().trim() + " " + time,
+				private_state: 'T'
 			},
 			success: function(res) {
+				vote_update_flag = true;
+				$("#spinner-wrap").addClass("blind");
+
 				if (res.result == "1") {
-					location.reload();
+					$(".vote-create-update-wrap").addClass("blind");
+					$("#event-update").addClass("blind");
+
+					$("#common-alert-popup-wrap").removeClass("blind");
+					$(".common-alert-txt").html("투표가 수정되었습니다.");
+					$("#common-alert-btn").attr("reload", true);
 				} else if (res.result == "0") {
 					fade_in_out(undefined, undefined, "오류로 인해 투표 수정에 실패하였습니다.");
 				}
 			},
 			error: function() {
+				vote_update_flag = true;
+				$("#spinner-wrap").addClass("blind");
 				fade_in_out(undefined, undefined, "오류로 인해 투표 수정에 실패하였습니다.");
 			}
 		});
