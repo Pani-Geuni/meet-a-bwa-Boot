@@ -1,26 +1,37 @@
 package com.mab.meetboard.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.mab.comment.model.CommentUserVO;
 import com.mab.comment.service.CommentService;
 import com.mab.meet.model.MeetActivityVO;
@@ -29,6 +40,7 @@ import com.mab.meet.model.MeetUserVO;
 import com.mab.meet.model.MeetVoteVO;
 import com.mab.meet.service.MeetService;
 import com.mab.meetboard.model.MBUserVO;
+import com.mab.meetboard.model.MeetBoardVO;
 import com.mab.meetboard.service.MeetBoardService;
 
 import io.swagger.annotations.Api;
@@ -54,6 +66,11 @@ public class MeetboardController {
 	
 	@Autowired
 	CommentService commentService;
+	
+	private String S3Bucket = "meet-a-bwa/meetboard"; // Bucket 이름
+
+	@Autowired
+	AmazonS3Client amazonS3Client;
 
 	@ApiOperation(value = "모임 게시글 디테일 화면", notes = "모임 메인 화면 띄우는 컨트롤러")
 	@GetMapping(value = "/post-detail.do")
@@ -254,6 +271,82 @@ public class MeetboardController {
 		return "thymeleaf/layouts/meet/layout_meet";
 	}
 	
+	@ApiOperation(value = "모임 게시글 화면 화면", notes = "모임 게시글 작성 컨트롤러")
+	@PostMapping(value = "/post-writeOK.do")
+	@ResponseBody
+	public String post_writeOK(MeetBoardVO bvo, Model model) {
+		
+		Map<String, String> map = new HashMap<>();
+		
+		String board_title = bvo.getBoard_title();
+		String board_content = bvo.getBoard_content();
+		String user_no = bvo.getUser_no();
+		String meet_no = bvo.getMeet_no();
+		
+		int result = boardService.insert_post(board_title, board_content, user_no, meet_no);
+		
+		if (result == 1) {
+			map.put("result", "1");
+		} else {
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
+		
+		return json;
+	}
+	
+	
+	@ApiOperation(value = "Summernote 이미지 처리", notes = "Summernote 이미지 처리 컨트롤러")
+	@PostMapping(value = "/summernote_image.do")
+	@ResponseBody
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) throws IOException {
+		JsonObject json = new JsonObject();
+		
+		log.info("{} byte", multipartFile.getSize());
+		
+		if (multipartFile.getSize() > 0) {
+			
+			String fileRoot = "https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/activity/";
+			String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+		    String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); //파일 확장자
+
+		    String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+		    File targetFile = new File(fileRoot + savedFileName);
+		    
+		    log.info("fileRoot : {}", fileRoot);
+		    log.info("originalFileName : {}", originalFileName);
+		    log.info("extension : {}", extension);
+		    log.info("savedFileName : {}", savedFileName);
+		    log.info("targetFile : {}", targetFile);
+			
+		    ObjectMetadata objectMetaData = new ObjectMetadata();
+		    objectMetaData.setContentType(extension);
+		    objectMetaData.setContentLength(multipartFile.getSize());
+		    
+		    try {
+		    	amazonS3Client.putObject(
+		    			new PutObjectRequest(S3Bucket, savedFileName, multipartFile.getInputStream(), objectMetaData)
+		    			.withCannedAcl(CannedAccessControlList.PublicRead));
+		    	
+		    	String imagePath = amazonS3Client.getUrl(S3Bucket, savedFileName).toString();
+		    	log.info("이미지 링크 : {}", imagePath);
+		    	json.addProperty("url", imagePath);
+		    	json.addProperty("responseCode", "success");
+		    	
+		    } catch (IOException e) {
+		    	FileUtils.deleteQuietly(targetFile);	
+		        json.addProperty("responseCode", "error");
+		        e.printStackTrace();
+		    }
+		} else {
+			log.info("multipartFile's size is 0");
+		}
+		
+		String jsonValue = json.toString();
+		
+		return jsonValue;
+	}
 	
 	@ApiOperation(value = "모임 게시글 삭제", notes = "게시글 삭제 컨트롤러")
 	@GetMapping(value = "/post-delete.do")

@@ -5,14 +5,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<section class="meet-info-wrap" th:fragment="meet_content">
+<section class="post-write-info-wrap" th:fragment="meet_content">
 
-	<div class="meet-info-top">
-		<h1 class="meet-info-title">게시글 작성</h1>
+	<div class="post-writer-top">
+		<input type="text" name="board_title" class="board-title" placeholder="제목을 입력해 주세요" />
 	</div>
 
-	<div class="col-md-10">
-		<textarea id="summernote" rows="5" name="explanation" style="width:1000px; height:250px;"></textarea>
+	<div class="post-writer-middle">
+		<textarea id="summernote" name="board_content"></textarea>
+	</div>
+	
+	<div class="post-writer-bottom">
+		<input type="button" class="btn-post-write" value="작성하기">
 	</div>
 
 </section>

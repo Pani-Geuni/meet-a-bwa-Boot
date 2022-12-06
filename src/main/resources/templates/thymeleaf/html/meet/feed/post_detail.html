@@ -31,7 +31,8 @@
 		</div>
 	</div>
 
-	<pre class="post-detail-content">[[${ post_detail.board_content }]]</pre>
+<!--	<pre class="post-detail-content">[[${ post_detail.board_content }]]</pre>-->
+	<pre class="post-detail-content" th:utext="${ post_detail.board_content }"></pre>
 
 	<div class="comment-wrap">
 		<div class="form-comment">

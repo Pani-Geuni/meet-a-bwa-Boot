@@ -9,6 +9,15 @@ import com.mab.meetboard.model.MeetBoardVO;
 
 public interface MeetBoardRepository extends JpaRepository<MeetBoardVO, Object> {
 
+	
+	@Modifying
+	@Transactional
+	@Query(nativeQuery = true, 
+			value = "insert into meetboard(board_no, board_title, board_content, board_image, board_date, notice_state, user_no, meet_no) "
+					+ "values('B'||SEQ_MEETBOARD.nextval, ?1, ?2, NULL, CURRENT_DATE, 'F', ?3, ?4)")
+	public int insert_post(String board_title, String board_content, String user_no, String meet_no);
+	
+	
 	@Modifying
 	@Transactional
 	@Query(nativeQuery = true, value = "delete from meetboard where board_no=?1")

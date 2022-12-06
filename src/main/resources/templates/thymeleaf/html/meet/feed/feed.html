@@ -100,12 +100,17 @@
 								</div>
 							</th:block>
 						</div>
-						<div class="feed-post" th:attr="board_no=${vo.board_no}">
-							<p>[[${ vo.board_content }]]</p>
+						<div class="feed-post" th:attr="board_no=${vo.board_no}" th:utext="${ vo.board_content }">
+							<!-- <p class="feed-post-content" ></p>-->
 						</div>
 						<div class="feed-options">
+							<div class="feed-option">
 							<p>댓글</p>
 							<span>[[${ vo.comment_cnt }]]개</span>
+							</div>
+							<div class="feed-option blind">
+								<p id="btn-more-post" class="">더보기...</p>
+							</div>
 						</div>
 					</div>
 					<!-- end one feed -->
