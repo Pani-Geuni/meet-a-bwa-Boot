@@ -48,10 +48,10 @@
 		/*]]*/
 	</script>
 	<script>
-		$(function(){
+		$(function () {
 			var user_no = $.cookie('user_no');
 			console.log(user_no);
-			
+
 			$("#cookie").val(user_no);
 		});
 	</script>
@@ -321,6 +321,517 @@
 		<span id="toast_txt"></span>
 	</div>
 	<!-- END toastWrap -->
+
+	<!-- *******************  -->
+	<!--  투표 확인 -->
+	<!-- *******************  -->
+
+	<!-- START voteWrap -->
+	<div id="voteWrap" class="vote-view-wrap blind">
+		<div id="divWrap" class="vote_section">
+			<div id="header_wrap" class="wrap_common">
+				<span id="view-title">
+					<!-- 투표 제목 텍스트 자리 -->
+				</span> 
+				<img src="/IMG/common/more-vertical.png" alt="더보기 세로 이미지" id="more_vertival" />
+				<div id="dropdown" class="select_custom blind">
+					<img src="/IMG/common/vector.png" alt="셀렉트 before 이미지" id="select_img" />
+					<ul class="v_select_list_wrap">
+						<li class="select_list" id="update">수정</li>
+						<li class="select_list" id="delete">삭제</li>
+						<li class="select_list" id="end">투표종료</li>
+					</ul>
+				</div>
+			</div>
+			<div id="body_wrap" class="wrap_common">
+				<fieldset id="description_field">
+					<legend class="field_title">투표 설명</legend>
+					<div id="vote_view_description">
+						<p id="text_area">
+							<!-- 투표 설명 텍스트 자리 -->
+						</p>
+					</div>
+				</fieldset>
+				<!-- END 투표 설명란 -->
+
+				<!-- START 투표 선택란 -->
+				<div id="choice_wrap">
+					<!-- START choiceList-->
+					<div class="choiceList blind">
+						<section class="txt_wrap_section">
+							<section class="txt_section">
+								<span class="txt">항목 타이틀 자리</span>
+								<!-- 결과보여줄 때, blind 제거 -->
+								<span class="choice_mem_cnt blind">0명</span>
+							</section>
+
+							<!-- 결과보여줄 때, blind 제거해서 -->
+							<span class="list_percentage_wrap blind">
+								<!-- 해당 항목이 선택받은 퍼센테이지를 width로 대입해 보이게 하기-->
+								<span class="list_percentage"></span>
+							</span>
+						</section>
+
+						<div class="out_circle">
+							<!-- 보일 때 choice 추가-->
+							<!-- 가릴 때 choice 삭제-->
+							<div class="in_circle"></div>
+						</div>
+					</div>
+					<!-- END choiceList -->
+				</div>
+				<!-- END 투표 선택란 -->
+			</div>
+
+			<div id="footer_wrap" class="wrap_common">
+				<section id="footer_info">
+					<span class="info_common" id="vote_writer">작성자 정상윤</span> 
+					<span class="info_common" id="end_date">투표마감:2022-09-01 오전10:00</span>
+				</section>
+
+				<section class="voteBtn btn_section blind">
+					<input type="button" id="voteBtn" class="btnCommon" value="투표하기" />
+					<input type="button" class="btnCommon vote_closeBtn" value="창닫기" />
+				</section>
+				<section class="reVoteBtn btn_section blind">
+					<input type="button" id="re_voteBtn" class="btnCommon" value="재투표하기" /> 
+					<input type="button" class="btnCommon vote_closeBtn" value="창닫기" />
+				</section>
+				<section class="view_closeBtn btn_section blind">
+					<input type="button" id="view_closeBtn2" class="btnCommon" value="닫기" />
+				</section>
+			</div>
+		</div>
+
+		<div id="confirmWrap" class="blind">
+			<div id="confirm_head">
+				<img src="/IMG/common/fluent_more-horizontal-20-regular.png" id="more-horizontal" />
+			</div>
+			<div id="confirm_txt_wrap">
+				<span id="confirm_txt">삭제하시겠습니까?</span>
+			</div>
+			<div id="confirm_btn_wrap">
+				<input type="button" id="yesBtn" class="yesBtn confirm_btn_common" value="예" /> 
+				<input type="button" id="noBtn" class="noBtn confirm_btn_common" value="아니오" />
+			</div>
+		</div>
+	</div>
+	<!-- END voteWrap -->
+
+
+	<!-- *******************  -->
+	<!-- 투표 생성 / 수정 -->
+	<!-- *******************  -->
+
+	<!-- Start voteWrap -->
+	<div id="voteWrap" class="vote-create-update-wrap blind">
+		<!-- Start vote_popup -->
+		<div id="vote_popup">
+
+			<!-- 이벤트 생성일 때 SHOW -->
+			<div id="event-create" class="blind">
+				<h1 id="title">투표 생성</h1>
+
+				<!-- Start sectionWrap -->
+				<div id='sectionWrap'>
+					<section id="titleSection" class="section_common">
+						<h4 class="section_title">투표 제목</h4>
+						<section id="title_section">
+							<input type="text" id="vote_title" class="common" placeholder="투표 제목"> <span
+								id="title_text_length" class="text_length">0/15</span>
+						</section>
+					</section>
+
+					<section id="endDateSection" class="section_common">
+						<h4 class="section_title">투표 마감 날짜 설정</h4>
+						<div class="pickerWrap">
+							<input type="text" id="vote_endDate" class="dateCommon" autocomplete="off"
+								placeholder="날짜를 선택해주세요." readonly>
+							<!-- START TIMEPICKER -->
+							<div id="timepicker_box" class="timepicker_box dateCommon">
+								<section class="timeSection">
+									<span id="timeValue">--:--:--</span>
+								</section>
+
+								<section class="timeImgSection">
+									<img src="/IMG/common/clock.svg" id="timeImg" alt="시계이미지" />
+								</section>
+
+								<div id="customTimePicker" class="customTimePicker blind">
+									<div id="ampm_choice" class="ampm_choice">
+										<ul id="ampm_listWrap">
+											<li class="sample ampm-list"></li>
+										</ul>
+									</div>
+									<div id="time_choice" class="choiceCommon">
+										<ul id="time_listWrap">
+											<li class="sample time-list"></li>
+										</ul>
+									</div>
+									<div id="minute_choice" class="choiceCommon">
+										<ul id="minute_listWrap">
+											<li class="sample minute-list"></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- END TIMEPICKER -->
+						</div>
+					</section>
+
+					<section class="section_common">
+						<h4 class="section_title">투표 내용</h4>
+						<section>
+							<textarea id="vote_description" class="vote_description common" placeholder="투표 내용"></textarea>
+							<span id="description_text_length" class="text_length">0/150</span>
+						</section>
+					</section>
+
+					<section class="voteSection section_common">
+						<h4 class="section_title">투표 항목</h4>
+
+						<div id="vote_list_Wrap">
+							<!-- SAMPLE VOTE LIST -->
+							<div class="vote_list sample blind">
+								<label class="list_title"></label> 
+								<input type="text" class="list_text" /> 
+								<img src="/IMG/common/close.svg" alt="항목 삭제 이미지" class="removeBtn" />
+							</div>
+						</div>
+					</section>
+					<input type="button" id="vote_list_plusBtn" value="투표 항목 추가" />
+				</div>
+				<!-- END sectionWrap -->
+
+				<div class="btnWrap">
+					<input type="button" id="vote_createBtn" class="btnCommon" value="투표 만들기"> 
+					<input type="button" id="vote_cancleBtn" class="btnCommon" value="취소">
+				</div>
+			</div>
+			<!-- END 투표 생성 -->
+
+			<!--  투표 수정일 때 SHOW -->
+			<div id="event-update" class="blind">
+				<div id="topSection">
+					<h1 id="update-title">투표 수정</h1>
+					<img src="/IMG/common/close.svg" alt="close이미지" id="closeBtn" />
+				</div>
+
+				<!-- Start sectionWrap -->
+				<div id='sectionWrap'>
+					<section id="titleSection" class="section_common">
+						<h4 class="section_title">투표 제목</h4>
+						<section id="title_section">
+							<input type="text" id="u_vote_title" class="common" placeholder="투표 제목"> 
+							<span id="u_title_text_length" class="text_length">0/15</span>
+						</section>
+					</section>
+
+					<section id="endDateSection" class="endDateSection section_common">
+						<h4 class="section_title">투표 마감 시간/날짜 설정</h4>
+						<div class="pickerWrap">
+							<input type="text" id="u_vote_endDate" class="vote_endDate dateCommon" autocomplete="off" placeholder="날짜를 선택해주세요." readonly>
+							<div id="u_timepicker_box" class="timepicker_box dateCommon">
+								<section class="timeSection">
+									<span id="u_timeValue">--:--:--</span>
+								</section>
+
+								<section class="timeImgSection">
+									<img src="/IMG/common/clock.svg" id="timeImg" alt="시계이미지" />
+								</section>
+
+								<div id="u_customTimePicker" class="customTimePicker blind">
+									<div id="u_ampm_choice" class="ampm_choice">
+										<ul id="u_ampm_listWrap">
+											<li class="sample ampm-list"></li>
+										</ul>
+									</div>
+									<div id="u_time_choice" class="choiceCommon">
+										<ul id="u_time_listWrap">
+											<li class="sample time-list"></li>
+										</ul>
+									</div>
+									<div id="u_minute_choice" class="choiceCommon">
+										<ul id="u_minute_listWrap">
+											<li class="sample minute-list"></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="section_common">
+						<h4 class="section_title">투표 내용</h4>
+						<section>
+							<textarea id="u_vote_description" class="vote_description common" placeholder="투표 내용"></textarea>
+							<span id="u_description_text_length" class="text_length">0/150</span>
+						</section>
+					</section>
+
+					<section class="voteSection section_common">
+						<h4 class="section_title">투표 항목 (* 수정 불가)</h4>
+
+						<div id="u_vote_list_Wrap">
+							<!-- SAMPLE VOTE LIST -->
+							<div class="vote_list sample blind">
+								<label class="list_title"></label> 
+								<input type="text" class="list_text" readonly />
+							</div>
+						</div>
+					</section>
+
+				</div>
+				<!-- END sectionWrap -->
+
+				<div class="btnWrap">
+					<input type="button" id="vote_updateBtn" class="btnCommon" value="투표 수정">
+				</div>
+			</div>
+			<!-- END 투표 수정 -->
+		</div>
+		<!-- END vote_popup -->
+
+	</div>
+	<div id="confirmWrap" class="update-confirm-wrap blind">
+		<div id="confirm_head">
+			<img src="/IMG/common/fluent_more-horizontal-20-regular.png" id="more-horizontal" />
+		</div>
+		<div id="confirm_txt_wrap">
+			<span id="confirm_txt">투표를 조기종료 하시겠습니까?</span>
+		</div>
+		<div id="confirm_btn_wrap">
+			<input type="button" id="end_yesBtn" class="yesBtn confirm_btn_common" value="예" /> 
+			<input type="button" id="end_noBtn" class="noBtn confirm_btn_common" value="아니오" />
+		</div>
+	</div>
+	<!-- END voteWrap -->
+
+	<!-- ************************************************************ -->
+	<!-- ********************     EVENT SECTION     ***************** -->
+	<!-- ************************************************************ -->
+
+	<!-- ******************************* EVENT VIEW ******************************* -->
+	<!-- START popupWrap-->
+	<div id="event-view" class="popupWrap blind">
+		<!-- START event_popup-->
+		<div id="event_show_popup">
+			<!-- Start title_wrap -->
+			<div id="title_wrap" class="wrap_common">
+				<span id="event-view-title">이벤트 제목 부분입니다.</span> <img src="/IMG/common/more-vertical.png"
+					alt="더보기 세로 이미지" id="event_more_vertival" />
+				<div id="event_dropdown" class="select_custom blind">
+					<img src="/IMG/common/vector.png" alt="셀렉트 before 이미지" id="event_select_img" />
+					<ul class="select_list_wrap">
+						<li class="select_list" id="event_update">수정</li>
+						<li class="select_list" id="event_delete">삭제</li>
+					</ul>
+				</div>
+			</div>
+			<!-- END title_wrap -->
+
+			<!-- Start sectionWrap -->
+			<div id="section_wrap" class="wrap_common">
+				<!-- START info_section -->
+				<section id="info_section" class="sectionCommon">
+					<ul id="listWrap">
+						<li class="list">
+							<label class="e_list_title">일정</label> 
+							<span id="event_date" class="list_content">2022년 08월 28일 12시00분</span>
+						</li>
+					</ul>
+				</section>
+				<!-- END info_section -->
+
+				<!-- START description_section -->
+				<section id="description_section" class="sectionCommon">
+					<fieldset id="description_field">
+						<legend class="field_title">이벤트 설명</legend>
+						<div class="field_content">
+							<textarea id="event_view_description" readonly></textarea>
+						</div>
+					</fieldset>
+				</section>
+				<!-- END description_section -->
+			</div>
+			<!-- END sectionWrap -->
+
+			<!-- Start bottom_wrap -->
+			<div id="bottom_wrap">
+				<div id="event_w_intfo">
+					<p id="event_w_date">작성일 :</p>
+					<p id="event_writer">작성자 : 김예은</p>
+				</div>
+				<input type="button" id="event_okBtn" class="btnCommon" value="확인" />
+			</div>
+			<!-- END bottom_wrap -->
+		</div>
+		<!-- END event_popup-->
+		<div id="event_confirmWrap" class="blind">
+			<div id="confirm_head">
+				<img src="/IMG/common/fluent_more-horizontal-20-regular.png" alt="more-img" />
+			</div>
+			<div id="confirm_txt_wrap">
+				<span id="confirm_txt">삭제하시겠습니까?</span>
+			</div>
+			<div id="confirm_btn_wrap">
+				<input type="button" id="e_yesBtn" class="confirm_btn_common" value="예" /> 
+				<input type="button" id="e_noBtn" class="confirm_btn_common" value="아니오" />
+			</div>
+		</div>
+	</div>
+	<!-- END EVENT VIEW WRAP-->
+
+
+
+	<!-- ******************************* EVENT CREATE_UPDATE ******************************* -->
+	<!-- Start popupWrap -->
+	<div id="event_cu-wrap" class="popupWrap blind">
+		<!-- Start event_popup -->
+		<div id="" class="event_popup">
+			<div id="event-create-wrap" class="blind">
+				<h1 id="event-create-title">이벤트 추가</h1>
+				<!-- Start sectionWrap -->
+				<div class="sectionWrap">
+					<section id="" class="e_titleSection event-section_common">
+						<h4 class="section_title">이벤트 제목</h4>
+						<section>
+							<input type="text" id="event_title" class="event_title common" placeholder="이벤트 제목"> <span
+								id="event_title_text_length" class="text_length">0/15</span>
+						</section>
+					</section>
+
+					<section id="" class="choice_date event-section_common">
+						<h4 class="section_title">이벤트 시간/날짜 설정</h4>
+						<div id="" class="e_pickerWrap">
+							<input type="text" id="eventDate" class="eventDate dateCommon" autocomplete="off"
+								placeholder="날짜를 선택해주세요.">
+
+							<!-- START TIMEPICKER -->
+							<div id="e_timepicker_box" class="e_timepicker_box dateCommon">
+								<section id="" class="timeSection">
+									<span id="event_timeValue">--:--:--</span>
+								</section>
+
+								<section id="" class="timeImgSection">
+									<img src="/IMG/common/clock.svg" id="timeImg" alt="시계이미지" />
+								</section>
+
+								<div id="event-customTimePicker" class="customTimePicker blind">
+									<div id="e_ampm_choice" class="ampm_choice">
+										<ul id="e_ampm_listWrap">
+											<li class="sample ampm-list"></li>
+										</ul>
+									</div>
+									<div id="e_time_choice" class="choiceCommon">
+										<ul id="e_time_listWrap">
+											<li class="sample time-list"></li>
+										</ul>
+									</div>
+									<div id="e_minute_choice" class="choiceCommon">
+										<ul id="e_minute_listWrap">
+											<li class="sample minute-list"></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- END TIMEPICKER -->
+						</div>
+					</section>
+
+					<section class="event-section_common">
+						<h4 class="section_title">이벤트 내용</h4>
+						<section>
+							<textarea id="event_description" class="event_description common"
+								placeholder="이벤트 내용"></textarea>
+							<span id="event_description_text_length" class="text_length">0/200</span>
+						</section>
+					</section>
+				</div>
+				<div class="btnWrap">
+					<input type="button" id="event_createBtn" class="btnCommon" value="이벤트 생성"> 
+					<input type="button" id="event_cancleBtn" class="btnCommon" value="취소">
+				</div>
+			</div>
+			<!--  END event-create-wrap -->
+
+
+			<!--  START event-update-wrap -->
+			<div id="event-update-wrap" class="blind">
+				<div id="topSection">
+					<h1 class="u_title">이벤트 수정</h1>
+					<img src="/IMG/common/close.png" id="e_u_closeBtn" alt="이벤트 수정창 닫기 버튼 이미지" />
+				</div>
+
+				<!-- Start sectionWrap -->
+				<div class="sectionWrap">
+					<section id="" class="e_titleSection event-section_common">
+						<h4 class="section_title">이벤트 제목</h4>
+						<section id="title_section">
+							<input type="text" id="event_u_title" class="event_title common" placeholder="이벤트 제목"> <span
+								id="event_u_title_text_length" class="text_length">0/15</span>
+						</section>
+					</section>
+
+					<section id="" class="choice_date event-section_common">
+						<h4 class="section_title">이벤트 시간/날짜 설정</h4>
+						<div id="" class="e_pickerWrap">
+							<input type="text" id="u_eventDate" class="eventDate dateCommon" autocomplete="off"
+								placeholder="날짜를 선택해주세요.">
+
+							<!-- START TIMEPICKER -->
+							<div id="eu_t_box" class="e_timepicker_box dateCommon">
+								<section id="" class="timeSection">
+									<span id="event_u_timeValue">--:--:--</span>
+								</section>
+
+								<section id="" class="timeImgSection">
+									<img src="/meet-a-bwa/resources/img/clock.svg" id="timeImg" alt="시계이미지" />
+								</section>
+
+								<div id="eu_customTimePicker" class="customTimePicker blind">
+									<div id="eu_ampm_choice" class="ampm_choice">
+										<ul id="eu_ampm_listWrap">
+											<li class="sample ampm-list"></li>
+										</ul>
+									</div>
+									<div id="eu_time_choice" class="choiceCommon">
+										<ul id="eu_time_listWrap">
+											<li class="sample time-list"></li>
+										</ul>
+									</div>
+									<div id="eu_minute_choice" class="choiceCommon">
+										<ul id="eu_minute_listWrap">
+											<li class="sample minute-list"></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- END TIMEPICKER -->
+						</div>
+					</section>
+
+					<section class="event-section_common">
+						<h4 class="section_title">이벤트 내용</h4>
+						<section>
+							<textarea id="event_u_event_description" class="event_description common"
+								placeholder="이벤트 내용"></textarea>
+							<span id="event_u_description_text_length" class="text_length">0/200</span>
+						</section>
+					</section>
+
+				</div>
+				<!-- END sectionWrap -->
+
+				<div class="btnWrap">
+					<input type="button" id="event_updateBtn" class="btnCommon" value="이벤트 수정">
+				</div>
+			</div>
+			<!--  END event-update-wrap -->
+		</div>
+		<!-- END event_popup -->
+	</div>
+	<!-- END popupWrap -->
 </body>
 
 </html>

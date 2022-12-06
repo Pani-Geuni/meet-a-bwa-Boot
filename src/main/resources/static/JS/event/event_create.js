@@ -256,7 +256,7 @@ $(function() {
 				event_description: $("#event_description").val().trim(),
 				event_d_day: $("#eventDate").val().trim() + " " + time,
 				user_no: $.cookie("user_no"),
-				activity_no: location.href.split("idx=")[1]
+				activity_no: location.href.split("activity_no=")[1]
 			},
 			success: function(res) {
 				event_create_flag = true;

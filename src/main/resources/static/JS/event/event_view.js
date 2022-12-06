@@ -74,7 +74,7 @@ $(function() {
 				dataType: 'json', // 결과값 받을 타입
 				data: {
 					event_no: event_idx,
-					activity_no: location.href.split("idx=")[1]
+					activity_no: location.href.split("activity_no=")[1]
 				},
 				success: function(res) {
 					event_delete_flag = true;
