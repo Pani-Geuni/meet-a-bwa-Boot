@@ -45,13 +45,6 @@
 	<script src="/JS/common/pw_find.js"></script>
 	<script src="/JS/common/header.js"></script>
 
-
-	<script th:inline="javascript">
-		/*<![CDATA[*/
-		var is_login = /*[[${session.user_id}]]*/ "is_login";
-		/*]]*/
-	</script>
-
 	<!-- DATE PICKER -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -60,19 +53,26 @@
 
 
 	<!-- SUMMERNOTE -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-	<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
-	
+	<link rel="stylesheet" href="/CSS/summernote/summernote-lite.css" />
+	<script src="/JS/meet/summernote-lite.js"></script>
+	<script src="/JS/meet/summernote-ko-KR.js"></script>
 
 	<script src="/JS/meet/feed.js"></script>
 	<script src="/JS/meet/post_detail.js"></script>
 	<script src="/JS/meet/post_writer.js"></script>
 
+
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 	<script src="/JS/vote/vote_create.js"></script>
 	<script src="/JS/vote/vote_select.js"></script>
+	
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var is_login = /*[[${session.user_id}]]*/ "is_login";
+		/*]]*/
+	</script>
 
 	<script>
 		$(function () {
@@ -85,7 +85,7 @@
 				focus: true,
 				lang: "ko-KR",
 
-				
+
 			});
 		})
 	</script>
