@@ -16,8 +16,8 @@ $(function() {
 
 		location.href = "/meet-a-bwa/meet-member.do?idx=" + meet_no;
 	});
-	
-	$(".meet-detail-link").on("click", function() {		
+
+	$(".meet-detail-link").on("click", function() {
 		let idx = $(this).attr("idx");
 		console.log(idx);
 		location.href = "meet-detail.do?idx=" + idx;
@@ -45,6 +45,23 @@ $(function() {
 
 		event.stopPropagation();
 	});
+
+	$(".all-feed .feed-post").each(function(index, item) {
+		console.log($(this)[0].offsetHeight, $(this)[0].scrollHeight);
+		
+		// feed-post가 overflow 됐을 때, 더보기 버튼 활성화
+		if ($(this)[0].offsetHeight < $(this)[0].scrollHeight) {
+			$(this).next().children('div:eq(1)').removeClass("blind");
+		} 
+	})
+	
+	
+	$(".feed").on('click', '#btn-more-post', function() {
+		let feed_post = $(this).parent().parent().siblings(".feed-post");
+		feed_post.css('height', $(feed_post)[0].scrollHeight);
+		$(this).addClass("blind");
+	});
+		
 
 	$(".post-detail-top").on('click', '.img-more', function(event) {
 		if ($(this).parent().hasClass('active')) {
@@ -80,9 +97,9 @@ $(function() {
 	});
 
 	$("#btn-meet-write").on('click', function() {
-		
+
 		let meet_no = window.location.href.split("idx=")[1].split("&")[0];
-		
+
 		location.href = "/meet-a-bwa/post-write.do?idx=" + meet_no;
 	})
 
@@ -111,12 +128,12 @@ $(function() {
 			}
 		});
 	});
-	
+
 
 
 	$("#activity-summary-list").on("click", ".activity_list_item", function() {
 		let idx = $(this).attr("idx");
-		console.log("activity idx :",idx);
-//		location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
+		console.log("activity idx :", idx);
+		//		location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
 	});
 })

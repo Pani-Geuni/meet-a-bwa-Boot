@@ -43,6 +43,12 @@ public class MeetBoardService {
 		return vo;
 	}
 	
+	public int insert_post(String board_title, String board_content, String user_no, String meet_no) {
+		int result = boardRepository.insert_post(board_title, board_content, user_no, meet_no);
+		
+		return result;
+	}
+	
 	public int delete_post(String board_no) {
 		int result = boardRepository.delete_post(board_no);
 		
