@@ -253,10 +253,10 @@ $(function() {
 			dataType: 'json', // 결과값 받을 타입
 			data: {
 				event_title: $("#event_title").val().trim(),
-				event_description: $("#event_description").val().trim(),
+				event_content: $("#event_description").val().trim(),
 				event_d_day: $("#eventDate").val().trim() + " " + time,
 				user_no: $.cookie("user_no"),
-				activity_no: location.href.split("activity_no=")[1]
+				activity_no: window.location.href.split("activity_no=")[1]
 			},
 			success: function(res) {
 				event_create_flag = true;

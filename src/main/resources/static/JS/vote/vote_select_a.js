@@ -19,7 +19,7 @@ $(function() {
 
 
 	// 투표 리스트 선택 - 투표 보기
-	$(".pheedEventBody").on("click", ".content_list_activity", function() {
+	$(".pheedVote").on("click", ".vote_action", function() {
 		idx = $(this).attr("vote_no");
 		ajax_load(idx);
 	});
@@ -159,7 +159,7 @@ $(function() {
 				dataType: 'json', // 결과값 받을 타입
 				data: {
 					vote_no: vote_idx,
-					meet_no: window.location.href.split("idx=")[1]
+					activity_no: window.location.href.split("activity_no=")[1]
 				},
 				success: function(res) {
 					vote_state_update_flag = true;
@@ -272,7 +272,7 @@ $(function() {
 				dataType: 'json', // 결과값 받을 타입
 				data: {
 					vote_no: vote_idx,
-					meet_no: location.href.split("idx=")[1]
+					activity_no: window.location.href.split("activity_no=")[1]
 				},
 				success: function(res) {
 					vote_delete_flag = true;

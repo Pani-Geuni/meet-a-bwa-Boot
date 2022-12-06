@@ -19,8 +19,8 @@ public interface EventRepository extends JpaRepository<EventVO, Object> {
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value =
-			"insert into EVENT(EVENT_NO, EVENT_TITLE, EVENT_INFO, EVENT_DATE, EVENT_D_DAY, ACTIVITY_NO, USER_NO) "
-			+ "values ('E'||SEQ_EVENT.NEXTVAL, :#{#vo?.event_title} , :#{#vo?.event_info} , current_date, :#{#vo?.event_d_day}, :#{#vo?.activity_no}, :#{#vo?.user_no})")
+			"insert into EVENT(EVENT_NO, EVENT_TITLE, event_content, EVENT_DATE, EVENT_D_DAY, ACTIVITY_NO, USER_NO) "
+			+ "values ('E'||SEQ_EVENT.NEXTVAL, :#{#vo?.event_title} , :#{#vo?.event_content} , current_date, :#{#vo?.event_d_day_sql}, :#{#vo?.activity_no}, :#{#vo?.user_no})")
 	public int SQL_INSERT_EVENT(@Param("vo") EventVO vo);
 	
 	@Transactional
@@ -44,7 +44,7 @@ public interface EventRepository extends JpaRepository<EventVO, Object> {
 	public List<EventVO> SQL_EVENT_SELECT_ALL(@Param("vo") EventVO vo);
 	
 	@Query(nativeQuery = true, value = 
-			"SELECT * FROM TEST_EVENT WHERE EVENT_NO = #{#vo?.event_no}")
+			"SELECT * FROM EVENT WHERE EVENT_NO = :#{#vo?.event_no}")
 	public EventVO SQL_EVENT_SELECT_ONE(@Param("vo") EventVO vo);
 
 }

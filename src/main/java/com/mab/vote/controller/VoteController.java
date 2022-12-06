@@ -128,6 +128,8 @@ public class VoteController {
 	public String vote_create(VoteVO vo2, String[] contents) {
 		log.info("/vote_create.do");
 		
+		log.info("{}", vo2);
+		
         DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(vo2.getVote_eod()));
         Timestamp ts = Timestamp.valueOf(localDateTime);

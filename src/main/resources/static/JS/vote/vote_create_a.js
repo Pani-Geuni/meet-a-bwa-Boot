@@ -344,7 +344,7 @@ $(function(){
 				vote_info : $("#vote_description").val().trim(),
 				vote_eod : $("#vote_endDate").val().trim() + " " + time,
 				user_no : $.cookie("user_no"),
-				activity_no : location.href.split("idx=")[1],
+				activity_no : window.location.href.split("activity_no=")[1],
 				meet_no:null,
 				private_state:'T',
 				contents : content_arr
