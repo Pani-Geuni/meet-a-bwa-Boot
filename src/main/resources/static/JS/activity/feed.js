@@ -75,24 +75,38 @@ $(function() {
 			}
 		});
 	}
-	
+
 	// 날짜 함수
 	function leadingZeros(n, digits) {
-	    var zero = '';
-	    n = n.toString();
+		var zero = '';
+		n = n.toString();
 
-	    if (n.length < digits) {
-	        for (i = 0; i < digits - n.length; i++)
-	            zero += '0';
-	    }
-	    return zero + n;
+		if (n.length < digits) {
+			for (i = 0; i < digits - n.length; i++)
+				zero += '0';
+		}
+		return zero + n;
 	}
 
 	// 액티비티 수정 페이지 요청
+	$(".activityExitBtn").click(function() {
+		$(".activityExit-popup").removeClass("blind");
+		$(".withdrawal").click(function() {
+			$(".activityExit-popup").addClass("blind");
+			idx = $(this).attr("idx");
+			ajax_load_exit(idx);
+		});
+
+		$(".cancle").click(function() {
+			$(".activityExit-popup").addClass("blind");
+		});
+	});
+
 	$(".activityUpdateBtn").on('click', function() {
-		let query = location.search;
-		let param = new URLSearchParams(query);
-		let activity_no = param.get('activity_no');
+		//		let query = location.search;
+		//		let param = new URLSearchParams(query);
+		//		let activity_no = param.get('activity_no');
+		idx = $(this).attr("idx");
 		let recruitment_etime = $("#recruitment_etime").val();
 		var now = new Date();
 
@@ -113,7 +127,7 @@ $(function() {
 			$(".popup-background:eq(1)").addClass("blind");
 			$("#spinner-section").addClass("blind");
 
-			location.href = "/meet-a-bwa/activity_update?activity_no=" + activity_no;
+			location.href = "/meet-a-bwa/activity_update?activity_no=" + idx;
 		} else {
 			//로딩 화면 닫기
 			$(".popup-background:eq(1)").addClass("blind");
@@ -142,6 +156,10 @@ $(function() {
 	});
 
 	function ajax_load_exit(idx) {
+		//로딩 화면
+		$(".popup-background:eq(1)").removeClass("blind");
+		$("#spinner-section").removeClass("blind");
+
 		$.ajax({
 			url: "/meet-a-bwa/a_withdrawal.do",
 			type: "GET",
@@ -151,10 +169,21 @@ $(function() {
 			},
 
 			success: function(res) {
+				//로딩 화면 닫기
+				$(".popup-background:eq(1)").addClass("blind");
+				$("#spinner-section").addClass("blind");
+
 				location.reload();
 			},
 			error: function(res, status, text) {
-				console.log(text)
+				//로딩 화면 닫기
+				$(".popup-background:eq(1)").addClass("blind");
+				$("#spinner-section").addClass("blind");
+
+				// 에러 팝업
+				$('.popup-background:eq(1)').removeClass('blind')
+				$('#common-alert-popup').removeClass('blind')
+				$('.common-alert-txt').text('오류 발생으로 처리되지 못했습니다.')
 			}
 		});
 	}
