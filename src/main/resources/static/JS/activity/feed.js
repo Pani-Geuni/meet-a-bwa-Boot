@@ -30,23 +30,29 @@ $(function() {
 			},
 
 			success: function(res) {
-				if (res.result == 1) location.reload();
-				else if(res.result == 0){
+				if (res.result == 1) {
+					$(".joinSuccess-popup").removeClass("blind");
+					$(".go").click(function() {
+						$(".joinSuccess-popup").addClass("blind");
+						location.reload();
+					});
+				}
+				else if (res.result == 0) {
 					$('.popup-background:eq(1)').removeClass('blind')
 					$('#common-alert-popup').removeClass('blind')
 					$('.common-alert-txt').text('가입 조건을 확인해주세요.')
 				}
-				else if(res.result == 2){
+				else if (res.result == 2) {
 					$('.popup-background:eq(1)').removeClass('blind')
 					$('#common-alert-popup').removeClass('blind')
 					$('.common-alert-txt').text('정원이 초과되었습니다.')
 				}
-				else if(res.result == 3){
+				else if (res.result == 3) {
 					$('.popup-background:eq(1)').removeClass('blind')
 					$('#common-alert-popup').removeClass('blind')
 					$('.common-alert-txt').text('모임에 먼저 가입해주세요!')
 				}
-				
+
 			},
 			error: function(res, status, text) {
 				$('.popup-background:eq(1)').removeClass('blind')
