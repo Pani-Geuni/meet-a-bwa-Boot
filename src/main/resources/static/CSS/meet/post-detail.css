@@ -49,6 +49,8 @@
   width: 24px;
   height: 24px;
   margin-right: 4px;
+  
+  border-radius: 100%;
 }
 
 .btn-post-more {
