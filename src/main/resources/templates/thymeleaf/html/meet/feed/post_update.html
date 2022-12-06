@@ -1,0 +1,22 @@
+<!-- ------------ -->
+<!-- @author 전판근 -->
+<!-- ------------ -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<section class="post-write-info-wrap" th:fragment="meet_content">
+
+	<div class="post-writer-top">
+		<input type="text" name="board_title" class="board-title" th:value=${post_detail.board_title} placeholder="제목을 입력해 주세요" />
+	</div>
+
+	<div class="post-writer-middle">
+		<textarea id="summernote" name="board_content">[[${post_detail.board_content}]]</textarea>
+	</div>
+	
+	<div class="post-writer-bottom">
+		<input type="button" class="btn-post-update" value="작성하기">
+	</div>
+
+</section>

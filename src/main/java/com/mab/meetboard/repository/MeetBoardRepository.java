@@ -17,6 +17,14 @@ public interface MeetBoardRepository extends JpaRepository<MeetBoardVO, Object> 
 					+ "values('B'||SEQ_MEETBOARD.nextval, ?1, ?2, NULL, CURRENT_DATE, 'F', ?3, ?4)")
 	public int insert_post(String board_title, String board_content, String user_no, String meet_no);
 	
+	@Modifying
+	@Transactional
+	@Query(nativeQuery = true, 
+			value = "update meetboard "
+					+ "set board_title=?1, board_content=?2, board_date=CURRENT_DATE "
+					+ "where user_no=?3 and meet_no=?4 and board_no=?5")
+	public int update_post(String board_title, String board_content, String user_no, String meet_no, String board_no);
+	
 	
 	@Modifying
 	@Transactional

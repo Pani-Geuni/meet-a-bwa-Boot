@@ -82,7 +82,15 @@ $(function() {
 
 		// 팝업 열기 버튼 클릭시 동작하는 이벤트입니다.
 		var targeted_popup_class = $(this).attr('data-popup-open');
-		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+		if (targeted_popup_class == 'update') {
+			let meet_no = window.location.href.split("idx=")[1].split("&")[0];
+			let board_no = $(this).parents().attr("idx").split("&")[0]; 
+
+			location.href = "/meet-a-bwa/post-update.do?idx=" + meet_no + "&board_no=" + board_no;
+			
+		} else {
+			$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);			
+		}
 
 		e.preventDefault();
 	});

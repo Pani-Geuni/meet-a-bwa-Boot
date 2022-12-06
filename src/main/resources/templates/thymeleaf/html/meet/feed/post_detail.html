@@ -13,7 +13,8 @@
 		<div class="post-user-info">
 			<div class="user-info">
 				<div class="user-info-profile">
-					<img src="/IMG/common/loopy.svg" alt="프로필 이미지" />
+					<img th:src="@{https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/user/}+${post_detail.user_image}"
+						alt="프로필 이미지" />
 				</div>
 				<p class="user-nickname">[[${ post_detail.user_name }]]</p>
 				<p class="write-date">[[${ post_detail.board_date }]]</p>
@@ -31,13 +32,14 @@
 		</div>
 	</div>
 
-<!--	<pre class="post-detail-content">[[${ post_detail.board_content }]]</pre>-->
+	<!--	<pre class="post-detail-content">[[${ post_detail.board_content }]]</pre>-->
 	<pre class="post-detail-content" th:utext="${ post_detail.board_content }"></pre>
 
 	<div class="comment-wrap">
 		<div class="form-comment">
 			<textarea name="comment_content" id="comment_content" placeholder="댓글을 남겨주세요."></textarea>
-			<input type="button" id="btn-comment-insert" value="등록" th:attr="board_no=${post_detail.board_no}, user_no=${list.user_no}">
+			<input type="button" id="btn-comment-insert" value="등록"
+				th:attr="board_no=${post_detail.board_no}, user_no=${list.user_no}">
 		</div>
 
 		<th:block th:each="comment : ${ comment_list }">
@@ -46,7 +48,8 @@
 					<div class="comment-user-info-top">
 						<div class="comment-user-info">
 							<div class="comment-user-info-profile">
-								<img th:src="@{https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/user/}+${comment.user_image}" alt="프로필 이미지" />
+								<img th:src="@{https://meet-a-bwa.s3.ap-northeast-2.amazonaws.com/user/}+${comment.user_image}"
+									alt="프로필 이미지" />
 							</div>
 							<p class="comment-user-nickname">[[${ comment.user_nickname }]]</p>
 							<p class="comment-write-date">[[${ comment.comment_date }]]</p>

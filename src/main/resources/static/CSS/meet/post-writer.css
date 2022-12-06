@@ -35,7 +35,8 @@
 	padding: 40px 32px;
 }
 
-.btn-post-write {
+.btn-post-write,
+.btn-post-update {
 	width: 80px;
 	height: 32px;
 	

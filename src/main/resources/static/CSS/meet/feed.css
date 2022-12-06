@@ -58,7 +58,7 @@
   height: 50px;
   align-items: center;
   justify-content: space-between;
-  margin: 24px;
+  margin: 24px 24px 0;
 }
 
 .user-info {
@@ -149,7 +149,7 @@
 /* ********* */
 
 .feed-post {
-  height: 80px;
+  height: 50px;
   
   padding: 0 24px;
   

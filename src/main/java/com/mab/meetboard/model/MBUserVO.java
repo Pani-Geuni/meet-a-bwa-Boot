@@ -59,6 +59,9 @@ public class MBUserVO {
 	@Column(name="user_name")
 	private String user_name;
 	
+	@Column(name="user_image")
+	private String user_image;
+	
 	@Transient
 	@Column(name="comment_cnt")
 	private Integer comment_cnt;
