@@ -146,8 +146,7 @@
 										<th:block th:if="${!#lists.isEmpty(vvos)}">
 											<th:block th:each="vvos:${vvos}">
 												<section class="blind">
-													<label for="activity_no">activity_no:</label><input id="activity_no"
-														name="activity_no" th:value="${vvos.activity_no}">
+													<label for="activity_no">activity_no:</label><input th:value="${vvos.activity_no}">
 												</section>
 												<section>
 													<div class="content_list_activity event-list vote_action"
@@ -166,12 +165,12 @@
 														<section class="blind">
 															<label
 																for="user_no">user_no:</label>[[${vvos.user_no}]]<input
-																id="usre_no" name="user_no" th:value="${vvos.user_no}">
+																class="usre_no" name="user_no" th:value="${vvos.user_no}">
 														</section>
 														<section class="blind">
 															<label
-																for="activity_no">vote_no:</label>[[${vvos.activity_no}]]<input
-																id="activity_no" name="activity_no"
+																for="activity_no">activity_no:</label>[[${vvos.activity_no}]]<input
+																
 																th:value="${vvos.activity_no}">
 														</section>
 														<div class="vote-list-wrap" idx="${vvos.vote_no}">
@@ -221,10 +220,8 @@
 										<th:block th:if="${!#lists.isEmpty(evos)}">
 											<th:block th:each="evos:${evos}">
 												<section class="blind">
-													<label for="activity_no">activity_no:</label><input id="activity_no"
-														name="activity_no" th:value="${evos.activity_no}">
+													<label for="activity_no">activity_no:</label><input th:value="${evos.activity_no}">
 												</section>
-
 
 												<section>
 													<div class="content_list_activity event-list event_action"
@@ -238,13 +235,13 @@
 														<section class="blind">
 															<label
 																for="user_no">user_no:</label>[[${evos.user_no}]]<input
-																id="usre_no" name="user_no" th:value="${evos.user_no}">
+																class="usre_no" name="user_no" th:value="${evos.user_no}">
 														</section>
 														<section class="blind">
 															<label
-																for="activity_no">event_no:</label>[[${evos.activity_no}]]<input
-																id="activity_no" name="activity_no"
-																th:value="${evos.activity_no}" idx="${evos.event_no}">
+																for="activity_no">activity_no:</label>[[${evos.activity_no}]]<input
+																
+																th:value="${evos.activity_no}">
 														</section>
 														<div class="event-list-wrap">
 															<div class="listCommon">
