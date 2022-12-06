@@ -33,7 +33,7 @@ public interface EventRepository extends JpaRepository<EventVO, Object> {
 	@Modifying
 	@Query(nativeQuery = true, value 
 		= "UPDATE EVENT SET EVENT_TITLE = :#{#vo?.event_title}, EVENT_INFO = :#{#vo?.event_info}, EVENT_D_DAY = :#{#vo?.event_d_day}"
-		+ "WHERE EVENT_NO = :#{#vo?.EVENT_NO}")
+		+ "WHERE EVENT_NO = :#{#vo?.event_no}")
 	public int SQL_UPDATE_EVENT(@Param("vo") EventVO vo);
 	
 	

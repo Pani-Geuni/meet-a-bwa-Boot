@@ -95,7 +95,7 @@ $(function(){
 
         if(ajax_flag){
             $.ajax({
-                url : "/meet-a-bwa/resources/json/time.json",
+                url : "/json/time.json",
                 success : function(res){
                     ajax_flag = false;
                     ampm_list(res.type);
