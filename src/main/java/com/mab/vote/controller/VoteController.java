@@ -6,7 +6,6 @@
 
 package com.mab.vote.controller;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mab.event.model.EventVO;
-import com.mab.main.model.MainActivityViewVO;
-import com.mab.main.model.MainMeetViewVO;
-import com.mab.main.service.MainActivityService;
-import com.mab.main.service.MainMeetService;
 import com.mab.user.service.UserService;
 import com.mab.vote.model.VoteContentVO;
 import com.mab.vote.model.VoteResultVO;

@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mab.event.model.EventVO;
 import com.mab.event.service.EventService;
+import com.mab.user.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +39,9 @@ public class EventController {
 	
 	@Autowired
 	EventService service;
+	
+	@Autowired
+	UserService user_service;
 	
 	
 	//자동 개행 및 줄 바꿈 (new Gson은 일자로 나옴)
@@ -59,7 +63,7 @@ public class EventController {
 		map.put("activity_no", vo.getActivity_no());
 		map.put("user_no", vo.getUser_no());
 		
-//		map.put("user_name", name);
+		map.put("user_name", user_service.select_user_info(vo2.getUser_no()).getUser_name());
 		map.put("event_date", vo.getEvent_date());
 		map.put("event_d_day", vo.getEvent_d_day());
 		
