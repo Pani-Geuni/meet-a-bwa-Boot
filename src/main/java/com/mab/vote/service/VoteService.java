@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class VoteService {
+	
+	
 	@Autowired
 	VoteRepository repo;
 	
@@ -27,10 +29,10 @@ public class VoteService {
 	public VoteService(){
 		log.info("VoteService()...");
 	}
-
-	// 특정 투표에 대한 투표 내용 반환
-	public List<VoteViewVO> select_all_vote_content(VoteVO vo2) {
-		List<VoteViewVO> list = repo.select_all_vote_content(vo2);
+	
+	// 특정 투표에 대한 정보
+	public List<VoteViewVO> select_one_vote(String vote_no) {
+		List<VoteViewVO> list = repo.select_one_vote(vote_no);
 		
 		return list;
 	}
