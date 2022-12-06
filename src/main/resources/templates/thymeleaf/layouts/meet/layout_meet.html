@@ -32,7 +32,6 @@
 	<link rel="stylesheet" href="/CSS/meet/post-update.css" />
 	<link rel="stylesheet" href="/CSS/meet/post-delete.css" />
 
-
 	<link rel="stylesheet" href="/CSS/vote/vote_common.css" />
 	<link rel="stylesheet" href="/CSS/vote/vote_create.css" />
 	<link rel="stylesheet" href="/CSS/vote/vote_update.css" />
@@ -46,25 +45,51 @@
 	<script src="/JS/common/pw_find.js"></script>
 	<script src="/JS/common/header.js"></script>
 
-	<script src="/JS/meet/feed.js"></script>
-	<script src="/JS/meet/post_detail.js"></script>
-	
+
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var is_login = /*[[${session.user_id}]]*/ "is_login";
 		/*]]*/
 	</script>
-	
+
 	<!-- DATE PICKER -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="/JS/common/datePicker_ko.js"></script>
 
-	<script src="/JS/vote/vote_common.js"></script>
+
+	<!-- SUMMERNOTE -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
+	
+
+	<script src="/JS/meet/feed.js"></script>
+	<script src="/JS/meet/post_detail.js"></script>
+	<script src="/JS/meet/post_writer.js"></script>
+
 	<script src="/JS/vote/vote_create.js"></script>
 	<script src="/JS/vote/vote_select.js"></script>
-	
+
+	<script>
+		$(function () {
+			$("#summernote").summernote({
+				placeholder: '내용을 입력해 주세요.',
+				height: 300,
+				width: 720,
+				minHeight: null,
+				maxHeight: null,
+				focus: true,
+				lang: "ko-KR",
+
+				
+			});
+		})
+	</script>
+
 </head>
 
 <body>
@@ -253,7 +278,7 @@
 	<div id="voteWrap" class="vote-view-wrap blind">
 		<div id="divWrap" class="vote_section">
 			<div id="header_wrap" class="wrap_common">
-				<span id="view-title">투표 제목 부분입니다.</span> 
+				<span id="view-title">투표 제목 부분입니다.</span>
 				<img src="/IMG/common/more-vertical.png" alt="더보기 세로 이미지" id="more_vertival" />
 				<div id="dropdown" class="select_custom blind">
 					<img src="/IMG/common/vector.png" alt="셀렉트 before 이미지" id="select_img" />
@@ -456,7 +481,8 @@
 					<section id="endDateSection" class="endDateSection section_common">
 						<h4 class="section_title">투표 마감 시간/날짜 설정</h4>
 						<div class="pickerWrap">
-							<input type="text" id="u_vote_endDate" class="vote_endDate dateCommon" autocomplete="off" placeholder="날짜를 선택해주세요." readonly>
+							<input type="text" id="u_vote_endDate" class="vote_endDate dateCommon" autocomplete="off"
+								placeholder="날짜를 선택해주세요." readonly>
 							<div id="u_timepicker_box" class="timepicker_box dateCommon">
 								<section class="timeSection">
 									<span id="u_timeValue">--:--:--</span>
@@ -519,7 +545,7 @@
 		</div>
 		<!-- END vote_popup -->
 	</div>
-	
+
 	<div id="confirmWrap" class="update-confirm-wrap blind">
 		<div id="confirm_head">
 			<img src="/IMG/common/fluent_more-horizontal-20-regular.png" id="more-horizontal" />
