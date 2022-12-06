@@ -10,10 +10,26 @@ $(function(){
     
     plus_list();
     
+	// 공용 알러트 창 닫기버튼
+	$("#common-alert-btn").click(function() {
+		if ($(this).attr("reload")) {
+			$(this).attr("reload", false);
+			window.location.reload();
+		}
+		else $("#common-alert-popup-wrap").addClass("blind");
+	});
     
-    /************************************************ */
+	// 투표 생성 버튼 클릭 (+)
+	$("#vote_create_btn").click(function() {
+		$(".vote-create-update-wrap").removeClass("blind");
+		$("#event-create").removeClass("blind");
+	});
+    
+    
+    /*********************** */
     /** 버튼 클릭 이벤트 SECTION */
-    /************************************************ */
+    /*********************** */
+    
     // 투표 항목 추가 버튼 클릭 이벤트
     $("#vote_list_plusBtn").click(function(){
         plus_list();
@@ -210,7 +226,6 @@ $(function(){
         changeYear:true,
         changeMonth:true
     });
-    
     
     
     /************************************************ */

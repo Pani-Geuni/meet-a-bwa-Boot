@@ -19,6 +19,12 @@ $(function(){
 		else $("#common-alert-popup-wrap").addClass("blind");
 	});
 	
+	// 오른쪽 섹션 - 투표 생성 버튼 클릭 (+)
+	$("#vote_create_btn").click(function() {
+		$(".vote-create-update-wrap").removeClass("blind");
+		$("#event-create").removeClass("blind");
+	});
+	
     
     /************************************************ */
     /** 버튼 클릭 이벤트 SECTION */
@@ -150,7 +156,7 @@ $(function(){
             $("#customTimePicker").addClass("blind");
         }
     });
-    $("#minute_choice").on("click", ".minute-list", function(event){
+    $("#minute_choice").on("click", ".minute-list", function(){
         $(".minute-list").removeClass("time_choice");
         $(this).addClass("time_choice");
 
