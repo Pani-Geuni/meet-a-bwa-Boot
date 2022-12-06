@@ -113,51 +113,64 @@ public class ActivityController {
 		
 		String register_no = service.select_one_meet_registered_userinfo(avo.getMeet_no(), user_no); // 액티비티가 속한 모임에 유저가 가입했는지 여부
 		
+		Boolean condition = true;
 
 		if (register_no!=null) { // 모임 가입 유무
 			if (avo.getActivity_nop() > Integer.parseInt(user_cnt)) { // 액티비티 인원 수 초과 유무
 				if (avo.getActivity_gender() != "무관") { // 성별 조건 검사
 					if (!avo.getActivity_gender().equals(uvo.getUser_gender())) {
-						map.put("result", "1"); // 조건 불충족
+						log.info("avo.getActivity_gender() : {}",avo.getActivity_gender());
+						log.info("uvo.getUser_gender()() : {}",uvo.getUser_gender());
+						
+						map.put("result", "0"); // 조건 불충족
+						condition=false;
 					}
 				}
 				if (avo.getActivity_age() != null) { // 연령대 조건 검사
 					// 현재 년도
 					Calendar now = Calendar.getInstance(); 
 					Integer currentYear = now.get(Calendar.YEAR);
+					log.info("currentYear : {}",currentYear);
 
 					SimpleDateFormat format = new SimpleDateFormat("yyyy");
 					String stringBirthYear = format.format(uvo.getUser_birth()); 
 					
 					// 태어난 년도
 					Integer birthYear = Integer.parseInt(stringBirthYear);
+					log.info("birthYear : {}",birthYear);
 
 					// 현재 년도 - 태어난 년도 => 나이 (만나이X)
 					String age_result = String.valueOf(currentYear - birthYear + 1);
+					log.info("age_result : {}",age_result);
 
 					StringBuffer sb = new StringBuffer();
 					sb.append(age_result);
-					sb.replace(2,2, "0"); // 에러 
+					sb.setCharAt(1, '0'); 
+					log.info("age_group : {}",sb);
 
 					if (!avo.getActivity_age().contains(sb)) {
-						map.put("result", "1"); // 조건 불충족
+						map.put("result", "0"); // 조건 불충족
+						condition=false;
 					}
 				}
-				
-				int result = service.activity_application(activity_no, user_no); // 가입 처리
-				if (result == 1) {
-					map.put("result", "1");
-					log.info("success");
-				} else {
-					map.put("result", "0");
-					log.info("fail");
-				}
-				
 			} else {
 				map.put("result", "2"); // 인원수 초과
+				condition=false;
 			}
 		}else {
 			map.put("result", "3"); // 모임 미가입
+			condition=false;
+		}
+		
+		if (condition) {
+			int result = service.activity_application(activity_no, user_no); // 가입 처리
+			if (result == 1) {
+				map.put("result", "1");
+				log.info("success");
+			} else {
+				map.put("result", "0");
+				log.info("fail");
+			}
 		}
 
 		String json = gson.toJson(map);
