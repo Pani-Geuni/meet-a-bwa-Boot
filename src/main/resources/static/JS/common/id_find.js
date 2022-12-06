@@ -1,6 +1,11 @@
 /**
- * @author 김예은
+ * @author 김예은, 강경석
  */
+
+  // 공용 알러트 창 닫기버튼
+    $("#common-alert-btn").click(function(){
+        $("#common-alert-popup-wrap").addClass("blind");
+    });
  
  $(function(){
  	let flag = true;
@@ -24,19 +29,24 @@
 			type : "POST",
 			dataType : 'json',
 			data : {
-				email : $("#id-email-input").val().trim()
+				user_email : $("#id-email-input").val().trim()
 			},
 			success : function(res) {
+				$("#id_find_wrap").addClass("blind");
 		        $("#id_find_result").removeClass("blind");
 		        
-		        if(res.result != "not found"){
-			        $("#id_find_result").text(res.result);
+		        if(res.result == 1){
+			        $("#common-alert-popup-wrap").removeClass("blind");
+                     $(".common-alert-txt").html("이메일로 아이디를 전달하였습니다!");
 				}else{
-			        $("#id_find_result").text("해당 이메일로 가입된 회원이 없습니다.");
+			        $("#common-alert-popup-wrap").removeClass("blind");
+                     $(".common-alert-txt").html("해당 이메일로 가입된 회원이 없습니다.");
 				}
 			},
 			error : function(error) {
-			 	console.log(error);
+				$("#id_find_wrap").addClass("blind");
+			 	$("#common-alert-popup-wrap").removeClass("blind");
+                $(".common-alert-txt").html("오류가 발생되어 아이디를 찾을수 없습니다.");
 			 }
         });
  	}

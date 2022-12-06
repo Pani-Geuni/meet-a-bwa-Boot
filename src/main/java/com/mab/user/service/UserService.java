@@ -1,5 +1,8 @@
 package com.mab.user.service;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -61,8 +64,23 @@ public class UserService implements UserDetailsService {
 	public int user_pw_init(UserVO uvo) {
 		log.info("user_pw_init()....");
 		log.info("uvo: {}", uvo);
+		return repository.user_pw_init(uvo.getPassword(), uvo.getUser_no());
+	}
+	
+	//회원가입 - 아이디 중복체크
+	public UserVO idCheckOK(UserVO uvo) {
+		log.info("idCheckOK()....");
+		log.info("uvo: {}", uvo);
 
-		return repository.user_pw_init(uvo.getPassword(), uvo.getUser_id());
+		return repository.idCheckOK(uvo.getUser_id());
+	}
+	
+	//마이페이지- 회원 정보 불러오기
+	public UserVO user_mypage_select(UserVO uvo) {
+		log.info("user_mypage_select()....");
+		log.info("uvo: {}", uvo);
+		return repository.user_mypage_select(uvo.getUser_no());
+//		return repository.user_mypage_select("U1001");
 	}
 	
 	
