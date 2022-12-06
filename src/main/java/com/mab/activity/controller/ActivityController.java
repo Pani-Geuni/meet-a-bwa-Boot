@@ -115,8 +115,8 @@ public class ActivityController {
 		
 
 		if (register_no!=null) { // 모임 가입 유무
-			if (avo.getActivity_nop() < Integer.parseInt(user_cnt)) { // 액티비티 인원 수 초과 유무
-				if (avo.getActivity_gender() != null) { // 성별 조건 검사
+			if (avo.getActivity_nop() > Integer.parseInt(user_cnt)) { // 액티비티 인원 수 초과 유무
+				if (avo.getActivity_gender() != "무관") { // 성별 조건 검사
 					if (!avo.getActivity_gender().equals(uvo.getUser_gender())) {
 						map.put("result", "1"); // 조건 불충족
 					}
@@ -137,7 +137,7 @@ public class ActivityController {
 
 					StringBuffer sb = new StringBuffer();
 					sb.append(age_result);
-					sb.replace(1, -1, "0");
+					sb.replace(2,2, "0"); // 에러 
 
 					if (!avo.getActivity_age().contains(sb)) {
 						map.put("result", "1"); // 조건 불충족
