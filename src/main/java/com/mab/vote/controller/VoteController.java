@@ -7,6 +7,7 @@
 package com.mab.vote.controller;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -74,10 +75,7 @@ public class VoteController {
 		Map<String, Object> map_wrap =  new HashMap<String, Object>();
 		ArrayList<Object> arr = new ArrayList<Object>();
 		
-		log.info("list2 : {}", list2);
 		for(VoteViewVO vvo2 : list2) {
-			log.info("vvo2 : {}", vvo2);
-			
 			if(vote_title.equals("")) {
 				vote_title = vvo2.getVote_title();
 			}

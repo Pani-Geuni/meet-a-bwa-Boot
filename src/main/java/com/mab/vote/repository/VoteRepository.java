@@ -48,7 +48,7 @@ public interface VoteRepository extends JpaRepository<VoteViewVO, Object> {
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value 
-		= "UPDATE VOTE SET VOTE_TITLE = :#{#vo2?.vote_title}, VOTE_INFO = :#{#vo2?.vote_info}, VOTE_EOD = :#{#vo2?.vote_eod_sql} "
+		= "UPDATE VOTE SET VOTE_TITLE = :#{#vo2?.vote_title}, VOTE_INFO = :#{#vo2?.vote_info}, VOTE_EOD = :#{#vo2?.vote_eod_sql},PRIVATE_STATE = :#{#vo2?.private_state} "
 		+ "WHERE VOTE_NO = :#{#vo2?.vote_no}")
 	public int SQL_UPDATE_VOTE(@Param("vo2") VoteVO vo2);
 
