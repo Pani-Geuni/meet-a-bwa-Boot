@@ -1,0 +1,190 @@
+<!-- ------------ -->
+<!-- @author 강경석 -->
+<!-- ------------ -->
+<!--  <meta charset="UTF-8">-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" href="/CSS/common/common.css" />
+	<link rel="stylesheet" href="/CSS/common/header.css" />
+	<link rel="stylesheet" href="/CSS/common/footer.css" />
+
+
+	<link rel="stylesheet" href="/CSS/user/my-page.css" />
+	<link rel="stylesheet" href="/CSS/user/login.css" />
+	<link rel="stylesheet" href="/CSS/user/logout.css" />
+
+	<link rel="stylesheet" href="/CSS/user/edit-info.css" />
+	<link rel="stylesheet" href="/CSS/list/meet-list.css" />
+
+	<link rel="stylesheet" href="/CSS/user/withdrawal-popup.css" />
+
+	<link rel="stylesheet" href="/CSS/user/bin-popup.css" />
+
+	<script src="/JS/common/jquery-3.6.1.min.js"></script>
+	<script src="/JS/common/header.js"></script>
+	<script src="/JS/common/logout.js"></script>
+	<script src="/JS/common/jquery.cookie.js"></script>
+	<script src="/JS/user/myPage.js"></script>
+	<script src="/JS/common/jquery-3.6.1.min.js"></script>
+	<script src="/JS/common/searchBar.js"></script>
+	<script src="/JS/common/jquery.cookie.js"></script>
+	<script src="/JS/common/header.js"></script>
+	<script src="/JS/common/login.js"></script>
+	<script src="/JS/common/logout.js"></script>
+
+	<script src="/JS/user/edit_info/textCondition.js"></script>
+	<script src="/JS/user/idCheck.js"></script>
+	<script src="/JS/user/edit_info/nickCheck.js"></script>
+	<script src="/JS/user/edit_info/emailCheck.js"></script>
+	<script src="/JS/user/edit_info/region.js"></script>
+	<script src="/JS/user/edit_info/interest.js"></script>
+	<script src="/JS/user/profileImage.js"></script>
+	
+	
+	
+	<script>
+	//성별 출력
+	$(function() {
+		
+		var user_id = '${user_id}'; //세션값 가져옴
+		console.log(user_id);
+
+		$("#gender").on("change", function() {
+			console.log($(this).val());
+		});
+
+		$("#membership_withdrawal_btn").on("click", function() {
+			$(".withdrawal-popup").removeClass("blind");
+			$(".withdrawalOK").click(function() {
+				$(".withdrawal-popup").addClass("blind");
+					
+					// $.cookie("user_no");
+					
+					location.replace("u_delete.do?user_no=" + $.cookie("user_no"));
+				});
+			});
+			$(".cancle").click(function() {
+				$(".withdrawal-popup").addClass("blind");
+			});
+		
+
+	});
+	
+	
+	function check() {
+
+		console.log($("#u_id").val());
+		
+		let pw = $.trim($("#user_pw").val()).length;
+		let pw_check = $.trim($("#pw_check").val()).length;
+		let nickname = $.trim($("#u_nickname").val()).length;
+		let email = $.trim($("#email").val()).length;
+		let tel = $.trim($("#tel").val()).length;
+
+		console.log(pw_check);
+		console.log(nickname);
+		console.log(email);
+		console.log(tel);
+
+		//if 절에 이미지 사이즈 용량 초과 조건 넣기
+		if (pw_check > 0 && nickname > 0 && email > 0 && tel > 0
+				&& ($("#user_pw").val() === $("#pw_check").val())
+				&& $("#u_nickname").attr("readonly")
+				&& $("#email").attr("readonly")) {
+			console.log("가입 가능");
+		} else {
+			console.log("가입 불가능");
+			if (pw <= 0 || pw_check <= 0 || nickname <= 0 || email <= 0
+					|| tel <= 0) {
+				$(".bin-popup").removeClass("blind");
+				$(".ok").on("click", function() {
+					$(".bin-popup").addClass("blind");
+				});
+			} else if (pw < 7 || pw_check < 7
+					|| ($("#user_pw").val() !== $("#pw_check").val())) {
+				$(".pwd-popup").removeClass("blind");
+				$(".ok").on("click", function() {
+					$(".pwd-popup").addClass("blind");
+				});
+			} else if ($("#u_nickname").attr("readonly", false)) {
+				$(".nickname-popup").removeClass("blind");
+				$(".ok").on("click", function() {
+					$(".nickname-popup").addClass("blind");
+				});
+			} else if ($("#email").attr("readonly", false)) {
+				$(".email-popup").removeClass("blind");
+				$(".ok").on("click", function() {
+					$(".email-popup").addClass("blind");
+				});
+			}
+			return false;
+		}
+
+	}
+
+	$(function() {
+    		// 상세 리스트 클릭 이벤트
+	    	 $("#meet-list-section").on("click", ".content-list.meet-list", function(){
+	    		 let idx = $(this).attr("idx");
+	    		 location.href = "/meet-a-bwa/meet-main.do?idx="+idx;
+	    	 });
+    		
+	    	 $("#meet-list-section").on("click", ".heartSection", function(event){
+		   		 event.stopPropagation();
+		   		 
+		   		 if($.cookie("isLogin") == 'true'){
+		   		 	// 좋아요 추가
+			    		 if($(this).find(".afterLike_heart").hasClass("blind")){
+				    		 location.href = "/meet-a-bwa/my_meet_like_insert.do?meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+			    		 }
+			    		 // 좋아요 삭제
+			    		 else{
+				    		 location.href = "/meet-a-bwa/my_meet_like_delete.do?meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+			    		 }
+		   		 }else{
+		   			 $(".warning-layer").removeClass("blind");
+		   		 }
+	   	 	});
+	    	
+	    	// 모임 좋아요 처리
+		   	 let like_meet_arr = $.cookie('like_meet');
+		   	 if(like_meet_arr != undefined){
+		  	 	like_meet_arr = like_meet_arr.split("/");
+			    	 
+		   		let meet_elements = $(".content-list.meet-list").slice();
+			    	for(like_meet of like_meet_arr){
+			    		for(list of meet_elements){
+				    		if($(list).attr("idx") == like_meet) {
+					    		$(list).find(".beforeLike_heart").addClass("blind");
+					    		$(list).find(".afterLike_heart").removeClass("blind");
+				    		}
+			    		}
+			    	}
+		   	 }
+    	})
+</script>
+
+</head>
+
+<body>
+
+	<!--  START HEADER REPLACE -->
+	<th:block th:replace="thymeleaf/html/common/header :: header(${session.user_id})"></th:block>
+	<!--  END HEADER REPLACE -->
+
+	<!--  START MAIN REPLACE -->
+	<th:block th:replace="${content}"></th:block>
+<!--	<th:block th:replace="thymeleaf/html/user/user_meet"></th:block>-->
+	<!--  END MAIN REPLACE -->
+
+	<!--  START FOOTER INCLUDE -->
+	<th:block th:replace="thymeleaf/html/common/footer :: footer"></th:block>
+	<!--  END FOOTER INCLUDE -->
+	</div>
+
+</body>

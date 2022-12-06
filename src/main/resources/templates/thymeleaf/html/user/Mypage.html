@@ -1,0 +1,41 @@
+<!-- ------------ -->
+<!-- @author 강경석 -->
+<!-- ------------ -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<section id="bodyWrap">
+		<div id="contentWrap">
+			<section class="contentSection" id="user-info">
+				<h1 class="sectionTitle">마이 페이지</h1>
+				<div id="user-content">
+					<div id="user-profile-img">
+						<img src="${uvo.user_image}" alt="프로필 사진" />
+					</div>
+					<div id="user-contents">
+						<p><span>[[${uvo.user_nickname }]]님,</span> 안녕하세요.</p>
+						<p>[[${uvo.user_email }]]</p>
+					</div>
+				</div>
+			</section>
+			<!-- end user-info contentSection -->
+
+			<ul class="my-menu-list" id="my-menu-list">
+				<li>
+					<p class="edit-user-info">개인 정보 수정</p>
+				</li>
+				<li>
+					<p class="my-meet">나의 모임</p>
+				</li>
+				<li>
+					<p class="my-activity">나의 액티비티</p>
+				</li>
+			</ul>
+			<!-- end my-meeting contentSection -->
+		</div>
+
+	</section>
+</body>
+
+</html>

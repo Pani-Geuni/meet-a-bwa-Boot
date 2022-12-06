@@ -1,0 +1,90 @@
+<!-- ------------ -->
+<!-- @author 강경석 -->
+<!-- ------------ -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<section id="bodyWrap">
+		<div id="contentWrap">
+			<div class="mainContent">
+				<h1 class="titleSection">나의 모임</h1>
+
+
+				<div id="meet-list-section">
+					<c:forEach var="mvo" items="${mvos}">
+						<!-- start content_list div-->
+						<div class="content-list meet-list" idx="${mvo.meet_no}">
+							<div class="info-list-wrap">
+								<div class="listCommon">
+									<span class="content_title">[[${mvo.meet_name}]]</span>
+								</div>
+
+								<div class="description_list listCommon">
+									<span class="content_description">
+										[[${mvo.meet_description}]]</span>
+								</div>
+
+								<div class="listCommon">
+									<div class="tagSection">
+										<c:if test="${mvo.meet_county ne null}">
+											<div class="loca_tag tag">
+												<img src="/IMG/map.png" class="tag_img">
+												<span class="location_name font_size_10">[[${mvo.meet_county]]</span>
+											</div>
+										</c:if>
+
+										<c:if test="${mvo.meet_interest_name ne null}">
+											<div class="cate_tag tag">
+												<span class="category_name font_size_10">[[${mvo.meet_interest_name}]]</span>
+											</div>
+										</c:if>
+									</div>
+								</div>
+
+								<div class="content_img">
+									<img src="/IMG/loopy.svg" class="list_img">
+								</div>
+							</div>
+
+
+							<div class="bottomWrap">
+								<div class="meet_info">
+									<c:if test="${mvo.user_cnt ne null}">
+										<div class="meet_member_info">
+											<span class="member_cnt member_ment">[[${mvo.user_cnt}]]명</span>
+											<span class="member_ment">참여 중</span>
+										</div>
+									</c:if>
+
+									<c:if test="${mvo.meet_age != 0}">
+										<!-- 조건있는 모임(조건없을 시 hide 클래스 추가) -->
+										<div class="meet_condition">
+											<img src="/IMG/line.svg" alt="line이미지"
+												class="divide"> <span
+												class="condition_bold condition_common"><b>모집</b></span> <span
+												class="condition_regular condition_common">[[${mvo.meet_age}]]대</span>
+										</div>
+									</c:if>
+								</div>
+
+								<div class="likeWrap">
+									<section class="heartSection" idx = "${ mvo.meet_no }">
+										<img src="/IMG/heart-outlined.svg"
+											alt='라인하트이미지' class="beforeLike_heart heartCommon" /> <img
+											src="/IMG/heart-filled.svg" alt='풀하트이미지'
+											class="afterLike_heart heartCommon blind" />
+									</section>
+									<span class="likeCnt">[[${mvo.like_cnt}]]</span>
+								</div>
+							</div>
+						</div>
+						<!-- end content_list div -->
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

@@ -109,9 +109,11 @@ public class UserController {
 	@ApiOperation(value = "아이디 찾기", notes = "아이디 찾기 입니다")
 	@PostMapping("/id_find.do")
 	@ResponseBody
-	public String user_find_id(UserVO uvo, EmailVO evo) {
+	public String user_find_ids(String user_email, UserVO uvo, EmailVO evo) {
 		log.info("user_find_id ()...");
 		log.info("result: {}", uvo);
+//		log.info("user_email: "+ user_email);
+		
 
 		Map<String, String> map = new HashMap<String, String>();
 

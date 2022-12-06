@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.mab.user.model.UserVO;
 
@@ -37,8 +38,16 @@ public interface UserRepository extends JpaRepository<UserVO, Object> {
 	//비밀번호 찾기 - 비밀번호 저장
 	@Transactional
 	@Modifying
-	@Query(nativeQuery = true, value = "update userinfo set user_pw=?1 where user_id=?2")
-	public int user_pw_init(String password, String user_id);
+	@Query(nativeQuery = true, value = "update userinfo set user_pw=?1 where user_no=?2")
+	public int user_pw_init(String password, String user_no);
+
+	//회원가입 - 아이디 중복체크
+	@Query(nativeQuery = true, value = "select * from userinfo where user_id=?1")
+	public UserVO idCheckOK(String user_id);
+
+	//마이페이지- 회원 정보 불러오기
+	@Query(nativeQuery = true, value = "select * from userinfo where user_no=?1")
+	public UserVO user_mypage_select(String user_no);
 
 
 	

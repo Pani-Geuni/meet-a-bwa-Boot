@@ -6,6 +6,7 @@ package com.mab.user.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,8 +63,9 @@ public class UserVO implements Serializable,UserDetails {
 	@Column(name = "user_tel")
 	private String user_tel;
 
+//	@DateTimeFormat(pattern ="yyyyMMdd")
 	@Column(name = "user_birth")
-	private String user_birth;
+	private Date user_birth;
 	
 	@Column(name = "user_gender")
 	private String user_gender;
