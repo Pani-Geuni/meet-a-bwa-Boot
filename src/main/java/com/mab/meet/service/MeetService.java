@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mab.list.repository.MeetListRepository;
 import com.mab.meet.model.MeetActivityVO;
 import com.mab.meet.model.MeetInfoVO;
 import com.mab.meet.model.MeetUserVO;
@@ -36,6 +37,7 @@ public class MeetService {
 	
 	@Autowired
 	MeetVoteRepository voteRepository;
+	
 	
 	public MeetService() {
 		log.info("MeetService()...");
@@ -65,4 +67,7 @@ public class MeetService {
 		
 		return vos;
 	}
+	
+	
+	
 }

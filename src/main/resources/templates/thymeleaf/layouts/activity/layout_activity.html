@@ -17,8 +17,12 @@
 	<link rel="stylesheet" href="/CSS/common/header.css" />
 	<link rel="stylesheet" href="/CSS/common/searchBar.css" />
 	<link rel="stylesheet" href="/CSS/common/footer.css" />
+	<link rel="stylesheet" href="/CSS/user/login.css" />
+	<link rel="stylesheet" href="/CSS/user/logout.css" />
+	<link rel="stylesheet" href="/CSS/user/find-popup.css" />
+	<link rel="stylesheet" href="/CSS/user/find-pw.css" />
 
-	<link rel="stylesheet" href="/CSS/activity/create.css" />
+	<link rel="stylesheet" href="/CSS/activity/insert.css" />
 	<link rel="stylesheet" href="/CSS/activity/feed.css" />
 	<link rel="stylesheet" href="/CSS/activity/popup.css" />
 	<link rel="stylesheet" href="/CSS/activity/update.css" />
@@ -32,13 +36,15 @@
 	<script src="/JS/common/header.js"></script>
 	<script src="/JS/common/searchBar.js"></script>
 
-	<script src="/JS/activity/create.js" th:inline="javascript" ></script>
+	<script src="/JS/activity/insert.js" th:inline="javascript"></script>
 	<script src="/JS/activity/update.js"></script>
+	<script src="/JS/activity/feed.js"></script>
 
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var is_login = /*[[${session.user_id}]]*/ "is_login";
 		/*]]*/
+		var user_no = $.cookie('user_no');
 	</script>
 
 
@@ -50,30 +56,37 @@
 	<!--  END HEADER REPLACE -->
 
 	<th:block id="bodyWrap">
-		
+
 		<!-- START CONTENT REPLACE -->
-		<th:block th:replace="${content}"></th:block>
+		<th:block th:replace="${content} :: activity-main-content(${title})"></th:block>
 		<!-- END CONTENT REPLACE -->
-		
+
 		<!--  START FOOTER INCLUDE -->
 		<th:block th:replace="thymeleaf/html/common/footer :: footer"></th:block>
 		<!--  END FOOTER INCLUDE -->
-	</div>
+		</div>
+	</th:block>
 
 
 	<!-- Popup -->
-	<!-- not null -->
-	<section class="bin-popup blind">
+	<!-- 액티비티 삭제 재확인 -->
+	<section class="activityDelete-popup blind">
 		<div class="modal-bg">
 			<div class="modal-wrap">
 				<div class="modal-content-wrap">
-					<section class="modal-content-inner">
-						<section class="modal-content1">
-							<p class="bin_obj">빈 항목을 채워주세요!</p>
+					<section class="modal-content">
+						<img src="/meet-a-bwa/resources//img/exitwar.svg" class="popupIcon">
+					</section>
+					<!--modal-content1-->
+					<section class="modal-content-inner-delete">
+						<section class="modal-content-delete1">
+							<p>정말 액티비티를 삭제하시겠습니까?</p>
+							<p>삭제한 액티비티는 복구하실 수 없습니다.</p>
 						</section>
 						<!--modal-content2-->
-						<section class="modal-content2">
-							<button class="ok">확인</button>
+						<section class="modal-content-delete2">
+							<button class="delete">액티비티 삭제</button>
+							<button class="cancle">취소</button>
 						</section>
 						<!--modal-content3-->
 					</section>
@@ -86,19 +99,23 @@
 		<!--model-bg end-->
 	</section>
 
-	<!-- 이미지 용량 초과 -->
-	<section class="image-popup blind">
+	<!-- 액티비티 탈퇴 재확인 -->
+	<section class="activityExit-popup blind">
 		<div class="modal-bg">
 			<div class="modal-wrap">
 				<div class="modal-content-wrap">
-					<section class="modal-content-inner2">
-						<section class="modal-content1">
-							<p class="font">첨부파일 사이즈</p>
-							<p class="font">10KB 이내로 등록 가능</p>
+					<section class="modal-content">
+						<img src="/meet-a-bwa/resources/img/exitwar.svg" class="popupIcon">
+					</section>
+					<!--modal-content1-->
+					<section class="modal-content-inner-withdrawal">
+						<section class="modal-content-withdrawal1">
+							<p>정말 액티비티를 탈퇴하시겠습니까?</p>
 						</section>
 						<!--modal-content2-->
-						<section class="modal-content3">
-							<button class="ok">확인</button>
+						<section class="modal-content-withdrawal2">
+							<button class="withdrawal">액티비티 탈퇴</button>
+							<button class="cancle">취소</button>
 						</section>
 						<!--modal-content3-->
 					</section>
@@ -110,6 +127,51 @@
 		</div>
 		<!--model-bg end-->
 	</section>
+
+	<!-- 액티비티 가입 성공 -->
+	<section class="joinSuccess-popup blind">
+		<div class="modal-bg">
+			<div class="modal-wrap">
+				<div class="modal-content-wrap">
+					<section class="modal-content">
+						<img src="/meet-a-bwa/resources/img/meetApplicationSuccess.svg" class="popupIcon">
+					</section>
+					<!--modal-content1-->
+					<section class="modal-content-inner-join">
+						<section class="modal-content-join1">
+							<p>축하합니다!</p>
+							<p>액티비티에 가입되었습니다.</p>
+							<p>즐거운 활동 되세요.</p>
+						</section>
+						<!--modal-content2-->
+						<section class="modal-content-join2">
+							<button class="go">확인</button>
+						</section>
+						<!--modal-content3-->
+					</section>
+					<!--modal-content-inner end-->
+				</div>
+				<!--modal-content-wrap end-->
+			</div>
+			<!--modal-wrap end-->
+		</div>
+		<!--model-bg end-->
+	</section>
+
+	<!-- START WARNING POPUP -->
+	<div class="warning-layer blind">
+		<div class="warning-popup-wrap">
+			<div class="warning-img-section">
+				<img src="/meet-a-bwa/resources/img/warning.svg" alt="경고 이미지" />
+			</div>
+			<h1 id="warning-text">로그인 후 이용가능한 기능입니다.</h1>
+
+			<div class="btn-group">
+				<button class="warning-close">취소</button>
+			</div>
+		</div>
+	</div>
+	<!-- END WARNING POPUP -->
 
 
 

@@ -39,12 +39,10 @@
 	<div class="right-summary-list" id="vote-summary-list">
 		<div class="right-summary-list-top">
 			<h1>투표</h1>
-			<th:block
+			<th:block>
 				<th:block th:if="${list.isLogin} == true and (${#lists.contains(user_no_list, list.user_no)})">
-				<p>
-					<a href="#">+</a>
-				</p>
-			</th:block>
+					<p id="vote_create_btn">+</p>
+				</th:block>
 		</div>
 		<ul class="right-summary-list-contents">
 			<th:block
@@ -53,15 +51,15 @@
 					<p>로그인 혹은 가입 후 이용해 주세요.</p>
 				</div>
 			</th:block>
-			<th:block th:if="${list.isLogin} == true and ${ #lists.isEmpty(vvos) }">
+			<th:block th:if="${list.isLogin} == true and ${ #lists.isEmpty(votes) }">
 				<div class="no-contents-item">
 					<p>생성된 투표가 없습니다.</p>
 				</div>
 			</th:block>
-			<th:block th:if="${list.isLogin} == true and ${ not #lists.isEmpty(vvos) }">
-				<th:block th:each="vvo : ${ vvos }">
-					<li class="vote-list-item" th:attr="vote_no=${ vvo.vote_no }">
-						<p>[[${ vvo.vote_title }]]
+			<th:block th:if="${list.isLogin} == true and ${ not #lists.isEmpty(votes) }">
+				<th:block th:each="vote : ${ votes }">
+					<li class="vote-list-item" th:attr="vote_no=${ vote.vote_no }">
+						<p>[[${ vote.vote_title }]]
 						<p>
 					</li>
 				</th:block>

@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 public class ActivityFAOImpl implements ActivityFAO {
-	
+
 	@Autowired
 	ServletContext context;
 
@@ -33,42 +33,44 @@ public class ActivityFAOImpl implements ActivityFAO {
 	AmazonS3Client amazonS3Client;
 
 	@Override
-	public ActivityVO backoffice_fileupload(ActivityVO avo, MultipartHttpServletRequest mtfRequest,
+	public ActivityVO activity_fileupload(ActivityVO avo, MultipartHttpServletRequest mtfRequest,
 			MultipartFile multipartFile_activity) {
+		
 		log.info("{} byte", multipartFile_activity.getSize());
-
+		
 		if (multipartFile_activity.getSize() > 0) {
 			log.info("filename : {}", multipartFile_activity.getOriginalFilename());
 			List<MultipartFile> imgs = mtfRequest.getFiles("multipartFile_activity");
-			
-				String originFileName = UUID.randomUUID()+"."+StringUtils.getFilenameExtension(imgs.get(0).getOriginalFilename());
-				long fileSize = imgs.get(0).getSize();
 
-				System.out.println("originFileName : " + originFileName);
-				System.out.println("fileSize : " + fileSize);
+			String originFileName = UUID.randomUUID() + "."
+					+ StringUtils.getFilenameExtension(imgs.get(0).getOriginalFilename());
+			long fileSize = imgs.get(0).getSize();
 
-				ObjectMetadata objectMetaData = new ObjectMetadata();
-				objectMetaData.setContentType(imgs.get(0).getContentType());
-				objectMetaData.setContentLength(fileSize);
-				try {
+			log.info("originFileName : {}", originFileName);
+			log.info("fileSize : {}", fileSize);
 
-					amazonS3Client.putObject(
-							new PutObjectRequest(S3Bucket, originFileName, imgs.get(0).getInputStream(), objectMetaData)
-									.withCannedAcl(CannedAccessControlList.PublicRead));
+			ObjectMetadata objectMetaData = new ObjectMetadata();
+			objectMetaData.setContentType(imgs.get(0).getContentType());
+			objectMetaData.setContentLength(fileSize);
+			try {
 
-					String imagePath = amazonS3Client.getUrl(S3Bucket, originFileName).toString();
-					log.info("이미지 링크 : {}", imagePath);
+				amazonS3Client.putObject(
+						new PutObjectRequest(S3Bucket, originFileName, imgs.get(0).getInputStream(), objectMetaData)
+								.withCannedAcl(CannedAccessControlList.PublicRead));
 
-					avo.setActivity_image(originFileName);
+				String imagePath = amazonS3Client.getUrl(S3Bucket, originFileName).toString();
+				log.info("이미지 링크 : {}", imagePath);
 
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				avo.setActivity_image(originFileName);
 
-		} else if (avo.getActivity_image() == null) {
-			avo.setActivity_image("default-image2.png");
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			avo.setActivity_image("default-image.jpg");
 		}
 
 		return avo;

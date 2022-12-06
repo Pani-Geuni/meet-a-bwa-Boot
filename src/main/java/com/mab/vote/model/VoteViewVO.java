@@ -23,14 +23,13 @@ import lombok.ToString;
 @Entity
 @Immutable
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 @Table(name="VOTEVIEW")
 public class VoteViewVO {
 
-	@Id //pk설정
 	@Column(name="vote_no", insertable = false, updatable = false)
 	private String vote_no;
 	
@@ -55,6 +54,7 @@ public class VoteViewVO {
 	@Column(name="activity_no")
 	private String activity_no;
 	
+	@Id //pk설정
 	@Column(name="content_no")
 	private String content_no;
 	

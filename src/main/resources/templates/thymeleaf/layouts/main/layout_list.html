@@ -1,0 +1,306 @@
+<!-- ------------ -->
+<!-- @author 김예은 -->
+<!-- ------------ -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>밋:어봐</title>
+
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+	<link rel="stylesheet" href="/CSS/common/toast.css" />
+	<link rel="stylesheet" href="/CSS/common/common.css" />
+	<link rel="stylesheet" href="/CSS/common/header.css" />
+	<link rel="stylesheet" href="/CSS/common/searchBar.css" />
+	<link rel="stylesheet" href="/CSS/common/footer.css" />
+
+
+	<th:block th:if="${page=='meet_list'}">
+		<link rel="stylesheet" href="/CSS/list/meet-list.css" />
+	</th:block>
+	<th:block th:if="${page=='activity_list'}">
+		<link rel="stylesheet" href="/CSS/list/activity-list.css" />
+	</th:block>
+
+	<link rel="stylesheet" href="/CSS/user/login.css" />
+	<link rel="stylesheet" href="/CSS/user/logout.css" />
+	<link rel="stylesheet" href="/CSS/user/find-popup.css" />
+
+	<script src="/JS/common/jquery-3.6.1.min.js"></script>
+	<script src="/JS/common/jquery.cookie.js"></script>
+	<script src="/JS/common/login.js"></script>
+	<script src="/JS/common/logout.js"></script>
+	<script src="/JS/common/id_find.js"></script>
+	<script src="/JS/common/pw_find.js"></script>
+	<script src="/JS/common/header.js"></script>
+	<script src="/JS/common/searchBar.js"></script>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var is_login = /*[[${session.user_id}]]*/ "is_login";
+		/*]]*/
+	</script>
+
+	<script>
+		$(function () {
+
+			var user_id = '${user_id}'; //세션값 가져옴
+			
+			// 액티비티 추천 - 카테고리 더보기 버튼 클릭 이벤트
+			$("#plusImg").click(function () {
+				$("#fold_tag").removeClass("blind");
+				$(this).addClass("blind");
+				$("#foldImg").removeClass("blind");
+			});
+
+			// 액티비티 추천 - 카테고리 접기 버튼 클릭 이벤트
+			$("#foldImg").click(function () {
+				$("#fold_tag").addClass("blind");
+				$(this).addClass("blind");
+				$("#plusImg").removeClass("blind");
+			});
+
+			// 액티비티 추천 - 카테고리 클릭 이벤트
+			$(".tagItem").click(function (e) {
+				$(".tagItem").removeClass("check");
+				$(e.target).addClass("check");
+				let category = $(this).text();
+				location.href = "/meet-a-bwa/a_selectOne.do?category=" + category;
+			});
+
+			// 상세 리스트 클릭 이벤트
+			$("#meet-list-section").on("click", ".content-list.meet-list", function () {
+				let idx = $(this).attr("idx");
+				location.href = "/meet-a-bwa/meet-main.do?idx=" + idx;
+			});
+			
+			$("#activity-list-section").on("click", ".content-list.activity-list", function () {
+				let idx = $(this).attr("idx");
+				console.log(idx);
+				location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
+			});
+
+			$("#meet-list-section").on("click", ".heartSection", function (event) {
+				event.stopPropagation();
+
+				if ($.cookie("isLogin") == 'true') {
+					if ($.cookie('user_interest') == "" || $.cookie('user_interest') == undefined) {
+						// 좋아요 추가
+						if ($(this).find(".afterLike_heart").hasClass("blind")) {
+							location.href = "/meet-a-bwa/meet_more_like_insert.do?type=county&typeData=" + $.cookie('user_county') + "&searchWord=&meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+						}
+						// 좋아요 삭제
+						else {
+							location.href = "/meet-a-bwa/meet_more_like_delete.do?type=county&typeData=" + $.cookie('user_county') + "&searchWord=&meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+						}
+					} else {
+						// 좋아요 추가
+						if ($(this).find(".afterLike_heart").hasClass("blind")) {
+							console.log($.cookie('user_interest'));
+							location.href = "/meet-a-bwa/meet_more_like_insert.do?type=interest&typeData=" + $.cookie('user_interest') + "&searchWord=&meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+						}
+						// 좋아요 삭제
+						else {
+							location.href = "/meet-a-bwa/meet_more_like_delete.do?type=interest&typeData=" + $.cookie('user_interest') + "&searchWord=&meet_no=" + $(this).attr("idx") + "&user_no=" + $.cookie("user_no");
+						}
+					}
+
+				} else {
+					$(".warning-layer").removeClass("blind");
+				}
+			});
+
+			// 모임 좋아요 처리
+			let like_meet_arr = $.cookie('like_meet');
+			if (like_meet_arr != undefined) {
+				like_meet_arr = like_meet_arr.split("/");
+
+				let meet_elements = $(".content-list.meet-list").slice();
+				for (like_meet of like_meet_arr) {
+					for (list of meet_elements) {
+						if ($(list).attr("idx") == like_meet) {
+							$(list).find(".beforeLike_heart").addClass("blind");
+							$(list).find(".afterLike_heart").removeClass("blind");
+						}
+					}
+				}
+			}
+
+			// 경고 팝업 닫기 버튼 클릭 이벤트
+			$(".warning-close").click(function () {
+				$(".warning-layer").addClass("blind");
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<!--  START HEADER REPLACE -->
+	<th:block th:replace="thymeleaf/html/common/header :: header(${is_login})"></th:block>
+	<!--  END HEADER REPLACE -->
+
+	<div id="bodyWrap">
+		<!--  START SEARCHBAR REPLACE -->
+		<th:block th:replace="thymeleaf/html/common/searchBar :: searchBar"></th:block>
+		<!--  END SEARCHBAR REPLACE -->
+
+		<!--  START MAIN REPLACE -->
+		<div th:replace="${content} :: main(${is_login})"></div>
+		<!--  END MAIN REPLACE -->
+
+		<!--  START FOOTER INCLUDE -->
+		<th:block th:replace="thymeleaf/html/common/footer :: footer"></th:block>
+		<!--  END FOOTER INCLUDE -->
+	</div>
+
+	<!-- START LOGIN POPUP -->
+	<div class="login-layer blind">
+		<div class="login-popup-wrap">
+			<div class="login-top">
+				<img id="logo" src="/IMG/common/logo.svg" alt="login logo image" />
+			</div>
+
+			<div class="login-middle">
+				<div class="login-form" id="loginForm">
+					<label for="id">아이디</label>
+					<input type="text" id="idInput" name="id" placeholder="아이디 입력" />
+
+					<label for="pw">비밀번호</label>
+					<input type="password" id="pwInput" name="pw" placeholder="비밀번호 입력" />
+
+					<input type="button" id="loginOK_btn" value="로그인">
+					<input type="button" value="창닫기" id="login-popup-closeBtn">
+				</div>
+
+				<div class="login-bottom">
+					<div id="id_find_btn" class="findCommon">ID 찾기</div>
+					<div id="pw_find_btn" class="findCommon">PW 찾기</div>
+					<div>
+						<a href="/meet-a-bwa/u_insert.do" class="findCommon">회원가입</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END LOGIN POPUP -->
+
+	<!-- START LOGOUT POPUP -->
+	<div class="logout-layer blind">
+		<div class="logout-popup-wrap">
+			<img src="/IMG/common/worry.svg" alt="logout worry img" />
+			<h1>
+				정말 로그아웃 <br />
+				하시겠습니까?
+			</h1>
+
+			<div class="btn-group">
+				<a href="/meet-a-bwa/logoutOK.do">
+					<button class="btn-logout">로그아웃</button>
+				</a>
+				<button class="btn-cancel">취소</button>
+			</div>
+		</div>
+	</div>
+	<!-- END LOGOUT POPUP -->
+
+	<!-- START WARNING POPUP -->
+	<div class="warning-layer blind">
+		<div class="warning-popup-wrap">
+			<div class="warning-img-section">
+				<img src="/IMG/common/warning.svg" alt="경고 이미지" />
+			</div>
+			<h1 id="warning-text">로그인 후 이용가능한 기능입니다.</h1>
+
+			<div class="btn-group">
+				<button class="warning-close">취소</button>
+			</div>
+		</div>
+	</div>
+	<!-- END WARNING POPUP -->
+
+	<!-- START ID - FIND POPUP -->
+	<div id="id_find_wrap" class="find-popup-layer blind">
+		<div class="find-popup-wrap">
+			<div class="popup-header">
+				<h1>ID 찾기</h1>
+				<h3>가입 시 기입한 <br />이메일을 입력해주세요.</h3>
+			</div>
+
+			<input id="id-email-input" class="email-input" type="text" placeholder="이메일을 입력해주세요" />
+			<p id="id_find_result" class="resultCommon blind"></p>
+
+			<div class="btn-group">
+				<button id="id_find_okBtn" class="btn-find">확인</button>
+				<button id="id_find_cancleBtn" class="btn-cancel">취소</button>
+			</div>
+		</div>
+	</div>
+	<!-- END ID FIND POPUP -->
+
+	<!-- START PW - FIND POPUP -->
+	<div id="pw_find_wrap" class="find-popup-layer blind">
+		<div class="find-popup-wrap">
+			<div class="popup-header">
+				<h1>비밀번호를 잊어버리셨나요?</h1>
+				<h3>가입 시 기입한 <br />이메일을 입력해주세요.</h3>
+			</div>
+
+			<input id="pw-email-input" class="email-input" type="text" placeholder="이메일을 입력해주세요" />
+			<p id="pw_find_result" class="resultCommon blind"></p>
+
+			<div class="btn-group">
+				<button id="pw_find_okBtn" class="btn-find-pw">확인</button>
+				<button id="pw_find_cancleBtn" class="btn-cancel">취소</button>
+			</div>
+		</div>
+	</div>
+	<!-- END PW FIND POPUP -->
+
+	<div id="spinner-wrap" class="popup-background blind">
+		<!-- START SPINNER SECTION -->
+		<div id="spinner-section">
+			<img src="/IMG/common/spinner.gif" class="spinner-img">
+		</div>
+	</div>
+
+	<!-- START COMMON ALERT POPUP -->
+	<div id="common-alert-popup-wrap" class="popup-background blind">
+		<div id="common-alert-popup" class="alert-popup">
+			<section class="alert-txt-section">
+				<span class="common-alert-txt">
+					공용 알러트팝업
+				</span>
+			</section>
+			<section id="common-alert-btn" class="alert-btn-section">
+				<span>확인</span>
+			</section>
+		</div>
+	</div>
+
+	<!-- START COMMMON CONFIRM POPUP -->
+	<div id="common-confirm-popup-wrap" class="popup-background blind">
+		<div class="confirm-popup">
+			<section class="confirm-txt-section">
+				<span class="logout-txt">
+					공용 컨펌팝업
+				</span>
+			</section>
+			<section class="confirm-btn-section">
+				<div class="confirm-yesBtn">예</div>
+				<div class="confirm-noBtn">아니오</div>
+			</section>
+		</div>
+	</div>
+
+	<!-- START toastWrap -->
+	<div id="toastWrap" class="hide">
+		<span id="toast_txt"></span>
+	</div>
+	<!-- END toastWrap -->
+
+</body>
+
+</html>

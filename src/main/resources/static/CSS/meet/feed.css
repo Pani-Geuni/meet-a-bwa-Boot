@@ -178,13 +178,22 @@
 }
 
 .feed-options {
+  display: flex;
+  align-items: center;
   margin: 0 24px;
 }
 
-.feed-options a {
+.feed-options p {
   color: #000000;
   font-size: 12px;
   font-weight: 700;
+  
+  margin-right: 4px;
+}
+
+.feed-options span {
+  color: #000000;
+  font-size: 12px;
 }
 
 /* *********** */

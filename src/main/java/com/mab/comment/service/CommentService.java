@@ -43,4 +43,10 @@ public class CommentService {
 		
 		return vos;
 	}
+	
+	public int select_comment_cnt(String board_no) {
+		int comment_cnt = commentUserRepository.select_comment_cnt(board_no);
+		
+		return comment_cnt;
+	}
 }

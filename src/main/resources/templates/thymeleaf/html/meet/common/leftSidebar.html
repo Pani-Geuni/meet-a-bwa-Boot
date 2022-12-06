@@ -43,7 +43,7 @@
 	<!-- 로그인 전 혹은 가입 전-->
 	<!-- <button type="button" class="btn-meet join"> -->
 	<th:block th:if="${list.isLogin == true} and (${#lists.contains(user_no_list, list.user_no)})">
-		<button type="button" id="btn-meet-write" class="btn-meet" onclick="writePopupShow()"
+		<button type="button" id="btn-meet-write" class="btn-meet"
 			th:attr="idx=${ mvo.meet_no }">글쓰기</button>
 		<button type="button" id="btn-activity-create" class="btn-meet" th:attr="idx=${ mvo.meet_no }">액티비티 개설</button>
 
@@ -52,7 +52,7 @@
 
 	<th:block
 		th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(user_no_list, list.user_no)})">
-		<button type="button" class="btn-meet join" th:attr="meet_no=${ mvo.meet_no }, user_no=${list.user_no}">모임
+		<button type="button" class="btn-meet join" th:attr="meet_no=${ mvo.meet_no }">모임
 			가입하기</button>
 	</th:block>
 </div>

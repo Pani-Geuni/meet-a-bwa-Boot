@@ -7,7 +7,7 @@ import com.mab.activity.model.ActivityVO;
 
 public interface ActivityFAO {
 
-	ActivityVO backoffice_fileupload(ActivityVO avo, MultipartHttpServletRequest mtfRequest,
+	ActivityVO activity_fileupload(ActivityVO avo, MultipartHttpServletRequest mtfRequest,
 			MultipartFile multipartFile_activity);
 
 }

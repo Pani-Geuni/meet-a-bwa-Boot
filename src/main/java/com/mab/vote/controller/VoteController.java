@@ -6,7 +6,9 @@
 
 package com.mab.vote.controller;
 
-import java.sql.Array;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +18,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mab.event.model.EventVO;
-import com.mab.main.model.MainActivityViewVO;
-import com.mab.main.model.MainMeetViewVO;
-import com.mab.main.service.MainActivityService;
-import com.mab.main.service.MainMeetService;
 import com.mab.user.service.UserService;
 import com.mab.vote.model.VoteContentVO;
 import com.mab.vote.model.VoteResultVO;
@@ -66,8 +62,8 @@ public class VoteController {
 	public String vote_view(VoteVO vo2) {
 		log.info("vote_view");
 		
-		List<VoteViewVO> list = service.select_all_vote_content(vo2);
-		
+		List<VoteViewVO> list2 = service.select_one_vote(vo2.getVote_no());
+
 		String vote_title = "";
 		String vote_description = "";
 		String vote_eod = "";
@@ -75,11 +71,13 @@ public class VoteController {
 		String writer_no = "";
 		String private_state = "";
 		
-		
 		Map<String, Object> map_wrap =  new HashMap<String, Object>();
 		ArrayList<Object> arr = new ArrayList<Object>();
 		
-		for(VoteViewVO vvo2 : list) {
+		log.info("list2 : {}", list2);
+		for(VoteViewVO vvo2 : list2) {
+			log.info("vvo2 : {}", vvo2);
+			
 			if(vote_title.equals("")) {
 				vote_title = vvo2.getVote_title();
 			}
@@ -129,9 +127,14 @@ public class VoteController {
 	@ApiOperation(value="투표 생성", notes="투표 생성하는 컨트롤러")
 	@PostMapping("/vote_create.do")
 	@ResponseBody
-	public String vote_create(VoteVO vo2, ArrayList<String> contents) {
+	public String vote_create(VoteVO vo2, String[] contents) {
 		log.info("/vote_create.do");
 		
+        DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(vo2.getVote_eod()));
+        Timestamp ts = Timestamp.valueOf(localDateTime);
+		
+		vo2.setVote_eod_sql(ts);
 		int result = service.insert_vote(vo2);
 		
 		Map<String, String> map =  new HashMap<String, String>();
@@ -168,6 +171,12 @@ public class VoteController {
 	public String vote_update(VoteVO vo2) {
 		log.info("/vote_update.do");
 		
+		DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(vo2.getVote_eod()));
+        Timestamp ts = Timestamp.valueOf(localDateTime);
+		
+		vo2.setVote_eod_sql(ts);
+		
 		int result = service.update_vote(vo2);
 		
 		Map<String, String> map =  new HashMap<String, String>();
@@ -203,7 +212,7 @@ public class VoteController {
 	}
 	
 	@ApiOperation(value="투표 참여", notes="투표에 참여했을 때 결과 추가하는 컨트롤러")
-	@GetMapping("/voteOK.do")
+	@PostMapping("/voteOK.do")
 	@ResponseBody
 	public String voteOK(VoteResultVO vo2) {
 		log.info("/voteOK.do");
@@ -223,7 +232,7 @@ public class VoteController {
 	}
 	
 	@ApiOperation(value="투표 재참여", notes="투표에 재참여하는 컨트롤러")
-	@GetMapping("/re_voteOK.do")
+	@PostMapping("/re_voteOK.do")
 	@ResponseBody
 	public String re_voteOK(VoteResultVO vo2) {
 		log.info("/re_voteOK.do");
