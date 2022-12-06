@@ -45,7 +45,7 @@
 
 <body>
 	<!--  START HEADER REPLACE -->
-	<th:block th:replace="thymeleaf/html/common/header :: header(${is_login})"></th:block>
+	<th:block th:replace="thymeleaf/html/common/header :: header(${session.user_id})"></th:block>
 	<!--  END HEADER REPLACE -->
 
 	<th:block id="bodyWrap">

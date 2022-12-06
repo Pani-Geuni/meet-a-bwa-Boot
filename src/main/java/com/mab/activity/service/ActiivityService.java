@@ -5,12 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mab.activity.model.ActivityUserVO;
 import com.mab.activity.model.ActivityVO;
 import com.mab.activity.model.ActivityView;
+import com.mab.activity.model.ActivityVoteListView;
+import com.mab.activity.repository.ActivityEventListRepository;
+import com.mab.activity.repository.ActivityVoteListRepository;
 import com.mab.activity.repository.ActivityFeedRepository;
 import com.mab.activity.repository.ActivityInsertUpdateRepository;
+import com.mab.activity.repository.ActivityRegisteredRepository;
+import com.mab.activity.repository.ActivityUserInfoRepository;
 import com.mab.activity.repository.MeetSelectRepository;
+import com.mab.event.model.EventVO;
 import com.mab.meet.model.MeetVO;
+import com.mab.user.model.UserVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +34,19 @@ public class ActiivityService {
 	
 	@Autowired
 	MeetSelectRepository m_repository;
+	
+	@Autowired
+	ActivityVoteListRepository v_list_repository;
+	
+	@Autowired
+	ActivityEventListRepository e_list_repository;
+	
+	@Autowired
+	ActivityRegisteredRepository a_member_repository;
+	
+	@Autowired
+	ActivityUserInfoRepository a_user_repository;
+	
 
 	// meet 정보 select
 	public MeetVO activity_select_meet_private_state(String meet_no) {
@@ -75,6 +96,37 @@ public class ActiivityService {
 		log.info("select_activity_registered_member_user_no().....");
 		return a_feed_repository.select_activity_registered_member_user_no(activity_no);
 	}
+
+	// 액티비티 투표 리스트
+	public List<ActivityVoteListView> select_activity_vote_list(String activity_no) {
+		log.info("select_activity_vote_list().....");
+		return v_list_repository.select_activity_vote_list(activity_no);
+	}
+
+	// 액티비티 이벤트 리스트
+	public List<EventVO> select_activity_event_list(String activity_no) {
+		log.info("select_activity_event_list().....");
+		return e_list_repository.select_activity_event_list(activity_no);
+	}
+	
+	// 가입 신청을 하는 유저 정보 select
+	public ActivityUserVO select_one_activity_user_info(String user_no) {
+		log.info("select_one_activity_user_info().....");
+		return a_user_repository.select_one_activity_user_info(user_no);
+	}
+
+	// 액티비티 가입 신청 처리
+	public int activity_application(String activity_no, String user_no) {
+		log.info("activity_application().....");
+		return a_member_repository.activity_application(activity_no,user_no);
+	}
+
+	// 액티비티가 속한 모임에 해당 유저가 가입했는지 
+	public String select_one_meet_registered_userinfo(String meet_no, String user_no) {
+		log.info("select_one_meet_registered_userinfo().....");
+		return m_repository.select_one_meet_registered_userinfo(meet_no, user_no);
+	}
+
 
 
 }
