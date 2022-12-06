@@ -38,7 +38,7 @@ public interface VoteRepository extends JpaRepository<VoteViewVO, Object> {
 	@Modifying
 	@Query(nativeQuery = true, value 
 		= "INSERT INTO VOTE(VOTE_NO, VOTE_TITLE, VOTE_INFO, VOTE_EOD, VOTE_STATE, USER_NO, MEET_NO, ACTIVITY_NO, PRIVATE_STATE)"
-		+ "VALUES ('V'||SEQ_VOTE.NEXTVAL, :#{#vo2?.vote_title}, :#{#vo2?.vote_info}, :#{#vo2?.vote_eod}, 'y', :#{#vo2?.user_no},"
+		+ "VALUES ('V'||SEQ_VOTE.NEXTVAL, :#{#vo2?.vote_title}, :#{#vo2?.vote_info}, :#{#vo2?.vote_eod_sql}, 'Y', :#{#vo2?.user_no},"
 		+ ":#{#vo2?.meet_no}, :#{#vo2?.activity_no}, :#{#vo2?.private_state})")
 	public int SQL_INSERT_VOTE(@Param("vo2") VoteVO vo2);
 	
@@ -52,7 +52,7 @@ public interface VoteRepository extends JpaRepository<VoteViewVO, Object> {
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value 
-		= "UPDATE VOTE SET VOTE_TITLE = :#{#vo2?.vote_title}, VOTE_INFO = :#{#vo2?.vote_info}, VOTE_EOD = :#{#vo2?.vote_eod}"
+		= "UPDATE VOTE SET VOTE_TITLE = :#{#vo2?.vote_title}, VOTE_INFO = :#{#vo2?.vote_info}, VOTE_EOD = :#{#vo2?.vote_eod_sql}"
 		+ "WHERE VOTE_NO = :#{#vo2?.vote_no}")
 	public int SQL_UPDATE_VOTE(@Param("vo2") VoteVO vo2);
 	

@@ -6,6 +6,12 @@
 
 package com.mab.vote.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -125,6 +131,11 @@ public class VoteController {
 	public String vote_create(VoteVO vo2, ArrayList<String> contents) {
 		log.info("/vote_create.do");
 		
+        DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(vo2.getVote_eod()));
+        Timestamp ts = Timestamp.valueOf(localDateTime);
+		
+		vo2.setVote_eod_sql(ts);
 		int result = service.insert_vote(vo2);
 		
 		Map<String, String> map =  new HashMap<String, String>();
@@ -160,6 +171,12 @@ public class VoteController {
 	@ResponseBody
 	public String vote_update(VoteVO vo2) {
 		log.info("/vote_update.do");
+		
+		DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(vo2.getVote_eod()));
+        Timestamp ts = Timestamp.valueOf(localDateTime);
+		
+		vo2.setVote_eod_sql(ts);
 		
 		int result = service.update_vote(vo2);
 		
