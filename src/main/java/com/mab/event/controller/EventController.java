@@ -66,9 +66,9 @@ public class EventController {
 		map.put("activity_no", vo.getActivity_no());
 		map.put("user_no", vo.getUser_no());
 		
-		map.put("user_name", user_service.select_user_info(vo2.getUser_no()).getUser_name());
-		map.put("event_date", vo.getEvent_date());
-		map.put("event_d_day", vo.getEvent_d_day());
+		map.put("user_name", user_service.select_user_info(vo.getUser_no()).getUser_name());
+		map.put("event_date", vo.getEvent_date().replaceAll("-", "/"));
+		map.put("event_d_day", vo.getEvent_d_day().replaceAll("-", "/"));
 		
 		String json = gson.toJson(map);
 		return json;

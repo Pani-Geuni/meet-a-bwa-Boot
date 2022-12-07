@@ -20,7 +20,7 @@ $(function() {
 
 	// 투표 리스트 선택 - 투표 보기
 	$(".pheedVote").on("click", ".vote_action", function() {
-		idx = $(this).attr("vote_no");
+		idx = $(this).attr("idx");
 		ajax_load(idx);
 	});
 
@@ -300,11 +300,6 @@ $(function() {
 	// 삭제 컨펌 팝업에서 아니오 클릭
 	$("#noBtn").click(function() {
 		$("#confirmWrap").addClass("blind");
-	});
-
-	$(".vote_action").click(function() {
-		idx = $(this).attr("idx");
-		ajax_load(idx);
 	});
 
 
