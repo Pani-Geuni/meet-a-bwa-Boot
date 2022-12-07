@@ -322,6 +322,22 @@
     height: 20px;
 }
 
+.content_title{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+}
+
+.content_description{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4; /* 라인수 */
+	-webkit-box-orient: vertical;
+	word-wrap:break-word; 
+}
+
+
 .addBtn{
    
     border:none;
@@ -416,7 +432,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.meet_info{
+.activity_info{
     display: flex;
     justify-content: left;
     margin-top: 9px;

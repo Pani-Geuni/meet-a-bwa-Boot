@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mab.activity.model.ActivityUserVO;
 import com.mab.activity.model.ActivityVO;
 import com.mab.activity.service.ActiivityFileService;
 import com.mab.activity.service.ActiivityService;
@@ -69,9 +70,13 @@ public class ActivityInfoController {
 				}
 			}
 		}
+		
+		ActivityUserVO auvo = service.select_one_activity_user_info(user_no);
+		log.info("개설자 성별 : {}",auvo.getUser_gender());
 
 		model.addAttribute("meet_no", meet_no);
 		model.addAttribute("user_no", user_no);
+		model.addAttribute("user_gender", auvo.getUser_gender());
 		model.addAttribute("content", "thymeleaf/html/activity/insert/insert");
 		model.addAttribute("title", "액티비티 생성");
 
@@ -143,16 +148,30 @@ public class ActivityInfoController {
 	 */
 	@ApiOperation(value="액티비티 수정", notes="액티비티 수정 페이지입니다.")
 	@GetMapping("/activity_update")
-	public String activity_update(Model model, String activity_no) {
+	public String activity_update(Model model, String activity_no, HttpServletRequest request) {
 		log.info("/activity_update...");
 
-		ActivityVO avo = service.select_one_activity_info(activity_no);
+		Cookie[] cookies = request.getCookies();
+		String user_no = "";
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("user_no")) {
+					user_no = cookie.getValue();
+				}
+			}
+		}
 		
-		// Date -> String 타입 변환
-
+		ActivityVO avo = service.select_one_activity_info(activity_no);
 		log.info("avo:{}",avo);
 		
+		ActivityUserVO auvo = service.select_one_activity_user_info(user_no);
+		log.info("개설자 성별 : {}",auvo.getUser_gender());
+
+		// Date -> String 타입 변환
+
+		
 		model.addAttribute("avo", avo);
+		model.addAttribute("user_gender", auvo.getUser_gender());
 		model.addAttribute("content", "thymeleaf/html/activity/update/update");
 		model.addAttribute("title", "액티비티 수정");
 
