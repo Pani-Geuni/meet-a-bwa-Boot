@@ -133,7 +133,6 @@ $(function() {
 	});
 
 	$(".all-feed .feed-post").each(function(index, item) {
-		console.log($(this)[0].offsetHeight, $(this)[0].scrollHeight);
 
 		// feed-post가 overflow 됐을 때, 더보기 버튼 활성화
 		if ($(this)[0].offsetHeight < $(this)[0].scrollHeight) {
@@ -228,6 +227,6 @@ $(function() {
 	$("#activity-summary-list").on("click", ".activity_list_item", function() {
 		let idx = $(this).attr("idx");
 		console.log("activity idx :", idx);
-		//		location.href = "/meet-a-bwa/activity-main.do?idx=" + idx;
+		location.href = "/meet-a-bwa/activity_main?activity_no=" + idx;
 	});
 })
