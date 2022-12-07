@@ -142,6 +142,7 @@
     justify-content: left;
     margin-bottom: 20px;
     width: auto;
+    flex-wrap: wrap;
 }
 .tag{
     display: flex;
