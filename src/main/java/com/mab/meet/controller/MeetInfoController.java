@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +54,18 @@ public class MeetInfoController {
 	 */
 	@ApiOperation(value = "모임 생성", notes = "모임 생성 페이지입니다.")
 	@GetMapping("/meet_insert")
-	public String meet_insert(Model model, String user_no) {
+	public String meet_insert(Model model, HttpServletRequest request) {
 		log.info("/meet_insert...");
 
-		user_no = "U1002";
+		Cookie[] cookies = request.getCookies();
+		String user_no = "";
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("user_no")) {
+					user_no = cookie.getValue();
+				}
+			}
+		}
 
 		model.addAttribute("user_no", user_no);
 		model.addAttribute("content", "thymeleaf/html/meet/insert/insert");
@@ -89,7 +99,17 @@ public class MeetInfoController {
 
 		String rt = "";
 		if (result == 1) {
-			rt = "redirect:meet-main.do?idx=" + mvo.getMeet_no();
+			MeetVO mvo2 = service.select_one_meet_no(mvo.getUser_no()); // meet_no
+			if (mvo2!=null) {
+				int flag = service.meet_application(mvo2.getMeet_no(),mvo.getUser_no()); // 개설자 가입 처리
+				if (flag!=0) {
+					rt = "redirect:meet-main.do?idx=" + mvo2.getMeet_no();
+				}else {
+					rt = "redirect:meet_insert";
+				}
+			}else {
+				rt = "redirect:meet_insert";
+			}
 		} else {
 			rt = "redirect:meet_insert";
 		}

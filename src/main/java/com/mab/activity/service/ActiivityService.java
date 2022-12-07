@@ -145,6 +145,12 @@ public class ActiivityService {
 		return a_member_repository.activity_member_delete(activity_no);
 	}
 
+	// 액티비티 멤버 자진 탈퇴
+	public int activity_withdrawal(String activity_no, String user_no) {
+		log.info("activity_withdrawal().....");
+		return a_member_repository.activity_withdrawal(activity_no, user_no); // update
+	}
+
 
 
 
