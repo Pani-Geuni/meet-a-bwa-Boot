@@ -24,12 +24,16 @@
     padding-bottom: 10px;
     padding-left: 20px;
     border-bottom : 3px solid #E4E4E4;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 .titleSection * {
     font-family: "Pretendard";
     font-weight: bold;
-    letter-spacing: 1px; /* 湲��옄 �궗�씠 媛꾧꺽 議곗젙 */
+    letter-spacing: 1px; /* 글자 사이 간격 조정 */    
 }
 
 .mainContent{
@@ -41,30 +45,50 @@
 .title{
     display: inline-block;
 }
-.titleLeft{
-    width: 60%;
-}
-.titleRight{
-    width: 38%;
-    text-align: right;
-}
 
 #nickname{
-    font-size: 26px;
+    font-size: 24px;
     color : #783DF5;
 }
 .comment{
-    font-size: 20px;
+    font-size: 18px;
 }
 .plusBtn{
     font-size: 13px;
     cursor: pointer;
 }
+.titleRight{
+    margin-right: 10px;
+}
 
-/*------------------------------------------*/
-/* 紐⑥엫 異붿쿇 �꽮�뀡*/
-/*-------------------------------------------*/
-#meet_recommendSection{
+
+/*-------------------------*/
+/*----- 관심사 셀렉트 부분 -----*/
+/*-------------------------*/
+
+.user_interest_select{
+    height: 30px;
+    padding: 2px 4px 2px 4px;
+    border-radius: 9px;
+    box-sizing: border-box;
+
+    font-size: 16px;
+    border : 3px solid #783DF5;
+    
+    text-align: center;
+}
+.user_interest_select:hover {
+    border : 3px solid #783DF5;
+}
+.user_interest_select:focus {
+    border : 3px solid #783DF5;
+}
+
+
+/*----------------------------------*/
+/*----------- 모임 추천 섹션 -----------*/
+/*----------------------------------*/
+#meet_recommendSection, #interest_meet_recommendSection{
     display: flex;
     align-items : center;
     justify-content: space-between;
@@ -135,6 +159,7 @@
 }
 
 .tagSection{
+	margin-top: 3px;
     display: flex;
     justify-content: left;
 }
@@ -166,14 +191,20 @@
 }
 .meet_info{
     display: flex;
+    align-items: center;
     justify-content: left;
     margin-top : 4px;
     margin-left: 5px;
 }
+.meet_member_info{
+	display: flex;
+	justify-content: space-between;
+}
 .meet_condition{
+    height:17.5px;
     display: flex;
     justify-content: center;
-    padding-top: 5px;
+    align-items: center;
     margin-left: 5px;
 }
 .divide{
@@ -184,6 +215,8 @@
 .condition_bold{
     margin-left: 6px;
     margin-right: 8px;
+    display: flex;
+    align-items: center;
 }
 .condition_common{
     font-size: 12px;
@@ -194,8 +227,12 @@
 }
 .member_cnt{
     color: #006FD6;
+    margin-right: 6px;
 }
-
+b{
+	font-size: 11px;
+	font-weight: 800;
+}
 
 .likeWrap{
     display: flex;
@@ -224,6 +261,7 @@
     display: flex;
     align-items: center;
 }
+
 
 /* ********************* */
 /** 占쏙옙티占쏙옙티 占승깍옙 SECTION */
@@ -326,12 +364,18 @@
 .age_condition{
 	margin-right:6px;
 	background-color: #e8e8e8;
-	padding : 2px 5px 3px 4px;
+	padding : 2px 4px 2px 4px;
 	border-radius: 7px;
+	
+	font-size: 11px;
 	font-family: "Pretendard";
     font-weight: 500;
     display: flex;
     align-items: center;
+}
+u {
+	color: #F86D7D;
+	font-size: 21px;
 }
 
 /* ********************* */

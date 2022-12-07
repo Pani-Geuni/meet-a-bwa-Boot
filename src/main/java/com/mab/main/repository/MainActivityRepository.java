@@ -34,6 +34,13 @@ public interface MainActivityRepository extends JpaRepository<MainActivityViewVO
 			+ "WHERE ROWNUM BETWEEN 1 AND 6")
 	public List<MainActivityViewVO> SQL_SELECT_CATEGORY_6(String category);
 	
+	@Query(nativeQuery = true, value
+			= "SELECT * FROM ( "
+			+ "  SELECT * FROM MAINACTIVITYVIEW where RECRUITMENT_ETIME > current_date ORDER BY (RECRUITMENT_ETIME - current_date) asc "
+			+ ")"
+			+ "WHERE ROWNUM BETWEEN 1 AND 6")
+	public List<MainActivityViewVO> SQL_SELECT_IMMINENT_DEADLINE();
+	
 	@Query(nativeQuery = true, value = 
 			"SELECT ACTIVITY_NO FROM ACTIVITY_LIKE WHERE user_no = ?1")
 	public List<String> SQL_SELECT_ALL_LIKE_USER_NO(String user_no);

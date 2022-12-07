@@ -60,7 +60,7 @@ public class MainMeetViewVO {
 	private String user_no;
 	
 	@Column(name="like_cnt")
-	private Integer like_cnt;
+	private String like_cnt;
 	
 	@Column(name="user_cnt")
 	private Integer user_cnt;

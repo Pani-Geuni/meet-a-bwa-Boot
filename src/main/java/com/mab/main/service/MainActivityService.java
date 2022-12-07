@@ -45,6 +45,12 @@ public class MainActivityService {
 		return list;
 	}
 	
+	public List<MainActivityViewVO> SQL_SELECT_IMMINENT_DEADLINE(){
+		List<MainActivityViewVO> list = activity_repo.SQL_SELECT_IMMINENT_DEADLINE();
+		
+		return list;
+	}
+	
 	public List<MainActivityViewVO> SQL_SELECT_CATEGORY_6(String category){
 		List<MainActivityViewVO> list = activity_repo.SQL_SELECT_CATEGORY_6(category);
 		
