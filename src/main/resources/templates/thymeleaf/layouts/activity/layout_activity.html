@@ -114,11 +114,12 @@
 					<section class="modal-content-inner-delete">
 						<section class="modal-content-delete1">
 							<p>정말 액티비티를 삭제하시겠습니까?</p>
-							<p>삭제한 액티비티는 복구하실 수 없습니다.</p>
+							<p>액티비티를 삭제하시면</p>
+							<p>가입된 회원들 또한 자동 탈퇴처리가 됩니다.</p>
 						</section>
 						<!--modal-content2-->
 						<section class="modal-content-delete2">
-							<button class="delete">액티비티 삭제</button>
+							<button class="delete" th:attr="idx=${avo.activity_no}">액티비티 삭제</button>
 							<button class="cancle">취소</button>
 						</section>
 						<!--modal-content3-->
@@ -147,7 +148,7 @@
 						</section>
 						<!--modal-content2-->
 						<section class="modal-content-withdrawal2">
-							<button class="withdrawal">액티비티 탈퇴</button>
+							<button class="withdrawal" th:attr="idx=${avo.activity_no}">액티비티 탈퇴</button>
 							<button class="cancle">취소</button>
 						</section>
 						<!--modal-content3-->

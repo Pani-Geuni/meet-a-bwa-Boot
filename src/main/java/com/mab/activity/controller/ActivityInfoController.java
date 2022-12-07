@@ -126,7 +126,7 @@ public class ActivityInfoController {
 		if(result==1) {
 			ActivityVO avo2 = service.select_one_activity_no(avo.getUser_no()); 
 			if (avo2!=null) {
-				int flag = service.activity_application(avo2.getActivity_no(),avo.getUser_no()); // 개설자 가입 처리
+				int flag = service.activity_oper_application(avo2.getActivity_no(),avo.getUser_no()); // 개설자 가입 처리
 				if (flag!=0) {
 					rt="redirect:activity_main?activity_no="+avo2.getActivity_no();
 				}else {
@@ -241,6 +241,7 @@ public class ActivityInfoController {
 	public String activity_delete(Model model, String activity_no) throws ParseException {
 		log.info("/activity_delete...");
 		
+		ActivityVO avo = service.select_one_activity_info(activity_no);//meet_no
 		
 		Map<String,String> map = new HashMap<String,String>();
 		
@@ -255,7 +256,6 @@ public class ActivityInfoController {
 		if(result==1) { // 가입된 멤버 삭제 success
 			int flag = service.activity_delete(activity_no); // 액티비티 삭제
 			if (flag==1) { // 삭제 성공
-				ActivityVO avo = service.select_one_activity_info(activity_no);//meet_no
 				map.put("result", "1"); 
 				map.put("meet_no", avo.getMeet_no());
 			}else { // 삭제 실패

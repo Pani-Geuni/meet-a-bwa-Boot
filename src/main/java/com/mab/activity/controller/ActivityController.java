@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,7 +27,6 @@ import com.mab.activity.model.ActivityVoteListView;
 import com.mab.activity.service.ActiivityFileService;
 import com.mab.activity.service.ActiivityService;
 import com.mab.event.model.EventVO;
-import com.mab.meet.model.MeetVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -115,11 +114,12 @@ public class ActivityController {
 		return "thymeleaf/layouts/activity/layout_activity";
 	}
 
+	
 	/**
 	 * 액티비티 신청
 	 */
 	@ApiOperation(value = "액티비티 신청", notes = "액티비티 신청 처리입니다.")
-	@GetMapping("/activity_register")
+	@PostMapping("/activity_register")
 	@ResponseBody
 	public String activity_register(Model model, String activity_no, String user_no) {
 		log.info("/activity_register...");
@@ -136,7 +136,10 @@ public class ActivityController {
 		String register_no = service.select_one_meet_registered_userinfo(avo.getMeet_no(), user_no); // 액티비티가 속한 모임에 유저가
 																										// 가입했는지 여부
 
-		Boolean condition = true;
+		int regi_condition = 1;
+		int nop_condition = 1;
+		int gender_condition = 1;
+		int age_condition = 1;
 
 		if (register_no != null) { // 모임 가입 유무
 			if (avo.getActivity_nop() > Integer.parseInt(user_cnt)) { // 액티비티 인원 수 초과 유무 -> 프론트에서 처리 가능
@@ -147,11 +150,17 @@ public class ActivityController {
 
 						log.info("성별 탈락");
 						map.put("result", "0"); // 조건 불충족
-						condition = false;
+						gender_condition = 0;
+					}else {
+						log.info("성별 통과");
+						gender_condition = 1; 
 					}
 				}else {
-					condition = true;
+					log.info("성별 통과");
+					gender_condition = 1; 
 				}
+				
+				// 나이
 				if (avo.getActivity_age() != null) { // 연령대 조건 검사
 					// 현재 년도
 					Calendar now = Calendar.getInstance();
@@ -169,29 +178,40 @@ public class ActivityController {
 					String age_result = String.valueOf(currentYear - birthYear + 1);
 					log.info("age_result : {}", age_result);
 
-					StringBuffer sb = new StringBuffer();
-					sb.append(age_result);
-					sb.setCharAt(1, '0');
-					log.info("age_group : {}", sb);
+//					StringBuffer sb = new StringBuffer();
+//					sb.append(age_result);
+//					sb.setCharAt(1, '0');
+//					log.info("age_group : {}", sb);
+					
+					String sb = age_result.substring(0, 1);
+					log.info("sb : {}", sb);
+					log.info("avo.getActivity_age() : {}", avo.getActivity_age());
 
-					if (!avo.getActivity_age().contains(sb)) {
-						log.info("나이 탈락");
+					if (avo.getActivity_age().indexOf(sb) > -1) {
+//						if (!avo.getActivity_age().contains(sb)) {
+						log.info("나이 통과");
+						age_condition = 1;
+					}else {
 						map.put("result", "0"); // 조건 불충족
-						condition = false;
+						log.info("나이 탈락");
+						age_condition = 0;
 					}
 				}else {
-					condition = true;
+					log.info("나이 통과");
+					age_condition = 1;
 				}
+				
+				
 			} else {
 				map.put("result", "2"); // 인원수 초과
-				condition = false;
+				nop_condition = 0;
 			}
 		} else {
 			map.put("result", "3"); // 모임 미가입
-			condition = false;
+			regi_condition = 0;
 		}
 
-		if (condition) {
+		if (regi_condition==1 && nop_condition==1 && gender_condition==1 && age_condition==1) {
 			int result = service.activity_application(activity_no, user_no); // 가입 처리
 			if (result == 1) {
 				map.put("result", "1");
@@ -211,11 +231,12 @@ public class ActivityController {
 	 * 액티비티 탈퇴
 	 */
 	@ApiOperation(value = "액티비티 탈퇴", notes = "액티비티 탈퇴 처리입니다.")
-	@GetMapping("/activity_withdrawal")
+	@PostMapping("/activity_withdrawal")
 	@ResponseBody
 	public String activity_withdrawal(Model model, String activity_no, String user_no) {
 		log.info("/activity_withdrawal...");
 		log.info("activity_no...:{}", activity_no);
+		log.info("user_no...:{}", user_no);
 
 		Map<String, String> map = new HashMap<String, String>();
 
