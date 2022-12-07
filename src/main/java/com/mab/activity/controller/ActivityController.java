@@ -109,59 +109,60 @@ public class ActivityController {
 		// user_no 가져온 후 조건 비교
 		ActivityUserVO uvo = service.select_one_activity_user_info(user_no); // 해당 유저 정보
 		ActivityView avo = service.select_one_activity_feed_info(activity_no); // 액티비티 피드 정보
-		String user_cnt = service.select_activity_user_cnt(activity_no); //멤버 수
-		
-		String register_no = service.select_one_meet_registered_userinfo(avo.getMeet_no(), user_no); // 액티비티가 속한 모임에 유저가 가입했는지 여부
-		
+		String user_cnt = service.select_activity_user_cnt(activity_no); // 멤버 수
+
+		String register_no = service.select_one_meet_registered_userinfo(avo.getMeet_no(), user_no); // 액티비티가 속한 모임에 유저가
+																										// 가입했는지 여부
+
 		Boolean condition = true;
 
-		if (register_no!=null) { // 모임 가입 유무
-			if (avo.getActivity_nop() > Integer.parseInt(user_cnt)) { // 액티비티 인원 수 초과 유무
+		if (register_no != null) { // 모임 가입 유무
+			if (avo.getActivity_nop() > Integer.parseInt(user_cnt)) { // 액티비티 인원 수 초과 유무 -> 프론트에서 처리 가능
 				if (avo.getActivity_gender() != "무관") { // 성별 조건 검사
 					if (!avo.getActivity_gender().equals(uvo.getUser_gender())) {
-						log.info("avo.getActivity_gender() : {}",avo.getActivity_gender());
-						log.info("uvo.getUser_gender()() : {}",uvo.getUser_gender());
-						
+						log.info("avo.getActivity_gender() : {}", avo.getActivity_gender());
+						log.info("uvo.getUser_gender()() : {}", uvo.getUser_gender());
+
 						map.put("result", "0"); // 조건 불충족
-						condition=false;
+						condition = false;
 					}
 				}
 				if (avo.getActivity_age() != null) { // 연령대 조건 검사
 					// 현재 년도
-					Calendar now = Calendar.getInstance(); 
+					Calendar now = Calendar.getInstance();
 					Integer currentYear = now.get(Calendar.YEAR);
-					log.info("currentYear : {}",currentYear);
+					log.info("currentYear : {}", currentYear);
 
 					SimpleDateFormat format = new SimpleDateFormat("yyyy");
-					String stringBirthYear = format.format(uvo.getUser_birth()); 
-					
+					String stringBirthYear = format.format(uvo.getUser_birth());
+
 					// 태어난 년도
 					Integer birthYear = Integer.parseInt(stringBirthYear);
-					log.info("birthYear : {}",birthYear);
+					log.info("birthYear : {}", birthYear);
 
 					// 현재 년도 - 태어난 년도 => 나이 (만나이X)
 					String age_result = String.valueOf(currentYear - birthYear + 1);
-					log.info("age_result : {}",age_result);
+					log.info("age_result : {}", age_result);
 
 					StringBuffer sb = new StringBuffer();
 					sb.append(age_result);
-					sb.setCharAt(1, '0'); 
-					log.info("age_group : {}",sb);
+					sb.setCharAt(1, '0');
+					log.info("age_group : {}", sb);
 
 					if (!avo.getActivity_age().contains(sb)) {
 						map.put("result", "0"); // 조건 불충족
-						condition=false;
+						condition = false;
 					}
 				}
 			} else {
 				map.put("result", "2"); // 인원수 초과
-				condition=false;
+				condition = false;
 			}
-		}else {
+		} else {
 			map.put("result", "3"); // 모임 미가입
-			condition=false;
+			condition = false;
 		}
-		
+
 		if (condition) {
 			int result = service.activity_application(activity_no, user_no); // 가입 처리
 			if (result == 1) {
@@ -171,6 +172,32 @@ public class ActivityController {
 				map.put("result", "0");
 				log.info("fail");
 			}
+		}
+
+		String json = gson.toJson(map);
+
+		return json;
+	}
+
+	/**
+	 * 액티비티 탈퇴
+	 */
+	@ApiOperation(value = "액티비티 탈퇴", notes = "액티비티 탈퇴 처리입니다.")
+	@GetMapping("/activity_withdrawal")
+	@ResponseBody
+	public String activity_withdrawal(Model model, String activity_no, String user_no) {
+		log.info("/activity_withdrawal...");
+		log.info("activity_no...:{}", activity_no);
+
+		Map<String, String> map = new HashMap<String, String>();
+
+		int result = service.activity_withdrawal(activity_no, user_no); // 탈퇴 처리
+		if (result == 1) {
+			map.put("result", "1");
+			log.info("success");
+		} else {
+			map.put("result", "0");
+			log.info("fail");
 		}
 
 		String json = gson.toJson(map);

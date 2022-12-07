@@ -69,11 +69,11 @@ public class ActivityView implements Serializable{
 	@Column(name="recruitment_stime")
 	private Date recruitment_stime;
 	
-	@Transient
+//	@Transient
 	@Column(name="recruitment_etime")
 	private Date recruitment_etime;
 	
-	@Transient
+//	@Transient
 	@Column(name="activity_stime")
 	private Date activity_stime;
 	

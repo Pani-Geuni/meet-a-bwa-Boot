@@ -89,19 +89,6 @@ $(function() {
 	}
 
 	// 액티비티 수정 페이지 요청
-	$(".activityExitBtn").click(function() {
-		$(".activityExit-popup").removeClass("blind");
-		$(".withdrawal").click(function() {
-			$(".activityExit-popup").addClass("blind");
-			idx = $(this).attr("idx");
-			ajax_load_exit(idx);
-		});
-
-		$(".cancle").click(function() {
-			$(".activityExit-popup").addClass("blind");
-		});
-	});
-
 	$(".activityUpdateBtn").on('click', function() {
 		//		let query = location.search;
 		//		let param = new URLSearchParams(query);
@@ -109,11 +96,13 @@ $(function() {
 		idx = $(this).attr("idx");
 		let recruitment_etime = $("#recruitment_etime").val();
 		var now = new Date();
+		console.log("recruitment_etime:" + recruitment_etime);
+		console.log("now:" + now);
 
-		recruitment_etime = leadingZeros(recruitment_etime.getFullYear(), 4) + '-' +
-			leadingZeros(recruitment_etime.getMonth() + 1, 2) + '-' +
-			leadingZeros(recruitment_etime.getDate(), 2);
-
+		//		recruitment_etime = leadingZeros(recruitment_etime.getFullYear(), 4) + '-' +
+		//			leadingZeros(recruitment_etime.getMonth() + 1, 2) + '-' +
+		//			leadingZeros(recruitment_etime.getDate(), 2);
+		//
 		now = leadingZeros(now.getFullYear(), 4) + '-' +
 			leadingZeros(now.getMonth() + 1, 2) + '-' +
 			leadingZeros(now.getDate(), 2);
@@ -140,14 +129,104 @@ $(function() {
 		}
 	});
 
+	// 액티비티 삭제
+	$(".activityDeleteBtn").click(function() {
+		$(".activityDelete-popup").removeClass("blind");
+		$(".delete").click(function() {
+
+			$(".activityDelete-popup").addClass("blind");
+
+			let activity_stime = $("#activity_stime").val();
+			var now = new Date();
+			console.log("activity_stime:" + activity_stime);
+			console.log("now:" + now);
+
+			now = leadingZeros(now.getFullYear(), 4) + '-' +
+				leadingZeros(now.getMonth() + 1, 2) + '-' +
+				leadingZeros(now.getDate(), 2);
+			if (now < activity_stime) {
+				idx = $(this).attr("idx");
+				ajax_load_delete(idx);
+			} else {
+				// 에러 팝업
+				$('.popup-background:eq(1)').removeClass('blind')
+				$('#common-alert-popup').removeClass('blind')
+				$('.common-alert-txt').text('활동이 시작되면 삭제가 불가합니다.')
+			}
+		});
+
+		$(".cancle").click(function() {
+			$(".activityDelete-popup").addClass("blind");
+		});
+	});
+
+	function ajax_load_delete(idx) {
+		//로딩 화면
+		$(".popup-background:eq(1)").removeClass("blind");
+		$("#spinner-section").removeClass("blind");
+		
+		var user_no = $.cookie('user_no');
+
+		$.ajax({
+			url: "/meet-a-bwa/activity_delete",
+			type: "POST",
+			dataType: "json",
+			data: {
+				activity_no: idx,
+				user_no : user_no
+			},
+
+			success: function(res) {
+				//로딩 화면 닫기
+				$(".popup-background:eq(1)").addClass("blind");
+				$("#spinner-section").addClass("blind");
+
+				if (res.result == 1) {
+					//					location.reload();
+					location.href = "/meet-a-bwa/meet_main.do?idx=" + res.meet_no;
+				} else {
+					$('.popup-background:eq(1)').removeClass('blind')
+					$('#common-alert-popup').removeClass('blind')
+					$('.common-alert-txt').text('오류 발생으로 처리되지 못했습니다.')
+				}
+			},
+			error: function(res, status, text) {
+				//로딩 화면 닫기
+				$(".popup-background:eq(1)").addClass("blind");
+				$("#spinner-section").addClass("blind");
+
+				// 에러 팝업
+				$('.popup-background:eq(1)').removeClass('blind')
+				$('#common-alert-popup').removeClass('blind')
+				$('.common-alert-txt').text('오류 발생으로 처리되지 못했습니다.')
+			}
+		});
+	}
+
 
 	// 액티비티 탈퇴
 	$(".activityExitBtn").click(function() {
 		$(".activityExit-popup").removeClass("blind");
 		$(".withdrawal").click(function() {
 			$(".activityExit-popup").addClass("blind");
-			idx = $(this).attr("idx");
-			ajax_load_exit(idx);
+
+			let recruitment_etime = $("#recruitment_etime").val();
+			var now = new Date();
+			console.log("recruitment_etime:" + recruitment_etime);
+			console.log("now:" + now);
+
+			now = leadingZeros(now.getFullYear(), 4) + '-' +
+				leadingZeros(now.getMonth() + 1, 2) + '-' +
+				leadingZeros(now.getDate(), 2);
+			if (now < recruitment_etime) {
+				idx = $(this).attr("idx");
+				ajax_load_exit(idx);
+			} else {
+				// 에러 팝업
+				$('.popup-background:eq(1)').removeClass('blind')
+				$('#common-alert-popup').removeClass('blind')
+				$('.common-alert-txt').text('모집이 종료되면 되면 탈퇴가 불가합니다.')
+			}
 		});
 
 		$(".cancle").click(function() {
@@ -161,8 +240,8 @@ $(function() {
 		$("#spinner-section").removeClass("blind");
 
 		$.ajax({
-			url: "/meet-a-bwa/a_withdrawal.do",
-			type: "GET",
+			url: "/meet-a-bwa/activity_withdrawal",
+			type: "POST",
 			dataType: "json",
 			data: {
 				activity_no: idx
@@ -173,7 +252,13 @@ $(function() {
 				$(".popup-background:eq(1)").addClass("blind");
 				$("#spinner-section").addClass("blind");
 
-				location.reload();
+				if (res.result == 1) {
+					location.reload();
+				} else {
+					$('.popup-background:eq(1)').removeClass('blind')
+					$('#common-alert-popup').removeClass('blind')
+					$('.common-alert-txt').text('오류 발생으로 처리되지 못했습니다.')
+				}
 			},
 			error: function(res, status, text) {
 				//로딩 화면 닫기
