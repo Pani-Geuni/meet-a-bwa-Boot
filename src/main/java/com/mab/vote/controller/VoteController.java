@@ -62,6 +62,7 @@ public class VoteController {
 	@ResponseBody
 	public String vote_view(VoteVO vo2) {
 		log.info("vote_view");
+		log.info("{}..", vo2);
 		
 		List<VoteViewVO> list2 = service.select_one_vote(vo2.getVote_no());
 
@@ -100,6 +101,8 @@ public class VoteController {
 			map.put("content", vvo2.getVote_content());
 			arr.add(map);
 		}
+		
+		log.info("writer_no {}..", writer_no);
 		
 		List<Object> vr_list = service.vr_selectOne(vo2.getVote_no());
 		String my_result = service.myVr_selectOne(vo2.getVote_no(), vo2.getUser_no());

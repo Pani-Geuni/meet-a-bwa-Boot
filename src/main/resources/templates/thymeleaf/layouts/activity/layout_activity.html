@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>밋;어봐 액티비티</title>
+	<title>밋:어봐 액티비티</title>
 
 	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
 
@@ -72,8 +72,6 @@
 	<script>
 		$(function () {
 			var user_no = $.cookie('user_no');
-			console.log(user_no);
-
 			$("#cookie").val(user_no);
 		});
 	</script>
@@ -790,16 +788,15 @@
 					<section id="" class="e_titleSection event-section_common">
 						<h4 class="section_title">이벤트 제목</h4>
 						<section id="title_section">
-							<input type="text" id="event_u_title" class="event_title common" placeholder="이벤트 제목"> <span
-								id="event_u_title_text_length" class="text_length">0/15</span>
+							<input type="text" id="event_u_title" class="event_title common" placeholder="이벤트 제목"> 
+							<span id="event_u_title_text_length" class="text_length">0/15</span>
 						</section>
 					</section>
 
 					<section id="" class="choice_date event-section_common">
 						<h4 class="section_title">이벤트 시간/날짜 설정</h4>
 						<div id="" class="e_pickerWrap">
-							<input type="text" id="u_eventDate" class="eventDate dateCommon" autocomplete="off"
-								placeholder="날짜를 선택해주세요.">
+							<input type="text" id="u_eventDate" class="eventDate dateCommon" autocomplete="off" placeholder="날짜를 선택해주세요.">
 
 							<!-- START TIMEPICKER -->
 							<div id="eu_t_box" class="e_timepicker_box dateCommon">
@@ -808,7 +805,7 @@
 								</section>
 
 								<section id="" class="timeImgSection">
-									<img src="/meet-a-bwa/resources/img/clock.svg" id="timeImg" alt="시계이미지" />
+									<img src="/IMG/common/clock.svg" id="timeImg" alt="시계이미지" />
 								</section>
 
 								<div id="eu_customTimePicker" class="customTimePicker blind">
