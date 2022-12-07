@@ -141,7 +141,7 @@
     display: flex;
     justify-content: left;
     margin-bottom: 20px;
-    width: 250px;
+    width: auto;
 }
 .tag{
     display: flex;
