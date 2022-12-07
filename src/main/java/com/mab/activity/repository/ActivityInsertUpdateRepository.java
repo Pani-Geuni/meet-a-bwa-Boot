@@ -17,7 +17,7 @@ public interface ActivityInsertUpdateRepository extends JpaRepository<ActivityVO
 	public int activity_insert(ActivityVO avo);
 
 	// 액티비티 생성 후 정보 가져오기
-	@Query(nativeQuery = true, value = "select * from(select * from activity ORDER BY ROWNUM DESC) where user_no=?1 and ROWNUM = 1")
+	@Query(nativeQuery = true, value = "select * from(select * from activity ORDER BY activity_date DESC) where user_no=?1 and ROWNUM = 1")
 	public ActivityVO select_one_activity_no(String user_no);
 	
 	// 액티비티 정보 가져오기
