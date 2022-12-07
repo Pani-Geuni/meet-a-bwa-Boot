@@ -23,10 +23,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mab.activity.model.ActivityUserVO;
 import com.mab.activity.model.ActivityVO;
 import com.mab.meet.model.MeetVO;
 import com.mab.meet.service.MeetInfoFileService;
 import com.mab.meet.service.MeetInfoService;
+import com.mab.user.model.UserVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -66,8 +68,12 @@ public class MeetInfoController {
 				}
 			}
 		}
+		
+		UserVO uvo = service.select_one_meet_user_info(user_no);
+		log.info("개설자 성별 : {}",uvo.getUser_gender());
 
 		model.addAttribute("user_no", user_no);
+		model.addAttribute("user_gender", uvo.getUser_gender());
 		model.addAttribute("content", "thymeleaf/html/meet/insert/insert");
 		model.addAttribute("title", "모임 생성");
 
@@ -122,12 +128,26 @@ public class MeetInfoController {
 	 */
 	@ApiOperation(value = "모임 수정", notes = "모임 수정 페이지입니다.")
 	@GetMapping("/meet_update")
-	public String meet_update(Model model, String meet_no) {
+	public String meet_update(Model model, String meet_no, HttpServletRequest request) {
 		log.info("/meet_update...");
+		
+		Cookie[] cookies = request.getCookies();
+		String user_no = "";
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("user_no")) {
+					user_no = cookie.getValue();
+				}
+			}
+		}
 
 		MeetVO mvo = service.select_one_meet_info(meet_no);
-
 		log.info("mvo:{}", mvo);
+
+		UserVO uvo = service.select_one_meet_user_info(user_no);
+		log.info("개설자 성별 : {}",uvo.getUser_gender());
+
+		model.addAttribute("user_gender", uvo.getUser_gender());
 
 		model.addAttribute("mvo", mvo);
 		model.addAttribute("content", "thymeleaf/html/meet/update/update");

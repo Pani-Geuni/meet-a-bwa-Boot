@@ -125,9 +125,13 @@
 								</section>
 								<select id="gender" th:field="*{mvo.meet_gender}" th:value="${mvo.meet_gender}"
 									name="meet_gender">
-									<option value=''>선택</option>
-									<option th:value="W">여</option>
-									<option th:value="M">남</option>
+									<option value="">선택(무관)</option>
+									<th:block th:if="${#strings.equals(user_gender,'W')}">
+										<option th:value="W">여자</option>
+									</th:block>
+									<th:block th:if="${#strings.equals(user_gender,'M')}">
+										<option th:value="M">남자</option>
+									</th:block>
 								</select>
 							</section>
 
@@ -137,7 +141,7 @@
 								</section>
 								<select id="numberofpeople" th:field="*{mvo.meet_nop}" class="numberofpeople"
 									name="meet_nop" th:value="${mvo.meet_nop}">
-									<option th:value="0">선택</option>
+									<option th:value="0">선택(무관)</option>
 									<option th:each="num : ${#numbers.sequence(1,20)}" th:text="${num}"
 										th:value="${num}"></option>
 								</select>

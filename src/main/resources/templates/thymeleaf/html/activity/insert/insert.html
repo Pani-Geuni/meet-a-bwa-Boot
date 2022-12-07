@@ -106,9 +106,13 @@
 									<label>성별</label>
 								</section>
 								<select id="gender" name="activity_gender">
-									<option value="">선택</option>
-									<option value="W">여</option>
-									<option value="M">남</option>
+									<option value="">선택(무관)</option>
+									<th:block th:if="${#strings.equals(user_gender,'W')}">
+										<option th:value="W">여자</option>
+									</th:block>
+									<th:block th:if="${#strings.equals(user_gender,'M')}">
+										<option th:value="M">남자</option>
+									</th:block>
 								</select>
 							</section>
 
@@ -127,7 +131,7 @@
 									<label>연령대</label>
 								</section>
 								<select id="ageBody" class="ageBody" name="age">
-									<option value="0">선택</option>
+									<option value="0">선택(무관)</option>
 									<option th:each="num : ${#numbers.sequence(10,100,10)}" th:text="${num}+대"></option>
 								</select>
 								<div id="tagWrap_age">
