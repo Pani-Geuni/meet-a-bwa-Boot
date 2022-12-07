@@ -88,10 +88,10 @@ public class ActivityInfoController {
 			,ActivityVO avo, MultipartHttpServletRequest mtfRequest, @RequestParam(value = "multipartFile_activity") MultipartFile multipartFile_activity) throws ParseException {
 		log.info("/activity_insertOK...");
 		
-		recruitment_stime = "2022-12-04";
-		recruitment_etime = "2022-12-05";
-		activity_stime = "2022-12-27";
-		activity_etime = "2022-12-27";
+		recruitment_stime = "2022-12-10";
+		recruitment_etime = "2022-12-15";
+		activity_stime = "2022-12-20";
+		activity_etime = "2022-12-25";
 		
 		// String -> Date 타입 변환
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
@@ -120,7 +120,16 @@ public class ActivityInfoController {
 		String rt ="";
 		if(result==1) {
 			ActivityVO avo2 = service.select_one_activity_no(avo.getUser_no()); 
-			rt="redirect:activity_main?activity_no="+avo2.getActivity_no();
+			if (avo2!=null) {
+				int flag = service.activity_application(avo2.getActivity_no(),avo.getUser_no()); // 개설자 가입 처리
+				if (flag!=0) {
+					rt="redirect:activity_main?activity_no="+avo2.getActivity_no();
+				}else {
+					rt="redirect:activity_insert"; 
+				}
+			}else {
+				rt="redirect:activity_insert"; 
+			}
 		}else {
 			rt="redirect:activity_insert"; 
 		}

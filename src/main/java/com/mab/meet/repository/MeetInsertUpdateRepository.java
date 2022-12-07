@@ -20,7 +20,7 @@ public interface MeetInsertUpdateRepository  extends JpaRepository<MeetVO, Objec
 	public int meet_insert(MeetVO mvo);
 
 	// 모임 개설 후 모임 정보 가져오기
-	@Query(nativeQuery = true, value="select * from(select * from meet ORDER BY ROWNUM DESC) where user_no=?1 and ROWNUM = 1")
+	@Query(nativeQuery = true, value="select * from(select * from meet ORDER BY meet_date DESC) where user_no=?1 and ROWNUM = 1")
 	public MeetVO select_one_meet_no(String user_no);
 	
 	// 모임 정보 가져오기
