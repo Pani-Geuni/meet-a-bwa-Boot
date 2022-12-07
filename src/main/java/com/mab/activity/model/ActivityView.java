@@ -77,7 +77,7 @@ public class ActivityView implements Serializable{
 	@Column(name="activity_stime")
 	private Date activity_stime;
 	
-	@Transient
+//	@Transient
 	@Column(name="activity_etime")
 	private Date activity_etime;
 	

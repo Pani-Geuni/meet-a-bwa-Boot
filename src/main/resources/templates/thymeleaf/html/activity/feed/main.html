@@ -28,7 +28,7 @@
 					</div>
 					<div class="act-summary-info">
 						<p>
-							<span>멤버 : </span> <span>[[${user_cnt}]]</span> <span>명</span>
+							<span>멤버 : </span> <span id="user_cnt" th:value="${user_cnt}">[[${user_cnt}]]</span> <span>명</span>
 						</p>
 						<p>
 							<span> 리더 : </span> <span>[[${avo.user_nickname}]]</span>
@@ -54,9 +54,11 @@
 							</div>
 						</th:block>
 						<th:block th:if="${not #strings.isEmpty(avo.activity_age)}">
+							<th:block th:each="age:${age_tag}">
 							<div class="age_tag tag">
-								<span class="category_name font_size_10">[[${avo.activity_age}]]</span>
+								<span class="category_name font_size_10" th:text="${age}"></span>
 							</div>
+							</th:block>
 						</th:block>
 						<th:block th:if="${not #strings.isEmpty(avo.activity_gender)}">
 							<div class="gen_tag tag">
@@ -105,7 +107,7 @@
 								<h4 class="introInfo">액티비티 정보</h4>
 								<ul class="introInfoUl">
 									<li class="openDate">액티비티 개설일 : [[${avo.activity_date}]]</li>
-									<li class="nop">멤버 수 : [[${user_cnt}]] / [[${avo.activity_nop}]] 명</li>
+									<li class="nop" id="activity_nop" th:value="${avo.activity_nop}">멤버 수 : [[${user_cnt}]] / [[${avo.activity_nop}]] 명</li>
 								</ul>
 							</section>
 							<!--introInfo end-->
@@ -284,6 +286,10 @@
 						<input type="text" id="activity_stime" name="activity_stime"
 							th:value="${avo.activity_stime}">
 					</section>
+					<section class="blind">
+						<input type="text" id="activity_etime" name="activity_etime"
+							th:value="${avo.activity_etime}">
+					</section>
 					<!-- ************************************************************* -->
 
 				</div>
@@ -344,9 +350,11 @@
 							</div>
 						</th:block>
 						<th:block th:if="${not #strings.isEmpty(avo.activity_age)}">
+							<th:block th:each="age:${age_tag}">
 							<div class="age_tag tag">
-								<span class="category_name font_size_10">[[${avo.activity_age}]]</span>
+								<span class="category_name font_size_10" th:text="${age}"></span>
 							</div>
+							</th:block>
 						</th:block>
 						<th:block th:if="${not #strings.isEmpty(avo.activity_gender)}">
 							<div class="gen_tag tag">
@@ -426,6 +434,10 @@
 					<section class="blind">
 						<input type="text" id="activity_stime" name="activity_stime"
 							th:value="${avo.activity_stime}">
+					</section>
+					<section class="blind">
+						<input type="text" id="activity_etime" name="activity_etime"
+							th:value="${avo.activity_etime}">
 					</section>
 					<!-- ************************************************************* -->
 

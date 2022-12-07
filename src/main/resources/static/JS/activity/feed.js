@@ -15,8 +15,16 @@ $(function() {
 			});
 		}
 		else {
-			idx = $(this).attr("idx");
-			ajax_load_join(idx);
+			let activity_nop = $("#activity_nop").val();
+			let user_cnt = $("#user_cnt").val();
+			if (user_cnt < activity_nop) {
+				idx = $(this).attr("idx");
+				ajax_load_join(idx);
+			} else {
+				$('.popup-background:eq(1)').removeClass('blind')
+				$('#common-alert-popup').removeClass('blind')
+				$('.common-alert-txt').text('정원이 초과되었습니다.')
+			}
 		}
 	});
 
@@ -137,14 +145,16 @@ $(function() {
 			$(".activityDelete-popup").addClass("blind");
 
 			let activity_stime = $("#activity_stime").val();
+			let activity_etime = $("#activity_etime").val();
 			var now = new Date();
 			console.log("activity_stime:" + activity_stime);
+			console.log("activity_etime:" + activity_etime);
 			console.log("now:" + now);
 
 			now = leadingZeros(now.getFullYear(), 4) + '-' +
 				leadingZeros(now.getMonth() + 1, 2) + '-' +
 				leadingZeros(now.getDate(), 2);
-			if (now < activity_stime) {
+			if (now < activity_stime && now > activity_etime) {
 				idx = $(this).attr("idx");
 				ajax_load_delete(idx);
 			} else {
@@ -164,7 +174,7 @@ $(function() {
 		//로딩 화면
 		$(".popup-background:eq(1)").removeClass("blind");
 		$("#spinner-section").removeClass("blind");
-		
+
 		var user_no = $.cookie('user_no');
 
 		$.ajax({
@@ -173,7 +183,7 @@ $(function() {
 			dataType: "json",
 			data: {
 				activity_no: idx,
-				user_no : user_no
+				user_no: user_no
 			},
 
 			success: function(res) {
