@@ -35,6 +35,20 @@
 					<span class="category_name font_size_10">[[${ mvo.meet_interest_name }]]</span>
 				</div>
 			</th:block>
+
+			<th:block th:if="${mvo.meet_gender != null}">
+				<div class="cate_tag tag">
+					<span class="category_name font_size_10">[[${ mvo.meet_gender }]]</span>
+				</div>
+			</th:block>
+
+			<th:block th:if="${mvo.meet_age != null}">
+				<th:block th:each="age : ${meet_age_list}">
+					<div class="cate_tag tag">
+						<span class="category_name font_size_10">[[${ age }]]</span>
+					</div>
+				</th:block>
+			</th:block>
 		</div>
 	</div>
 
@@ -50,7 +64,7 @@
 		</div>
 		<div>
 			<p>멤버 수</p>
-			<span>[[${ mvo.user_cnt }]]명</span>
+			<span>[[${ mvo.user_cnt }]] / [[${ mvo.meet_nop }]]명</span>
 		</div>
 	</div>
 </section>

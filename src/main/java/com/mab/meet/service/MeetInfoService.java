@@ -44,6 +44,17 @@ public class MeetInfoService {
 		return m_regi_repository.meet_application(meet_no, user_no);
 	}
 	
+	// 일반 유저 모임 가입
+	public int meet_application_user(String meet_no, String user_no) {
+		log.info("meet_application().....");
+		return m_regi_repository.meet_application_user(meet_no, user_no);
+	}
+	
+	// 모임 탈퇴
+	public int meet_leave_user(String meet_no, String user_no) {
+		return m_regi_repository.meet_leave_user(meet_no, user_no);
+	}
+	
 	
 	// 모임 정보 가져오기
 	public MeetVO select_one_meet_info(String meet_no) {
