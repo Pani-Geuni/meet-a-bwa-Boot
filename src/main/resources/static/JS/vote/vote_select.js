@@ -405,8 +405,6 @@ $(function() {
 
 		let arr = $("#u_timeValue").text().split(":");
 		arr[0] = $(this).attr("type");
-		if (Number(arr[1]) < 10)
-			arr[1] = "0" + arr[1];
 
 		$("#u_timeValue").text(arr.join(":"));
 
@@ -418,7 +416,7 @@ $(function() {
 			$("#u_customTimePicker").addClass("blind");
 		}
 	});
-	$("#u_time_choice").on("click", ".time-list", function(event) {
+	$("#u_time_choice").on("click", ".time-list", function() {
 		$(".time-list").removeClass("time_choice");
 		$(this).addClass("time_choice");
 
@@ -435,7 +433,7 @@ $(function() {
 			$("#u_customTimePicker").addClass("blind");
 		}
 	});
-	$("#u_minute_choice").on("click", ".minute-list", function(event) {
+	$("#u_minute_choice").on("click", ".minute-list", function() {
 		$(".minute-list").removeClass("time_choice");
 		$(this).addClass("time_choice");
 
@@ -489,6 +487,7 @@ $(function() {
 		changeYear: true,
 		changeMonth: true
 	});
+	
 
 	/************************************************ */
 	/** 함수 SECTION **/

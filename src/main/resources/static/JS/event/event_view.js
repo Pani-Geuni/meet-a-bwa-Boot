@@ -70,7 +70,7 @@ $(function() {
 	
 			$.ajax({
 				url: "/meet-a-bwa/event_delete.do",
-				type: "POST",
+				type: "GET",
 				dataType: 'json', // 결과값 받을 타입
 				data: {
 					event_no: event_idx,
@@ -404,7 +404,7 @@ $(function() {
 			data: {
 				event_no: event_idx,
 				event_title: $("#event_u_title").val().trim(),
-				event_description: $("#event_u_event_description").val().trim(),
+				event_content : $("#event_u_event_description").val().trim(),
 				event_d_day: $("#eventDate").val().trim() + " " + time
 			},
 			success: function(res) {

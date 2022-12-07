@@ -13,6 +13,7 @@
 .vote_section * {
     font-family: 'Pretendard';
 }
+
 /*******************************************/
 
 .wrap_common{
@@ -38,7 +39,9 @@
     height: 30px;
     cursor: pointer;
 }
+
 /******************************/
+
 .select_custom{
     position: absolute;
     top: 57px;
@@ -58,7 +61,7 @@
     flex-direction: column;
     justify-content: center;
     width: 84px;
-    min-height: 50px;
+    min-height: 30px;
     max-height: 79px;
     background-color: #FFB200;
     border-radius: 5px;
@@ -74,6 +77,9 @@
 }
 #update{
     border-bottom: 1px solid rgba(255, 218, 31, 0.808);
+}
+#end{
+    border-top: 1px solid rgba(255, 218, 31, 0.808);
 }
 
 /*******************************************/

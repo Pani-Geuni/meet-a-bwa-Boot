@@ -106,6 +106,11 @@ public class EventController {
 	public String event_update(EventVO vo2) {
 		log.info("/event_update.do");
 		
+		DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(vo2.getEvent_d_day().trim()));
+        Timestamp ts = Timestamp.valueOf(localDateTime);
+        vo2.setEvent_d_day_sql(ts);
+		
 		int result = service.SQL_UPDATE_EVENT(vo2);
 		
 		Map<String, String> map =  new HashMap<String, String>();

@@ -407,8 +407,6 @@ $(function() {
 
 		let arr = $("#u_timeValue").text().split(":");
 		arr[0] = $(this).attr("type");
-		if (Number(arr[1]) < 10)
-			arr[1] = "0" + arr[1];
 
 		$("#u_timeValue").text(arr.join(":"));
 
@@ -420,7 +418,7 @@ $(function() {
 			$("#u_customTimePicker").addClass("blind");
 		}
 	});
-	$("#u_time_choice").on("click", ".time-list", function(event) {
+	$("#u_time_choice").on("click", ".time-list", function() {
 		$(".time-list").removeClass("time_choice");
 		$(this).addClass("time_choice");
 
@@ -437,7 +435,7 @@ $(function() {
 			$("#u_customTimePicker").addClass("blind");
 		}
 	});
-	$("#u_minute_choice").on("click", ".minute-list", function(event) {
+	$("#u_minute_choice").on("click", ".minute-list", function() {
 		$(".minute-list").removeClass("time_choice");
 		$(this).addClass("time_choice");
 
@@ -691,6 +689,7 @@ $(function() {
 					updateFlag = false;
 					$(".view_closeBtn").removeClass("blind");
 					$("#end").addClass("blind");
+					$("#dropdown").find("#update").addClass("blind");
 
 					if (new Date().getTime() <= new Date(res.vote_eod).getTime() && res.vote_state == "N") {
 						$("#end_date").text("투표조기마감");
