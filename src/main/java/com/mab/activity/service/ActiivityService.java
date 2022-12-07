@@ -25,45 +25,50 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ActiivityService {
-	
+
 	@Autowired
 	ActivityInsertUpdateRepository a_repository;
-	
+
 	@Autowired
 	ActivityFeedRepository a_feed_repository;
-	
+
 	@Autowired
 	MeetSelectRepository m_repository;
-	
+
 	@Autowired
 	ActivityVoteListRepository v_list_repository;
-	
+
 	@Autowired
 	ActivityEventListRepository e_list_repository;
-	
+
 	@Autowired
 	ActivityRegisteredRepository a_member_repository;
-	
+
 	@Autowired
 	ActivityUserInfoRepository a_user_repository;
-	
 
 	// meet 정보 select
 	public MeetVO activity_select_meet_private_state(String meet_no) {
 		log.info("activity_select_meet_private_state().....");
 		return m_repository.activity_select_meet_private_state(meet_no);
 	}
-	
+
 	// 액티비티 생성
 	public int activity_insert(ActivityVO avo) {
 		log.info("activity_insert().....");
 		return a_repository.activity_insert(avo);
 	}
-	
+
 	// 액티비티 생성 후 정보 가져오기
 	public ActivityVO select_one_activity_no(String user_no) {
 		log.info("select_one_activity_no().....");
 		return a_repository.select_one_activity_no(user_no);
+	}
+
+	// 액티비티 개설자 가입 신청 처리
+	public int activity_oper_application(String activity_no, String user_no) {
+		log.info("activity_application().....");
+		return a_member_repository.activity_oper_application(activity_no, user_no);
 	}
 
 	// 액티비티 수정을 위한 기존 정보 select
@@ -114,7 +119,7 @@ public class ActiivityService {
 		log.info("select_activity_event_list().....");
 		return e_list_repository.select_activity_event_list(activity_no);
 	}
-	
+
 	// 가입 신청을 하는 유저 정보 select
 	public ActivityUserVO select_one_activity_user_info(String user_no) {
 		log.info("select_one_activity_user_info().....");
@@ -124,10 +129,10 @@ public class ActiivityService {
 	// 액티비티 가입 신청 처리
 	public int activity_application(String activity_no, String user_no) {
 		log.info("activity_application().....");
-		return a_member_repository.activity_application(activity_no,user_no);
+		return a_member_repository.activity_application(activity_no, user_no);
 	}
 
-	// 액티비티가 속한 모임에 해당 유저가 가입했는지 
+	// 액티비티가 속한 모임에 해당 유저가 가입했는지
 	public String select_one_meet_registered_userinfo(String meet_no, String user_no) {
 		log.info("select_one_meet_registered_userinfo().....");
 		return m_repository.select_one_meet_registered_userinfo(meet_no, user_no);
@@ -150,9 +155,5 @@ public class ActiivityService {
 		log.info("activity_withdrawal().....");
 		return a_member_repository.activity_withdrawal(activity_no, user_no); // update
 	}
-
-
-
-
 
 }
