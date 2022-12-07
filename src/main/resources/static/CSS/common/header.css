@@ -92,3 +92,6 @@ a{
     width: auto;
     height: auto;
 }
+#alarm_img{
+	cursor: pointer;
+}

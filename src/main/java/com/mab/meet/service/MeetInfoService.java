@@ -10,6 +10,8 @@ import com.mab.activity.repository.ActivityInsertUpdateRepository;
 import com.mab.meet.model.MeetVO;
 import com.mab.meet.repository.MeetInsertUpdateRepository;
 import com.mab.meet.repository.MeetRegisteredRepository;
+import com.mab.meet.repository.MeetUserGenderRepository;
+import com.mab.user.model.UserVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +27,16 @@ public class MeetInfoService {
 	
 	@Autowired
 	MeetRegisteredRepository m_regi_repository;
+	
+	@Autowired
+	MeetUserGenderRepository m_gen_repository;
+	
+	// 개설자 성별
+	public UserVO select_one_meet_user_info(String user_no) {
+		log.info("select_one_meet_user_info().....");
+		return m_gen_repository.select_one_meet_user_info(user_no);
+	}
+
 
 	// 모임 생성
 	public int meet_insert(MeetVO mvo) {

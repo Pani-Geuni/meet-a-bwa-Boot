@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mab.activity.model.ActivityUserVO;
 import com.mab.activity.model.ActivityVO;
 import com.mab.activity.service.ActiivityFileService;
 import com.mab.activity.service.ActiivityService;
@@ -69,9 +70,13 @@ public class ActivityInfoController {
 				}
 			}
 		}
+		
+		ActivityUserVO auvo = service.select_one_activity_user_info(user_no);
+		log.info("개설자 성별 : {}",auvo.getUser_gender());
 
 		model.addAttribute("meet_no", meet_no);
 		model.addAttribute("user_no", user_no);
+		model.addAttribute("user_gender", auvo.getUser_gender());
 		model.addAttribute("content", "thymeleaf/html/activity/insert/insert");
 		model.addAttribute("title", "액티비티 생성");
 
@@ -88,10 +93,10 @@ public class ActivityInfoController {
 			,ActivityVO avo, MultipartHttpServletRequest mtfRequest, @RequestParam(value = "multipartFile_activity") MultipartFile multipartFile_activity) throws ParseException {
 		log.info("/activity_insertOK...");
 		
-		recruitment_stime = "2022-12-04";
-		recruitment_etime = "2022-12-05";
-		activity_stime = "2022-12-27";
-		activity_etime = "2022-12-27";
+		recruitment_stime = "2022-12-10";
+		recruitment_etime = "2022-12-15";
+		activity_stime = "2022-12-20";
+		activity_etime = "2022-12-25";
 		
 		// String -> Date 타입 변환
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
@@ -120,7 +125,16 @@ public class ActivityInfoController {
 		String rt ="";
 		if(result==1) {
 			ActivityVO avo2 = service.select_one_activity_no(avo.getUser_no()); 
-			rt="redirect:activity_main?activity_no="+avo2.getActivity_no();
+			if (avo2!=null) {
+				int flag = service.activity_oper_application(avo2.getActivity_no(),avo.getUser_no()); // 개설자 가입 처리
+				if (flag!=0) {
+					rt="redirect:activity_main?activity_no="+avo2.getActivity_no();
+				}else {
+					rt="redirect:activity_insert"; 
+				}
+			}else {
+				rt="redirect:activity_insert"; 
+			}
 		}else {
 			rt="redirect:activity_insert"; 
 		}
@@ -134,16 +148,30 @@ public class ActivityInfoController {
 	 */
 	@ApiOperation(value="액티비티 수정", notes="액티비티 수정 페이지입니다.")
 	@GetMapping("/activity_update")
-	public String activity_update(Model model, String activity_no) {
+	public String activity_update(Model model, String activity_no, HttpServletRequest request) {
 		log.info("/activity_update...");
 
-		ActivityVO avo = service.select_one_activity_info(activity_no);
+		Cookie[] cookies = request.getCookies();
+		String user_no = "";
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("user_no")) {
+					user_no = cookie.getValue();
+				}
+			}
+		}
 		
-		// Date -> String 타입 변환
-
+		ActivityVO avo = service.select_one_activity_info(activity_no);
 		log.info("avo:{}",avo);
 		
+		ActivityUserVO auvo = service.select_one_activity_user_info(user_no);
+		log.info("개설자 성별 : {}",auvo.getUser_gender());
+
+		// Date -> String 타입 변환
+
+		
 		model.addAttribute("avo", avo);
+		model.addAttribute("user_gender", auvo.getUser_gender());
 		model.addAttribute("content", "thymeleaf/html/activity/update/update");
 		model.addAttribute("title", "액티비티 수정");
 
@@ -213,6 +241,7 @@ public class ActivityInfoController {
 	public String activity_delete(Model model, String activity_no) throws ParseException {
 		log.info("/activity_delete...");
 		
+		ActivityVO avo = service.select_one_activity_info(activity_no);//meet_no
 		
 		Map<String,String> map = new HashMap<String,String>();
 		
@@ -227,7 +256,6 @@ public class ActivityInfoController {
 		if(result==1) { // 가입된 멤버 삭제 success
 			int flag = service.activity_delete(activity_no); // 액티비티 삭제
 			if (flag==1) { // 삭제 성공
-				ActivityVO avo = service.select_one_activity_info(activity_no);//meet_no
 				map.put("result", "1"); 
 				map.put("meet_no", avo.getMeet_no());
 			}else { // 삭제 실패

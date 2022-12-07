@@ -16,7 +16,11 @@
 	<link rel="stylesheet" href="/CSS/common/common.css" />
 	<link rel="stylesheet" href="/CSS/common/header.css" />
 	<link rel="stylesheet" href="/CSS/common/searchBar.css" />
-	<link rel="stylesheet" href="/CSS/common/footer.css" />
+	<link rel="stylesheet" href="/CSS/common/footer.css" /> 
+	<link rel="stylesheet" href="/CSS/user/login.css" />
+	<link rel="stylesheet" href="/CSS/user/logout.css" />
+	<link rel="stylesheet" href="/CSS/user/find-popup.css" />
+	<link rel="stylesheet" href="/CSS/user/find-pw.css" />
 
 	<link rel="stylesheet" href="/CSS/activity/insert.css" />
 	<link rel="stylesheet" href="/CSS/activity/feed.css" />
@@ -32,7 +36,7 @@
 	<script src="/JS/common/header.js"></script>
 	<script src="/JS/common/searchBar.js"></script>
 
-	<script src="/JS/activity/insert.js" th:inline="javascript" ></script>
+	<script src="/JS/activity/insert.js" th:inline="javascript"></script>
 	<script src="/JS/activity/update.js"></script>
 
 	<script th:inline="javascript">
@@ -50,73 +54,73 @@
 	<!--  END HEADER REPLACE -->
 
 	<th:block id="bodyWrap">
-		
+
 		<!-- START CONTENT REPLACE -->
 		<th:block th:replace="${content} :: activity-content(${title})"></th:block>
 		<!-- END CONTENT REPLACE -->
-		
+
 		<!--  START FOOTER INCLUDE -->
 		<th:block th:replace="thymeleaf/html/common/footer :: footer"></th:block>
 		<!--  END FOOTER INCLUDE -->
-	</div>
-
-
-	<!-- Popup -->
-	<!-- not null -->
-	<section class="bin-popup blind">
-		<div class="modal-bg">
-			<div class="modal-wrap">
-				<div class="modal-content-wrap">
-					<section class="modal-content-inner">
-						<section class="modal-content1">
-							<p class="bin_obj">빈 항목을 채워주세요!</p>
-						</section>
-						<!--modal-content2-->
-						<section class="modal-content2">
-							<button class="ok">확인</button>
-						</section>
-						<!--modal-content3-->
-					</section>
-					<!--modal-content-inner end-->
-				</div>
-				<!--modal-content-wrap end-->
-			</div>
-			<!--modal-wrap end-->
 		</div>
-		<!--model-bg end-->
-	</section>
 
-	<!-- 이미지 용량 초과 -->
-	<section class="image-popup blind">
-		<div class="modal-bg">
-			<div class="modal-wrap">
-				<div class="modal-content-wrap">
-					<section class="modal-content-inner2">
-						<section class="modal-content1">
-							<p class="font">첨부파일 사이즈</p>
-							<p class="font">10KB 이내로 등록 가능</p>
+
+		<!-- Popup -->
+		<!-- not null -->
+		<section class="bin-popup blind">
+			<div class="modal-bg">
+				<div class="modal-wrap">
+					<div class="modal-content-wrap">
+						<section class="modal-content-inner">
+							<section class="modal-content1">
+								<p class="bin_obj">빈 항목을 채워주세요!</p>
+							</section>
+							<!--modal-content2-->
+							<section class="modal-content2">
+								<button class="ok">확인</button>
+							</section>
+							<!--modal-content3-->
 						</section>
-						<!--modal-content2-->
-						<section class="modal-content3">
-							<button class="ok">확인</button>
-						</section>
-						<!--modal-content3-->
-					</section>
-					<!--modal-content-inner end-->
+						<!--modal-content-inner end-->
+					</div>
+					<!--modal-content-wrap end-->
 				</div>
-				<!--modal-content-wrap end-->
+				<!--modal-wrap end-->
 			</div>
-			<!--modal-wrap end-->
-		</div>
-		<!--model-bg end-->
-	</section>
+			<!--model-bg end-->
+		</section>
+
+		<!-- 이미지 용량 초과 -->
+		<section class="image-popup blind">
+			<div class="modal-bg">
+				<div class="modal-wrap">
+					<div class="modal-content-wrap">
+						<section class="modal-content-inner2">
+							<section class="modal-content1">
+								<p class="font">첨부파일 사이즈</p>
+								<p class="font">10KB 이내로 등록 가능</p>
+							</section>
+							<!--modal-content2-->
+							<section class="modal-content3">
+								<button class="ok">확인</button>
+							</section>
+							<!--modal-content3-->
+						</section>
+						<!--modal-content-inner end-->
+					</div>
+					<!--modal-content-wrap end-->
+				</div>
+				<!--modal-wrap end-->
+			</div>
+			<!--model-bg end-->
+		</section>
 
 
 
 
 
 
-	<!-- START LOGIN POPUP -->
+		<!-- START LOGIN POPUP -->
 	<div class="login-layer blind">
 		<div class="login-popup-wrap">
 			<div class="login-top">
@@ -124,16 +128,16 @@
 			</div>
 
 			<div class="login-middle">
-				<form action="/meet-a-bwa/m_loginOK.do" class="login-form" method="post" id="loginForm">
+				<div class="login-form" id="loginForm">
 					<label for="id">아이디</label>
 					<input type="text" id="idInput" name="id" placeholder="아이디 입력" />
 
 					<label for="pw">비밀번호</label>
 					<input type="password" id="pwInput" name="pw" placeholder="비밀번호 입력" />
 
-					<input type="submit" onsubmit="check_length();" value="로그인">
+					<input type="button" id="loginOK_btn" value="로그인">
 					<input type="button" value="창닫기" id="login-popup-closeBtn">
-				</form>
+				</div>
 
 				<div class="login-bottom">
 					<div id="id_find_btn" class="findCommon">ID 찾기</div>
@@ -218,6 +222,42 @@
 		</div>
 	</div>
 	<!-- END PW FIND POPUP -->
+
+	<div id="spinner-wrap" class="popup-background blind">
+		<!-- START SPINNER SECTION -->
+		<div id="spinner-section">
+			<img src="/IMG/common/spinner.gif" class="spinner-img">
+		</div>
+	</div>
+
+	<!-- START COMMON ALERT POPUP -->
+	<div id="common-alert-popup-wrap" class="popup-background blind">
+		<div id="common-alert-popup" class="alert-popup">
+			<section class="alert-txt-section">
+				<span class="common-alert-txt">
+					공용 알러트팝업
+				</span>
+			</section>
+			<section id="common-alert-btn" class="alert-btn-section">
+				<span>확인</span>
+			</section>
+		</div>
+	</div>
+
+	<!-- START COMMMON CONFIRM POPUP -->
+	<div id="common-confirm-popup-wrap" class="popup-background blind">
+		<div class="confirm-popup">
+			<section class="confirm-txt-section">
+				<span class="logout-txt">
+					공용 컨펌팝업
+				</span>
+			</section>
+			<section class="confirm-btn-section">
+				<div class="confirm-yesBtn">예</div>
+				<div class="confirm-noBtn">아니오</div>
+			</section>
+		</div>
+	</div>
 
 	<!-- START toastWrap -->
 	<div id="toastWrap" class="hide">

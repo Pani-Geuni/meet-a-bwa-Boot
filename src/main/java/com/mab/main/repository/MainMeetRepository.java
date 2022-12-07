@@ -27,10 +27,17 @@ public interface MainMeetRepository extends JpaRepository<MainMeetViewVO, Object
 
 	@Query(nativeQuery = true, value = 
 			"SELECT * FROM("
-			+ "SELECT * FROM MAINMEETVIEW ORDER BY LIKE_CNT DESC, MEET_NO ASC"
+			+ "SELECT * FROM MAINMEETVIEW WHERE meet_county = ?1 ORDER BY LIKE_CNT DESC, MEET_NO ASC "
 			+ ")"
-			+ "WHERE meet_county = ?1 AND ROWNUM BETWEEN 1 AND 6")
+			+ "WHERE ROWNUM BETWEEN 1 AND 6")
 	public List<MainMeetViewVO> SQL_SELECT_ALL_COUNTY(String country);
+	
+	@Query(nativeQuery = true, value = 
+			"SELECT * FROM("
+			+ "SELECT * FROM MAINMEETVIEW WHERE MEET_INTEREST_NAME LIKE ?1 ORDER BY LIKE_CNT DESC, MEET_NO ASC "
+			+ ")"
+			+ "WHERE ROWNUM BETWEEN 1 AND 6")
+	public List<MainMeetViewVO> SQL_SELECT_ALL_INTEREST(String interest);
 	
 	@Query(nativeQuery = true, value = 
 			"SELECT MEET_NO FROM MEETLIKE WHERE user_no = ?1")

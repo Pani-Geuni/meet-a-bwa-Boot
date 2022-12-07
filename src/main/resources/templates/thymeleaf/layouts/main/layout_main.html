@@ -42,29 +42,29 @@
 		$(function () {
 			// 모임 추천 -  +더보기 버튼 클릭
 			$("#plusBtn_meet").click(function () {
-				if (is_login == null) {
-					location.href = "/meet-a-bwa/meet-list.do?type=like&&typeData=&&searchWord=";
+				if(is_login == null) {
+					window.location.href = "/meet-a-bwa/meet-list.do?type=like&&typeData=&&searchWord=";
 				}
-				else if (is_login != null) {
-					if ($.cookie('user_interest') == "" || $.cookie('user_interest') == undefined) {
-						location.href = "/meet-a-bwa/meet-list.do?type=county&&typeData=" + $.cookie('user_county') + "&&searchWord=";
-					} else {
-						location.href = "/meet-a-bwa/meet-list.do?type=interest&&typeData=" + $.cookie('user_interest') + "&&searchWord=";
-					}
+				else{
+					window.location.href = "/meet-a-bwa/meet-list.do?type=county&&typeData=" + $("#user_county").val() + "&&searchWord=";
 				}
+			});
+			// 모임 관심사별 추천 -  +더보기 버튼 클릭
+			$("#plusBtn_meet_interest").click(function () {
+				window.location.href = "/meet-a-bwa/meet-list.do?type=interest&&typeData=" + $(".user_interest_select").val() + "&&searchWord=";
 			});
 
 			// 상세 리스트 클릭 이벤트
-			$("#meet_recommendSection").on("click", ".content_list.meet-list", function(){
+			$("#meet_recommendSection, #interest_meet_recommendSection").on("click", ".content_list.meet-list", function(){
 				if($(this).prop('tagName') == 'DIV' && $(this).prop('tagName') != 'SECTION'){
 					let idx = $(this).attr("idx");
-					window.location.href = "/meet-a-bwa/meet-main.do?idx=" + idx;
+					window.open("/meet-a-bwa/meet-main.do?idx=" + idx);
 				}
 			});
 			$("#recommend_list_wrap").on("click", ".content_list.activity-list", function(){
 				if($(this).prop('tagName') == 'DIV' && $(this).prop('tagName') != 'SECTION'){
 					let idx = $(this).attr("idx");
-					window.location.href = "/meet-a-bwa/activity_main?activity_no=" + idx;
+					window.open("/meet-a-bwa/activity_main?activity_no=" + idx);
 				}
 			});
 
