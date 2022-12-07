@@ -125,6 +125,12 @@ public class MeetboardController {
 		MeetInfoVO mvo = service.select_one_meet_info(meet_no);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String meet_date = formatter.format(mvo.getMeet_date());
+		
+		String[] meet_age_split = mvo.getMeet_age().split(",");
+		List<String> meet_age_list = new ArrayList<>();
+		for (String age : meet_age_split) {
+			meet_age_list.add(age);
+		}
 		log.info("mvo : {}", mvo);
 
 		// 모임 가입자 리스트 불러오기
@@ -156,6 +162,7 @@ public class MeetboardController {
 
 
 		model.addAttribute("mvo", mvo);
+		model.addAttribute("meet_age_list", meet_age_list);
 		model.addAttribute("meet_date", meet_date);
 		model.addAttribute("m_list", member_list);
 		model.addAttribute("user_no_list", user_no_list);
@@ -224,6 +231,12 @@ public class MeetboardController {
 		MeetInfoVO mvo = service.select_one_meet_info(meet_no);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String meet_date = formatter.format(mvo.getMeet_date());
+		
+		String[] meet_age_split = mvo.getMeet_age().split(",");
+		List<String> meet_age_list = new ArrayList<>();
+		for (String age : meet_age_split) {
+			meet_age_list.add(age);
+		}
 		log.info("mvo : {}", mvo);
 
 		// 모임 가입자 리스트 불러오기
@@ -256,6 +269,7 @@ public class MeetboardController {
 		
 
 		model.addAttribute("mvo", mvo);
+		model.addAttribute("meet_age_list", meet_age_list);
 		model.addAttribute("meet_date", meet_date);
 		model.addAttribute("m_list", member_list);
 		model.addAttribute("user_no_list", user_no_list);
@@ -348,6 +362,12 @@ public class MeetboardController {
 		MeetInfoVO mvo = service.select_one_meet_info(meet_no);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String meet_date = formatter.format(mvo.getMeet_date());
+		
+		String[] meet_age_split = mvo.getMeet_age().split(",");
+		List<String> meet_age_list = new ArrayList<>();
+		for (String age : meet_age_split) {
+			meet_age_list.add(age);
+		}
 		log.info("mvo : {}", mvo);
 
 		// 모임 가입자 리스트 불러오기
@@ -380,6 +400,7 @@ public class MeetboardController {
 		
 
 		model.addAttribute("mvo", mvo);
+		model.addAttribute("meet_age_list", meet_age_list);
 		model.addAttribute("meet_date", meet_date);
 		model.addAttribute("m_list", member_list);
 		model.addAttribute("user_no_list", user_no_list);

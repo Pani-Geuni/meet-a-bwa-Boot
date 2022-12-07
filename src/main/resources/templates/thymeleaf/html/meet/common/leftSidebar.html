@@ -38,6 +38,14 @@
 				<span class="category_name font_size_10">[[${ mvo.meet_interest_name }]]</span>
 			</div>
 		</th:block>
+		
+		<th:block th:if="${mvo.meet_age != null}">
+			<th:block th:each="age : ${meet_age_list}">
+				<div class="cate_tag tag">
+					<span class="category_name font_size_10">[[${ age }]]</span>
+				</div>
+			</th:block>
+		</th:block>
 	</div>
 
 	<!-- 로그인 전 혹은 가입 전-->
