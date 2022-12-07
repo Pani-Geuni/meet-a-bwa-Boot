@@ -7,7 +7,9 @@
 
 <!-- START contentWrap-->
 <div id="contentWrap" th:fragment="main(is_login)">
-	<div class="mainContent">
+	<input type="hidden" id="like_meet_list" th:value="${like_meet_list}">
+	
+	<div id="recommendMeet" class="mainContent">
 		<div class="titleSection">
 			<section class="title titleLeft">
 				<section id="beforeLogin_recommend">
@@ -16,14 +18,14 @@
 			</section>
 
 			<section class="title titleRight">
-				<th:block th:if="${ list.isLogin==true }">
+				<th:block th:if="${ isLogin==true }">
 					<button class="btn-create-meet">모임 생성</button>
 				</th:block>
 				<span id="plusBtn_meet" class="plusBtn">정렬</span>
 			</section>
 		</div>
 
-		<div id="meet-list-section">
+		<div id="meet_recommendSection">
 			<th:block th:if="${ meet_list_cnt != 0 }">
 				<th:block th:each="meet : ${meet_list}">
 					<div class="content-list meet-list" th:attr="idx=${ meet.meet_no }">
@@ -52,6 +54,13 @@
 												class="category_name font_size_10">[[${meet.meet_interest_name}]]</span>
 										</div>
 									</th:block>
+									
+									<th:block th:if="${meet.meet_gender != null}">
+										<div class="cate_tag tag">
+											<span
+												class="category_name font_size_10">[[${meet.meet_gender}]]</span>
+										</div>
+									</th:block>
 								</div>
 							</div>
 
@@ -64,7 +73,7 @@
 
 						<div class="bottomWrap">
 							<div class="meet_info">
-								<th:block th:if="${meet.user_cnt != null}">
+								<th:block th:if="${meet.user_cnt} != null">
 									<div class="meet_member_info">
 										<span class="member_cnt member_ment">[[${meet.user_cnt}]]명</span>
 										<span class="member_ment">참여 중</span>

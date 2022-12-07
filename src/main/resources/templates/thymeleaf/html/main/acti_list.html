@@ -6,6 +6,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <div id="contentWrap" th:fragment="main(is_login)">
+	<input type="hidden" id="like_activity_list" th:value="${like_activity_list}">
+
 	<div id="recommendAct" class="mainContent">
 		<div class="titleSection">
 			<section class="title titleLeft">
@@ -277,8 +279,7 @@
 
 									<th:block th:if="${avo.activity_interest != null}">
 										<div class="cate_tag tag">
-											<span
-												class="category_name font_size_10">[[${avo.activity_interest}]]</span>
+											<span class="category_name font_size_10">[[${avo.activity_interest}]]</span>
 										</div>
 									</th:block>
 								</div>
