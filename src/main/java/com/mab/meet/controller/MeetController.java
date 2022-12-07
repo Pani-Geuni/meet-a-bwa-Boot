@@ -419,34 +419,34 @@ public class MeetController {
 			} else {
 				if (meet_gender.equals(uvo.getUser_gender())) {
 					result = "1";
+					// 나이 체크
+					Calendar now = Calendar.getInstance();
+					Integer currentYear = now.get(Calendar.YEAR);
+
+					SimpleDateFormat format = new SimpleDateFormat("yyyy");
+					String stringBirthYear = format.format(uvo.getUser_birth());
+
+					Integer birthYear = Integer.parseInt(stringBirthYear);
+
+					String ageRange = String.valueOf(currentYear - birthYear + 1);
+					log.info("ageRange : {}", ageRange);
+
+					String[] meet_age_split = mvo.getMeet_age().split(",");
+					List<String> meet_age_list = new ArrayList<>();
+					for (String age : meet_age_split) {
+						meet_age_list.add(age);
+						String ageSubstring = ageRange.substring(0, 1);
+
+						if (age.contains(ageSubstring)) {
+							result = "1";
+							break;
+						}
+					}
 				} else {
 					result = "0";
 				}
 			}
 
-			// 나이 체크
-			Calendar now = Calendar.getInstance();
-			Integer currentYear = now.get(Calendar.YEAR);
-
-			SimpleDateFormat format = new SimpleDateFormat("yyyy");
-			String stringBirthYear = format.format(uvo.getUser_birth());
-
-			Integer birthYear = Integer.parseInt(stringBirthYear);
-
-			String ageRange = String.valueOf(currentYear - birthYear + 1);
-			log.info("ageRange : {}", ageRange);
-
-			String[] meet_age_split = mvo.getMeet_age().split(",");
-			List<String> meet_age_list = new ArrayList<>();
-			for (String age : meet_age_split) {
-				meet_age_list.add(age);
-				String ageSubstring = ageRange.substring(0, 1);
-
-				if (age.contains(ageSubstring)) {
-					result = "1";
-					break;
-				}
-			}
 		} else {
 			result = "0";
 		}
