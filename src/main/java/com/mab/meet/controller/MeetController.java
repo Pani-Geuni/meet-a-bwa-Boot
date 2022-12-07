@@ -453,7 +453,7 @@ public class MeetController {
 
 		if (result.equals("1")) {
 			// 가입 조건에 맞을 시, 가입 성공
-			int insert = meetInfoService.meet_application(meet_no, user_no);
+			int insert = meetInfoService.meet_application_user(meet_no, user_no);
 
 			if (insert == 1) {
 				result = "1";
@@ -469,6 +469,27 @@ public class MeetController {
 
 		String json = gson.toJson(map);
 
+		return json;
+	}
+	
+	@ApiOperation(value = "모임 탈퇴 요청", notes = "모임 탈퇴 요청 컨트롤러")
+	@GetMapping(value = "/meet-withdraw.do")
+	@ResponseBody
+	public String meet_withdraw(String user_no, String meet_no, Model model) {
+		
+		Map<String, String> map = new HashMap<>();
+		
+		// 탈퇴 요청
+		int result = meetInfoService.meet_leave_user(meet_no, user_no);
+		
+		if (result == 1) {
+			map.put("result", "1");
+		} else {
+			map.put("result", "0");
+		}
+		
+		String json = gson.toJson(map);
+		
 		return json;
 	}
 }

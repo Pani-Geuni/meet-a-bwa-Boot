@@ -21,35 +21,86 @@ $(function() {
 		let user_no = $.cookie("user_no");
 		let meet_no = window.location.href.split("idx=")[1];
 
-		console.log("join click");
-		console.log(user_no, meet_no);
+		$('#common-confirm-popup-wrap').removeClass('blind');
+		$('.confirm-txt').html('모임에 가입 하시겠습니까?');
 
-		$.ajax({
-			url: "/meet-a-bwa/meet-register.do",
-			type: "GET",
-			dataType: "json",
-			data: {
-				user_no: user_no,
-				meet_no: meet_no
-			},
-			success: function(res) {
-				if (res.result == "1") {
-					$('#common-alert-popup-wrap').removeClass('blind');
-					$('.common-alert-txt').text('가입에 성공하였습니다.');
-					
-					$("#common-alert-btn").on('click', function() {
-						window.location.reload();
-						
-					})
-				} else {
-					$('#common-alert-popup-wrap').removeClass('blind');
-					$('.common-alert-txt').html('가입 조건에 맞지 않아<br>가입할 수 없습니다.');
+		$(".confirm-yesBtn").on('click', function() {
+			$('#common-confirm-popup-wrap').addClass('blind');
+
+			$.ajax({
+				url: "/meet-a-bwa/meet-register.do",
+				type: "GET",
+				dataType: "json",
+				data: {
+					user_no: user_no,
+					meet_no: meet_no
+				},
+				success: function(res) {
+					if (res.result == "1") {
+						$('#common-alert-popup-wrap').removeClass('blind');
+						$('.common-alert-txt').text('가입에 성공하였습니다.');
+
+						$("#common-alert-btn").on('click', function() {
+							window.location.href="/meet-a-bwa/meet-main.do?idx=" + meet_no;
+						})
+					} else {
+						$('#common-alert-popup-wrap').removeClass('blind');
+						$('.common-alert-txt').html('가입 조건에 맞지 않아<br>가입할 수 없습니다.');
+					}
+				},
+				error: function(error) {
+					console.log(error);
 				}
-			},
-			error: function(error) {
-				console.log(error);
-			}
+			});
 		});
+		
+		$(".confirm-noBtn").on('click', function() {
+			$('#common-confirm-popup-wrap').addClass('blind');
+		})
+
+	})
+
+	$("#btn-meet-exit").click(function() {
+
+		$('#common-confirm-popup-wrap').removeClass('blind');
+		$('.confirm-txt').html('정말 모임을 탈퇴하시겠습니까?');
+
+
+		$(".confirm-yesBtn").on('click', function() {
+			$('#common-confirm-popup-wrap').addClass('blind');
+			let user_no = $.cookie("user_no");
+			let meet_no = window.location.href.split("idx=")[1];
+
+			$.ajax({
+				url: "/meet-a-bwa/meet-withdraw.do",
+				type: "GET",
+				dataType: "json",
+				data: {
+					user_no: user_no,
+					meet_no: meet_no
+				},
+				success: function(res) {
+					if (res.result == "1") {
+						$('#common-alert-popup-wrap').removeClass('blind');
+						$('.common-alert-txt').text('모임을 탈퇴하였습니다.');
+
+						$("#common-alert-btn").on('click', function() {
+							window.location.reload();
+						})
+					} else {
+						$('#common-alert-popup-wrap').removeClass('blind');
+						$('.common-alert-txt').text('탈퇴가 불가능합니다.');
+					}
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			})
+		})
+
+		$(".confirm-noBtn").on('click', function() {
+			$('#common-confirm-popup-wrap').addClass('blind');
+		})
 	})
 
 	$(".meet-detail-link").on("click", function() {
