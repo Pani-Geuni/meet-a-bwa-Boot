@@ -17,6 +17,41 @@ $(function() {
 		location.href = "/meet-a-bwa/meet-member.do?idx=" + meet_no;
 	});
 
+	$("#btn-meet-join").click(function() {
+		let user_no = $.cookie("user_no");
+		let meet_no = window.location.href.split("idx=")[1];
+
+		console.log("join click");
+		console.log(user_no, meet_no);
+
+		$.ajax({
+			url: "/meet-a-bwa/meet-register.do",
+			type: "GET",
+			dataType: "json",
+			data: {
+				user_no: user_no,
+				meet_no: meet_no
+			},
+			success: function(res) {
+				if (res.result == "1") {
+					$('#common-alert-popup-wrap').removeClass('blind');
+					$('.common-alert-txt').text('가입에 성공하였습니다.');
+					
+					$("#common-alert-btn").on('click', function() {
+						window.location.reload();
+						
+					})
+				} else {
+					$('#common-alert-popup-wrap').removeClass('blind');
+					$('.common-alert-txt').html('가입 조건에 맞지 않아<br>가입할 수 없습니다.');
+				}
+			},
+			error: function(error) {
+				console.log(error);
+			}
+		});
+	})
+
 	$(".meet-detail-link").on("click", function() {
 		let idx = $(this).attr("idx");
 		console.log(idx);
@@ -48,20 +83,20 @@ $(function() {
 
 	$(".all-feed .feed-post").each(function(index, item) {
 		console.log($(this)[0].offsetHeight, $(this)[0].scrollHeight);
-		
+
 		// feed-post가 overflow 됐을 때, 더보기 버튼 활성화
 		if ($(this)[0].offsetHeight < $(this)[0].scrollHeight) {
 			$(this).next().children('div:eq(1)').removeClass("blind");
-		} 
+		}
 	})
-	
-	
+
+
 	$(".feed").on('click', '#btn-more-post', function() {
 		let feed_post = $(this).parent().parent().siblings(".feed-post");
 		feed_post.css('height', $(feed_post)[0].scrollHeight);
 		$(this).addClass("blind");
 	});
-		
+
 
 	$(".post-detail-top").on('click', '.img-more', function(event) {
 		if ($(this).parent().hasClass('active')) {
@@ -84,12 +119,12 @@ $(function() {
 		var targeted_popup_class = $(this).attr('data-popup-open');
 		if (targeted_popup_class == 'update') {
 			let meet_no = window.location.href.split("idx=")[1].split("&")[0];
-			let board_no = $(this).parents().attr("idx").split("&")[0]; 
+			let board_no = $(this).parents().attr("idx").split("&")[0];
 
 			location.href = "/meet-a-bwa/post-update.do?idx=" + meet_no + "&board_no=" + board_no;
-			
+
 		} else {
-			$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);			
+			$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
 		}
 
 		e.preventDefault();

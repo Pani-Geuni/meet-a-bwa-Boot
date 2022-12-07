@@ -39,6 +39,12 @@
 			</div>
 		</th:block>
 		
+		<th:block th:if="${mvo.meet_gender != null}">
+			<div class="cate_tag tag">
+				<span class="category_name font_size_10">[[${ mvo.meet_gender }]]</span>
+			</div>
+		</th:block>
+		
 		<th:block th:if="${mvo.meet_age != null}">
 			<th:block th:each="age : ${meet_age_list}">
 				<div class="cate_tag tag">
@@ -60,7 +66,7 @@
 
 	<th:block
 		th:if="${list.isLogin} == false or ${list.isLogin} == null or (not ${#lists.contains(user_no_list, list.user_no)})">
-		<button type="button" class="btn-meet join" th:attr="meet_no=${ mvo.meet_no }">모임
+		<button type="button" id="btn-meet-join" class="btn-meet join" th:attr="meet_no=${ mvo.meet_no }">모임
 			가입하기</button>
 	</th:block>
 </div>

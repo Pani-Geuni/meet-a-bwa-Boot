@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mab.list.repository.MeetListRepository;
+import com.mab.meet.model.LoginUserInfoVO;
 import com.mab.meet.model.MeetActivityVO;
 import com.mab.meet.model.MeetInfoVO;
 import com.mab.meet.model.MeetUserVO;
 import com.mab.meet.model.MeetVoteVO;
+import com.mab.meet.repository.LoginUserInfoRepository;
 import com.mab.meet.repository.MeetActivityRepository;
 import com.mab.meet.repository.MeetInfoRepository;
 import com.mab.meet.repository.MeetUserRepository;
@@ -37,6 +39,9 @@ public class MeetService {
 	
 	@Autowired
 	MeetVoteRepository voteRepository;
+	
+	@Autowired
+	LoginUserInfoRepository loginUserRepository;
 	
 	
 	public MeetService() {
@@ -66,6 +71,12 @@ public class MeetService {
 		List<MeetVoteVO> vos = voteRepository.select_all_vote_meet(meet_no);
 		
 		return vos;
+	}
+	
+	public LoginUserInfoVO select_one_now_login_user(String user_no) {
+		LoginUserInfoVO vo = loginUserRepository.select_one_now_login_user(user_no);
+		
+		return vo;
 	}
 	
 	

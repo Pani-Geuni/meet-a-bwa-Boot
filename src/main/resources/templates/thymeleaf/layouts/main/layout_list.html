@@ -139,7 +139,7 @@
 
 <body>
 	<!--  START HEADER REPLACE -->
-	<th:block th:replace="thymeleaf/html/common/header :: header(${is_login})"></th:block>
+	<th:block th:replace="thymeleaf/html/common/header :: header(${session.user_id})"></th:block>
 	<!--  END HEADER REPLACE -->
 
 	<div id="bodyWrap">
@@ -148,7 +148,7 @@
 		<!--  END SEARCHBAR REPLACE -->
 
 		<!--  START MAIN REPLACE -->
-		<div th:replace="${content} :: main(${is_login})"></div>
+		<div th:replace="${content} :: main(${session.user_id})"></div>
 		<!--  END MAIN REPLACE -->
 
 		<!--  START FOOTER INCLUDE -->

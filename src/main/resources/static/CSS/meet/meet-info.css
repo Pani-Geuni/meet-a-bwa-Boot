@@ -38,19 +38,10 @@
 	border: 1px solid #808080;
 }
 
-#btn-meet-remove {
+#btn-meet-remove,
+#btn-meet-exit {
 	background-color: #F86D7D;
 	color: #ffffff;
-}
-
-
-.btn-meet-info-exit {
-	width: 24px;
-  height: 24px;
-  background-size: 20px 20px;
-  background: url('/meet-a-bwa/resources/img/exit.svg') no-repeat;
-  border: none;
-  cursor: pointer;
 }
 
 .meet-info-tag {

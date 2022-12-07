@@ -131,6 +131,16 @@ public class MeetboardController {
 		for (String age : meet_age_split) {
 			meet_age_list.add(age);
 		}
+		
+		if (mvo.getMeet_gender() != null) {
+			if (mvo.getMeet_gender().equals("M")) {
+				mvo.setMeet_gender("남자");
+			} else if (mvo.getMeet_gender().equals("W")) {
+				mvo.setMeet_gender("여자");
+			}
+		}
+		
+		
 		log.info("mvo : {}", mvo);
 
 		// 모임 가입자 리스트 불러오기
@@ -237,6 +247,15 @@ public class MeetboardController {
 		for (String age : meet_age_split) {
 			meet_age_list.add(age);
 		}
+		
+		if (mvo.getMeet_gender() != null) {
+			if (mvo.getMeet_gender().equals("M")) {
+				mvo.setMeet_gender("남자");
+			} else if (mvo.getMeet_gender().equals("W")) {
+				mvo.setMeet_gender("여자");
+			}
+		}
+		
 		log.info("mvo : {}", mvo);
 
 		// 모임 가입자 리스트 불러오기
@@ -368,6 +387,15 @@ public class MeetboardController {
 		for (String age : meet_age_split) {
 			meet_age_list.add(age);
 		}
+		
+		if (mvo.getMeet_gender() != null) {
+			if (mvo.getMeet_gender().equals("M")) {
+				mvo.setMeet_gender("남자");
+			} else if (mvo.getMeet_gender().equals("W")) {
+				mvo.setMeet_gender("여자");
+			}
+		}
+		
 		log.info("mvo : {}", mvo);
 
 		// 모임 가입자 리스트 불러오기
