@@ -5,7 +5,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<section class="post-write-info-wrap" th:fragment="meet_content">
+<section class="feed-not-login" th:fragment="meet_content"
+	th:if="(${list.isLogin} == false or ${list.isLogin} == null) or (not ${#lists.contains(user_no_list, list.user_no)})">
+	<div class="feed-member-list-not-login">
+		<img src="/IMG/common/worry.svg" alt="worry img" />
+		<h1>로그인 혹은 가입을 한 후에 이용해주세요!</h1>
+	</div>
+</section>
+
+<section class="post-write-info-wrap" th:fragment="meet_content"
+	th:if="${list.isLogin} == true and ${#lists.contains(user_no_list, list.user_no)}">
 
 	<div class="post-writer-top">
 		<input type="text" name="board_title" class="board-title" placeholder="제목을 입력해 주세요" />
